@@ -1,0 +1,25 @@
+{
+  "name": "tese",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrBoas/tese.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrBoas/tese/issues"
+  },
+  "homepage": "https://github.com/MrBoas/tese#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.3",
+    "pug": "^2.0.4"
+  }
+}
