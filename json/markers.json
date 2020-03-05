@@ -1,0 +1,22 @@
+[
+    {
+        "name": "hiro",
+        "image": "hiro.png",
+        "file":  "hiro.patt"
+    },
+    {
+        "name": "level1",
+        "image": "1.png",
+        "file": "1.patt"
+    },
+    {
+        "name": "level2",
+        "image": "2.png",
+        "file": "2.patt"
+    },
+    {
+        "name": "level3",
+        "image": "3.png",
+        "file": "3.patt"
+    }
+]
