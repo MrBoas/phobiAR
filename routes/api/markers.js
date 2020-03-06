@@ -4,6 +4,8 @@ var fs = require('fs')
 var router = express.Router();
 var markers = require("../../controllers/markers")
 
+const dbLocal = 'mongodb://127.0.0.1:27017/phobiAR'
+
 router.get('/', function (req, res) {
     markers.list()
         .then(data => res.jsonp(data))
@@ -38,56 +40,47 @@ router.get('/:name/download', (req, res) => {
 // fazer upload de um ficheiro
 router.post('/upload', (req, res) => {
     var form = new formidable.IncomingForm()
+    var error = ''
     form.parse(req, (erro, fields, files) => {
-
-        // res.end(JSON.stringify({ fields, files }, null, 2));
-
         var path_marker = '/files/markers/'
-
-        var fenviado = files.file.path
-        var fnovo = process.cwd() + path_marker +  files.file.name
-        var fileName = files.file.name
-        var patt = path_marker + files.file.name
+        var fenviado_patt = files.patt.path
+        var fenviado_image = files.image.path
+        var fnovo_patt = process.cwd() + path_marker +  files.patt.name
+        var fnovo_image = process.cwd() + path_marker + files.image.name
         var name = fields.name
-        // console.log('fenviado', fenviado)
-        // console.log('fnovo',fnovo)
-        // console.log('name', name)
-        // console.log('filename', fileName)
-        // console.log('patt', patt)
+        var image = path_marker + files.image.name
+        var patt = path_marker + files.patt.name
 
-        // var json = JSON.parse('{"ficheiro":"' + fileName + '","descricao":"' + descricao + '"}')
-        var error = ''
-
-        // Adicionar o ficheiro carregado á pasta
-        fs.readFile(fenviado, function (erro1, data) {
+        // Adicionar o ficheiro carregado à pasta
+        fs.readFile(fenviado_patt, function (erro1, data) {
             if (erro1) console.log('erro:',erro)
             else {
-                fs.writeFile(fnovo, data, function (erro2) {
+                fs.writeFile(fnovo_patt, data, function (erro2) {
                     if (erro2) error += erro2
                 })
-                fs.unlink(fenviado, function (erro3) {
+                fs.unlink(fenviado_patt, function (erro3) {
                     if (erro3) error += erro3
                 });
-                // if (error) res.render('erro', { e: error })
-                // else {
-                //     // Adicionar o ficheiro carregado a lista em JSON
-                //     jsonfile.readFile(myBD, (erro4, ficheiros) => {
-                //         if (erro4) error += erro4
-                //         else {
-                //             ficheiros.push(json)
-                //             jsonfile.writeFile(myBD, ficheiros, erro5 => {
-                //                 if (erro5) error += erro5
-                //                 else {
-                //                     if (error) res.render('erro', { e: error })
-                //                     else res.redirect('/')
-                //                 }
-                //             })
-                //         }
-                //     })
-                // }
+                if (error) console.log('erro:', erro)
             }
-
         })
+        fs.readFile(fenviado_image, function (erro1, data) {
+            if (erro1) console.log('erro:', erro)
+            else {
+                fs.writeFile(fnovo_image, data, function (erro4) {
+                    if (erro4) error += erro4
+                })
+                fs.unlink(fenviado_image, function (erro5) {
+                    if (erro5) error += erro5
+                });
+                if (error) console.log('erro:', erro)
+            }
+        })
+        // adicionar o ficheiro á base de dados
+        var marker = { name: name, image: image, patt: patt }
+        markers.createMarker(marker)
+            .then(data => res.jsonp(data))
+            .catch(error => res.status(500).jsonp(error))
     })
 })
 
