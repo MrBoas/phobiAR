@@ -4,8 +4,6 @@ var fs = require('fs')
 var router = express.Router();
 var markers = require("../../controllers/markers")
 
-const dbLocal = 'mongodb://127.0.0.1:27017/phobiAR'
-
 router.get('/', function (req, res) {
     markers.list()
         .then(data => res.jsonp(data))
@@ -19,10 +17,17 @@ router.get('/:name', function (req, res) {
         .catch(error => res.status(500).jsonp(error))
 });
 
-// mostra o path de um marcador
+// mostra o path da imagem de um marcador
 router.get('/:name/image', function (req, res) {
     markers.getMarkerImage(req.params.name)
         .then(data => res.jsonp(data.image))
+        .catch(error => res.status(500).jsonp(error))
+});
+
+// mostra o path do patt um marcador
+router.get('/:name/patt', function (req, res) {
+    markers.getMarkerPatt(req.params.name)
+        .then(data => res.jsonp(data.patt))
         .catch(error => res.status(500).jsonp(error))
 });
 
@@ -37,7 +42,7 @@ router.get('/:name/download', (req, res) => {
         .catch(error => res.status(500).jsonp(error))
 })
 
-// fazer upload de um ficheiro
+// fazer upload de um marcador
 router.post('/upload', (req, res) => {
     var form = new formidable.IncomingForm()
     var error = ''
@@ -61,27 +66,40 @@ router.post('/upload', (req, res) => {
                 fs.unlink(fenviado_patt, function (erro3) {
                     if (erro3) error += erro3
                 });
-                if (error) console.log('erro:', erro)
+                if (error) return next(error)
+                else {
+                    fs.readFile(fenviado_image, function (erro1, data) {
+                        if (erro1) return next(error)
+                        else {
+                            fs.writeFile(fnovo_image, data, function (erro4) {
+                                if (erro4) error += erro4
+                            })
+                            fs.unlink(fenviado_image, function (erro5) {
+                                if (erro5) error += erro5
+                            });
+                            if (error) return next(error)
+                            else{
+                                // adicionar o ficheiro á base de dados
+                                var marker = { name: name, image: image, patt: patt }
+                                markers.createMarker(marker)
+                                    .then(data => res.jsonp(data))
+                                    .catch(error => res.status(500).jsonp(error))
+                            }
+                        }
+                    })}
             }
         })
-        fs.readFile(fenviado_image, function (erro1, data) {
-            if (erro1) console.log('erro:', erro)
-            else {
-                fs.writeFile(fnovo_image, data, function (erro4) {
-                    if (erro4) error += erro4
-                })
-                fs.unlink(fenviado_image, function (erro5) {
-                    if (erro5) error += erro5
-                });
-                if (error) console.log('erro:', erro)
-            }
-        })
-        // adicionar o ficheiro á base de dados
-        var marker = { name: name, image: image, patt: patt }
-        markers.createMarker(marker)
-            .then(data => res.jsonp(data))
-            .catch(error => res.status(500).jsonp(error))
     })
+})
+
+// apagar um marcador
+router.delete('/delete/:name',(req,res) =>{
+    markers.deleteMarker(req.params.name)
+        .then(data =>
+            // unlink here
+            res.jsonp(data))
+        .catch(error => res.status(500).jsonp(error))
+
 })
 
 
