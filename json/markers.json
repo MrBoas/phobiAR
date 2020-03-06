@@ -1,22 +1,27 @@
 [
     {
         "name": "hiro",
-        "image": "hiro.png",
-        "file":  "hiro.patt"
+        "image": "/files/markers/hiro.png",
+        "patt":  "/files/markers/hiro.patt"
+    },
+    {
+        "name": "kanji",
+        "image": "/files/markers/kanji.png",
+        "patt": "/files/markers/kanji.patt"
     },
     {
         "name": "level1",
-        "image": "1.png",
-        "file": "1.patt"
+        "image": "/files/markers/level1.png",
+        "patt": "/files/markers/level1.patt"
     },
     {
         "name": "level2",
-        "image": "2.png",
-        "file": "2.patt"
+        "image": "/files/markers/level2.png",
+        "patt": "/files/markers/level2.patt"
     },
     {
         "name": "level3",
-        "image": "3.png",
-        "file": "3.patt"
+        "image": "/files/markers/level3.png",
+        "patt": "/files/markers/level3.patt"
     }
 ]
