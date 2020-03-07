@@ -58,48 +58,60 @@ router.post('/upload', (req, res) => {
 
         // Adicionar o ficheiro carregado à pasta
         fs.readFile(fenviado_patt, function (erro1, data) {
-            if (erro1) console.log('erro:',erro)
+            if (erro1) res.render('erro', { e: erro1 })
             else {
                 fs.writeFile(fnovo_patt, data, function (erro2) {
-                    if (erro2) error += erro2
+                    if (erro2) erro += erro2
                 })
                 fs.unlink(fenviado_patt, function (erro3) {
-                    if (erro3) error += erro3
+                    if (erro3) erro += erro3
                 });
-                if (error) return next(error)
+                if (erro) res.render('erro', { e: erro })
                 else {
-                    fs.readFile(fenviado_image, function (erro1, data) {
-                        if (erro1) return next(error)
+                    fs.readFile(fenviado_image, function (erro4, data) {
+                        if (erro4) res.render('erro', { e: erro4})
                         else {
-                            fs.writeFile(fnovo_image, data, function (erro4) {
-                                if (erro4) error += erro4
+                            fs.writeFile(fnovo_image, data, function (erro5) {
+                                if (erro5) erro += erro5
                             })
-                            fs.unlink(fenviado_image, function (erro5) {
-                                if (erro5) error += erro5
+                            fs.unlink(fenviado_image, function (erro6) {
+                                if (erro6) erro += erro6
                             });
-                            if (error) return next(error)
+                            if (erro) res.render('erro', { e: erro4 })
                             else{
                                 // adicionar o ficheiro á base de dados
                                 var marker = { name: name, image: image, patt: patt }
                                 markers.createMarker(marker)
                                     .then(data => res.jsonp(data))
-                                    .catch(error => res.status(500).jsonp(error))
+                                    .catch(erro => res.status(500).jsonp(erro))
                             }
                         }
-                    })}
+                    })
+                }
             }
         })
     })
 })
 
-// apagar um marcador
+// apagar um marcador especifico
 router.delete('/delete/:name',(req,res) =>{
     markers.deleteMarker(req.params.name)
         .then(data =>
-            // unlink here
-            res.jsonp(data))
+            {fs.unlink(process.cwd() + data.patt, (error) => {
+                if (error) {
+                    res.render('erro', { e: error })
+                    return
+                }
+            })
+            fs.unlink(process.cwd() + data.image, (error) => {
+                if (error) {
+                    res.render('erro', { e: error })
+                    return
+                }
+            })
+            res.jsonp(data)
+        })
         .catch(error => res.status(500).jsonp(error))
-
 })
 
 
