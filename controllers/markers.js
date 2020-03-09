@@ -5,28 +5,28 @@ const Markers = module.exports
 Markers.list = () => {
     return Marker
         .find()
-        .sort({ name: -1 })
+        .sort({ marker: -1 })
         .exec()
 }
 
 // retorn as informações de um marcador
-Markers.getMarker = name => {
+Markers.getMarker = marker => {
     return Marker
-        .findOne({ name: name },{_id:0})
+        .findOne({ marker: marker },{_id:0})
         .exec()
 }
 
 // retorn o path da imagem de um marcador
-Markers.getMarkerImage = name => {
+Markers.getMarkerImage = marker => {
     return Marker
-        .findOne({ name: name },{image:1,_id:0})
+        .findOne({ marker: marker },{image:1,_id:0})
         .exec()
 }
 
 // retorn o path do patt de um marcador
-Markers.getMarkerPatt = name => {
+Markers.getMarkerPatt = marker => {
     return Marker
-        .findOne({ name: name }, { patt: 1, _id: 0 })
+        .findOne({ marker: marker }, { patt: 1, _id: 0 })
         .exec()
 }
 
@@ -37,8 +37,8 @@ Markers.createMarker = marker => {
 }
 
 //  apagar um marcador específico
-Markers.deleteMarker = name => {
+Markers.deleteMarker = marker => {
     return Marker
-        .findOneAndDelete({name: name })
+        .findOneAndDelete({marker: marker })
         .exec()
 }

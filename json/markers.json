@@ -1,26 +1,26 @@
 [
     {
-        "name": "hiro",
+        "marker": "hiro",
         "image": "/files/markers/hiro.png",
         "patt":  "/files/markers/hiro.patt"
     },
     {
-        "name": "kanji",
+        "marker": "kanji",
         "image": "/files/markers/kanji.png",
         "patt": "/files/markers/kanji.patt"
     },
     {
-        "name": "level1",
+        "marker": "level1",
         "image": "/files/markers/level1.png",
         "patt": "/files/markers/level1.patt"
     },
     {
-        "name": "level2",
+        "marker": "level2",
         "image": "/files/markers/level2.png",
         "patt": "/files/markers/level2.patt"
     },
     {
-        "name": "level3",
+        "marker": "level3",
         "image": "/files/markers/level3.png",
         "patt": "/files/markers/level3.patt"
     }

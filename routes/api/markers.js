@@ -11,29 +11,29 @@ router.get('/', function (req, res) {
 });
 
 // mostra as informações de um marcador
-router.get('/:name', function (req, res) {
-    markers.getMarker(req.params.name)
+router.get('/:marker', function (req, res) {
+    markers.getMarker(req.params.marker)
         .then(data => res.jsonp(data))
         .catch(error => res.status(500).jsonp(error))
 });
 
 // mostra o path da imagem de um marcador
-router.get('/:name/image', function (req, res) {
-    markers.getMarkerImage(req.params.name)
+router.get('/:marker/image', function (req, res) {
+    markers.getMarkerImage(req.params.marker)
         .then(data => res.jsonp(data.image))
         .catch(error => res.status(500).jsonp(error))
 });
 
 // mostra o path do patt um marcador
-router.get('/:name/patt', function (req, res) {
-    markers.getMarkerPatt(req.params.name)
+router.get('/:marker/patt', function (req, res) {
+    markers.getMarkerPatt(req.params.marker)
         .then(data => res.jsonp(data.patt))
         .catch(error => res.status(500).jsonp(error))
 });
 
 // faz download de um marcador especifico
-router.get('/:name/download', (req, res) => {
-    markers.getMarkerImage(req.params.name)
+router.get('/:marker/download', (req, res) => {
+    markers.getMarkerImage(req.params.marker)
         .then(data =>
             res.download(process.cwd() + data.image, erro => {
                 if (erro) console.log('erro:',erro)
@@ -45,17 +45,17 @@ router.get('/:name/download', (req, res) => {
 // fazer upload de um marcador
 router.post('/upload', (req, res) => {
     var form = new formidable.IncomingForm()
-    var error = ''
+    var erro = ''
     form.parse(req, (erro, fields, files) => {
         var path_marker = '/files/markers/'
         var fenviado_patt = files.patt.path
         var fenviado_image = files.image.path
         var fnovo_patt = process.cwd() + path_marker +  files.patt.name
         var fnovo_image = process.cwd() + path_marker + files.image.name
-        var name = fields.name
+        var marker_name = fields.name
         var image = path_marker + files.image.name
         var patt = path_marker + files.patt.name
-
+        console.log(files)
         // Adicionar o ficheiro carregado à pasta
         fs.readFile(fenviado_patt, function (erro1, data) {
             if (erro1) res.render('erro', { e: erro1 })
@@ -80,7 +80,7 @@ router.post('/upload', (req, res) => {
                             if (erro) res.render('erro', { e: erro4 })
                             else{
                                 // adicionar o ficheiro á base de dados
-                                var marker = { name: name, image: image, patt: patt }
+                                var marker = { marker: marker_name, image: image, patt: patt }
                                 markers.createMarker(marker)
                                     .then(data => res.jsonp(data))
                                     .catch(erro => res.status(500).jsonp(erro))
@@ -94,8 +94,8 @@ router.post('/upload', (req, res) => {
 })
 
 // apagar um marcador especifico
-router.delete('/delete/:name',(req,res) =>{
-    markers.deleteMarker(req.params.name)
+router.delete('/delete/:marker',(req,res) =>{
+    markers.deleteMarker(req.params.marker)
         .then(data =>
             {fs.unlink(process.cwd() + data.patt, (error) => {
                 if (error) {
