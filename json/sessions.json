@@ -1,0 +1,22 @@
+[
+    {
+      "user": "raul@gmail.com",
+      "session": "teste",
+      "patient": "kiko",
+      "notes": "",
+      "phobia": "ofidiofobia",
+      "model" : "snake_toy",
+      "level" : "1",
+      "marker": "hiro"
+    },
+    {
+        "user": "raul@gmail.com",
+        "session": "teste2",
+        "patient": "kiko",
+        "notes": "",
+        "phobia": "ofidiofobia",
+        "model": "ofidiofobia",
+        "level": "2",
+        "marker": "hiro"
+    }
+]
