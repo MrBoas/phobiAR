@@ -29,6 +29,7 @@ const server = app.listen(3000, () => {
 // Routing
 app.use('/api/phobias', require('./routes/api/phobias'));
 app.use('/api/markers', require('./routes/api/markers'));
+// app.use('/gerar_sessao', require('./routes/session'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

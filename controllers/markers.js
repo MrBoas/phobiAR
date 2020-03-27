@@ -9,7 +9,7 @@ Markers.list = () => {
         .exec()
 }
 
-// retorn as informações de um marcador
+// retorna as informações de um marcador
 Markers.getMarker = marker => {
     return Marker
         .findOne({ marker: marker },{_id:0})

@@ -1,0 +1,44 @@
+[
+    {
+        "name" : "ofidiofobia1",
+        "phobia": "ofidiofobia",
+        "level" : "1",
+        "description": "Medo de Cobras",
+        "path": "/files/models/Ofidiofobia/1/scene.gltf"
+    },
+    {
+        "name": "ofidiofobia2",
+        "phobia": "ofidiofobia",
+        "level": "2",
+        "description": "Medo de Cobras",
+        "path": "/files/models/Ofidiofobia/2/scene.gltf"
+    },
+    {
+        "name": "ofidiofobia3",
+        "phobia": "ofidiofobia",
+        "level": "3",
+        "description": "Medo de Cobras",
+        "path": "/files/models/Ofidiofobia/3/scene.gltf"
+    },
+    {
+        "name": "aracnofobia1",
+        "phobia": "aracnofobia",
+        "level": "1",
+        "description": "Medo de Aranhas",
+        "path": "/files/models/Aracnofobia/1/scene.gltf"
+    },
+    {
+        "name": "aracnofobia2",
+        "phobia":"aracnofobia",
+        "level": "2",
+        "description": "Medo de Aranhas",
+        "path": "/files/models/Aracnofobia/2/scene.gltf"
+    },
+    {
+        "name": "aracnofobia3",
+        "phobia": "aracnofobia",
+        "level": "3",
+        "description": "Medo de Aranhas",
+        "path": "/files/models/Aracnofobia/3/scene.gltf"
+    }
+]
