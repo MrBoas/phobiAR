@@ -5,7 +5,7 @@ script(src='https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/afram
 script(src='//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js')
 a-scene#scene(stats='', arjs='sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;trackingMethod: best; debugUIEnabled: false;', vr-mode-ui='enabled: false', ar-template='')
   a-assets
-    a-asset-item#cobra1(src='/models/Ofidiofobia/1/scene.gltf')
-  a-marker(preset='custom', type='pattern', url='/markers/hiro.patt')
-    a-gltf-model(scale='0.2 0.2 0.2', rotation='180 0 0', src='#cobra1')
+    a-asset-item#object_id(src=src)
+  a-marker(preset='custom', type='pattern', url=url)
+    a-gltf-model(scale='0.2 0.2 0.2', rotation='180 0 0', src='#object_id')
   a-entity(camera='')

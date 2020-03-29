@@ -4,14 +4,9 @@ const app = express();
 var path = require('path');
 app.set('view engine', 'pug');
 
-// app.set('view engine', 'html');
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
-// app.engine('html', require('ejs').renderFile);
-// app.set('view engine', 'html');
-
 const hostname = '127.0.0.1';
 const port = 3000;
+app.locals.url = "http://" + hostname + ":" + port + "/"
 
 
 // Base de dados
@@ -35,23 +30,25 @@ app.listen(3000, () => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.get('/', function (req, res) {
-    // console.log(__dirname)
-    // res.sendFile(path.join(__dirname + '/files/testing.html'));
-    res.sendFile('files/testing.html',{root:__dirname});
-    // res.render('testing')
-});
+// app.get('/', function (req, res) {
+//     // console.log(__dirname)
+//     // res.sendFile(path.join(__dirname + '/files/testing.html'));
+//     res.sendFile('files/testing.html',{root:__dirname});
+//     // res.render('testing')
+// });
 
 app.get('/pug', function(req,res){
-    res.render('testing')
+    res.render('testing',
+        { src: '/models/ofidiofobia/snake_toy/1/scene.gltf', url: '/markers/hiro.patt'}
+        )
 })
+
 
 // Routing
 app.use('/api/phobias', require('./routes/api/phobias'));
 app.use('/api/markers', require('./routes/api/markers'));
 app.use('/api/sessions', require('./routes/api/sessions'));
-
-
+app.use('/sessions', require('./routes/sessions'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
