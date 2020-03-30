@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: () => import('./views/Home.vue')
+      name: 'home',
+      component: () => import('./views/home.vue')
     },
     {
       path: '/criarsessao',
       name: 'criarsessoesList',
-      component: () => import('./views/criar_sessao.vue')
+      component: () => import('./views/createSession.vue')
     },
   ]
 })

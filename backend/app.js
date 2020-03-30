@@ -7,6 +7,7 @@ app.set('view engine', 'pug');
 const hostname = '127.0.0.1';
 const port = 3000;
 app.locals.url = "http://" + hostname + ":" + port + "/"
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Base de dados
@@ -27,28 +28,27 @@ app.listen(3000, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-// app.get('/', function (req, res) {
-//     // console.log(__dirname)
-//     // res.sendFile(path.join(__dirname + '/files/testing.html'));
-//     res.sendFile('files/testing.html',{root:__dirname});
-//     // res.render('testing')
-// });
-
-app.get('/pug', function(req,res){
-    res.render('testing',
-        { src: '/models/ofidiofobia/snake_toy/1/scene.gltf', url: '/markers/hiro.patt'}
-        )
-})
-
+// tratar do cords
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, PATCH,OPTIONS');
+    res.header('Access-Control-Allow-Credentials', true)
+    next();
+});
 
 // Routing
 app.use('/api/phobias', require('./routes/api/phobias'));
 app.use('/api/markers', require('./routes/api/markers'));
 app.use('/api/sessions', require('./routes/api/sessions'));
 app.use('/sessions', require('./routes/sessions'));
+
+// to remove when not needed
+app.get('/pug', function (req, res) {
+    res.render('testing',
+        { src: '/models/ofidiofobia/snake_toy/1/scene.gltf', url: '/markers/hiro.patt' }
+    )
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

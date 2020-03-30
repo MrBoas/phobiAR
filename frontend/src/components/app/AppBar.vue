@@ -1,6 +1,6 @@
 
 <template>
-  <v-app-bar app color="grey darken-4">
+  <v-app-bar flat app color="grey darken-4">
     <v-col cols="1"></v-col>
       <v-btn @click="goToHome()"><h2>Home</h2></v-btn>
 

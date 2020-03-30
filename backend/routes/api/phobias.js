@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
 // retorna a lista de fobias de um user
 router.get('/:user', function (req, res) {
     phobias.listUser(req.params.user)
-        .then(data => res.jsonp(data))
+        .then(data => res.jsonp(data[0].list))
         .catch(error => res.status(500).jsonp(error))
 });
 

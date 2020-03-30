@@ -10,26 +10,25 @@ Phobias.list = () => {
 }
 
 // retorna a lista de fobias de um user
+// Phobias.listUser = user => {
+//     return Phobia
+//         .find({ user: user }, { phobia: 1, _id: 0 })
+//         .sort({ phobia: 1 })
+//         .exec()
+// }
+
+// retorna a lista de fobias de um user
 Phobias.listUser = user => {
     return Phobia
-        .find({ user: user }, { phobia: 1, _id: 0 })
-        .sort({ phobia: 1 })
-        .exec()
-}
-
-// mostra o nome de todos os modelos de uma fobia de um user
-Phobias.getPhobiaModels = (user,phobia) => {
-    return Phobia
         .aggregate([
-            { $unwind: '$models' },
-            { $match: { user:user,phobia:phobia}},
-            { $group:{
-                _id: 'user',
-                list: {$push: '$models.object_name'}
+            {$match: {user:user}},
+            { $sort: { 'phobia': 1 } },
+            {$group:{
+                _id:'user',
+                list:{$push: '$phobia'},
             }},
-            { $project: { '_id': 0, 'list': 1 } }
+            {$project:{'_id':0,'list':1}}
         ])
-        .exec()
 }
 
 
