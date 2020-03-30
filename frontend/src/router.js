@@ -13,19 +13,9 @@ export default new Router({
       component: () => import('./views/Home.vue')
     },
     {
-      path: '/cartas',
-      name: 'cartasList',
-      component: () => import('./views/TabelaCartas.vue')
-    },
-    {
-      path: '/cartas/:id',
-      name: 'cartasInfo',
-      component: () => import('./views/cartaInfo.vue')
-    },
-    {
-      path: '/cartasview',
-      name: 'cartasViewInfo',
-      component: () => import('./views/cartasView.vue')
+      path: '/criarsessao',
+      name: 'criarsessoesList',
+      component: () => import('./views/criar_sessao.vue')
     },
   ]
 })

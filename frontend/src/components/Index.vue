@@ -17,9 +17,9 @@
       <!-- </v-flex> -->
       <v-flex xs8>
         <!-- <v-flex mt-5> -->
-          <v-img
+          <!-- <v-img
             src="https://3.bp.blogspot.com/-FxftVuWop1Y/V38sX5qzsJI/AAAAAAAADj0/1hMhFXpLYjclaSrv0BSnMkGglgrSpsXvgCKgB/s1600/Hearthstone%2BLogo.png">
-          </v-img>
+          </v-img> -->
         <!-- </v-flex> -->
       </v-flex>
     </v-layout>

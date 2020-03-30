@@ -1,78 +1,63 @@
 <template>
-  <v-flex>
-    <v-toolbar dark color="grey darken-4" flat>
-      <v-text-field
-        single-line
-        clearable
-        v-model="searchText"
-        prepend-icon="search"
-        label="Search"
-      ></v-text-field>
+<v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
+    <v-text-field
+      v-model="name"
+      :counter="10"
+      :rules="nameRules"
+      label="Name"
+      required
+    ></v-text-field>
 
+    <v-text-field
+      v-model="email"
+      :rules="emailRules"
+      label="E-mail"
+      required
+    ></v-text-field>
 
-      <!-- <v-spacer></v-spacer>
-      <v-combobox
-        v-model="select_set"
-        :items="simple_sets_list"
-        label="Select a set to filter..."
-        @change="refreshList()"
-      ></v-combobox>
-      <v-spacer></v-spacer>
-      <v-combobox
-        v-model="select_playerclass"
-        :items="simple_playerclass_list"
-        label="Select a type to filter..."
-        @change="refreshList()"
-      ></v-combobox>
-      <v-spacer></v-spacer>
-      <v-combobox
-        v-model="select_type"
-        :items="simple_types_list"
-        label="Select a type to filter..."
-        @change="refreshList()"
-      ></v-combobox>
-      <v-spacer></v-spacer>
-      <v-combobox
-        v-model="select_rarity"
-        :items="simple_rarity_list"
-        label="Select a type to filter..."
-        @change="refreshList()"
-      ></v-combobox> -->
-    </v-toolbar>
-    <!-- <v-card>
-      <v-container fluid grid-list-md>
-        <v-layout row wrap>
-          <v-flex
-            v-for="card in filteredList"
-            :key="card.id"
-            xs2
-          >
-            <v-card
-              flat hover
-              dark color="grey darken-2"
-              @click="itemClicked(card.id)"
-            >
-              <v-layout fill-height >
-                <v-flex xs12 flexbox class="text-xs-center" mt-2>
-                  <span class="title">{{card.nome}}</span>
-                </v-flex>
-              </v-layout >
-                <v-flex >
-                  <v-img
-                    lazy-src = "https://scontent.flis7-1.fna.fbcdn.net/v/t1.15752-9/64226172_2524130620939642_2425744520294432768_n.png?_nc_cat=111&_nc_ht=scontent.flis7-1.fna&oh=2c72b9a7338179e06630a6fd07b97943&oe=5D825607"
-                    class="white--text"
-                    height="400"
-                    :src="card.img"
-                    contain
-                  >
-                  </v-img>
-                </v-flex>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card> -->
-  </v-flex>
+    <v-select
+      v-model="select"
+      :items="items"
+      :rules="[v => !!v || 'Item is required']"
+      label="Item"
+      required
+    ></v-select>
+
+    <v-checkbox
+      v-model="checkbox"
+      :rules="[v => !!v || 'You must agree to continue!']"
+      label="Do you agree?"
+      required
+    ></v-checkbox>
+
+    <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      @click="validate"
+    >
+      Validate
+    </v-btn>
+
+    <v-btn
+      color="error"
+      class="mr-4"
+      @click="reset"
+    >
+      Reset Form
+    </v-btn>
+
+    <v-btn
+      color="warning"
+      @click="resetValidation"
+    >
+      Reset Validation
+    </v-btn>
+  </v-form>
 </template>
 
 <script>
