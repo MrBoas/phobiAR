@@ -4,11 +4,11 @@
       "user": "raul@gmail.com",
       "models":[
         {
-            "object_name":"snake_toy",
+            "model_name":"cobra_brincar",
             "levels":[1]
         },
         {
-            "object_name":"ofidiofobia",
+            "model_name":"cobra_verdadeira",
             "levels":[2,3]
         }
       ]
@@ -18,7 +18,7 @@
       "user": "raul@gmail.com",
       "models":[
         {
-            "object_name":"aracnofobia",
+            "model_name":"aranha",
             "levels":[1,2]
         }
       ]

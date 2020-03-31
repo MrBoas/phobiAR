@@ -31,6 +31,22 @@ Phobias.listUser = user => {
         ])
 }
 
+// retorna a lista de modelos de um fobia de um user
+Phobias.getPhobiaModels = (user,phobia) => {
+    return Phobia
+        .aggregate([
+            { $match: { user: user,phobia:phobia } },
+            { $unwind: '$models' },
+            {
+                $group: {
+                    _id: 'user',
+                    list: { $push: '$models.model_name' },
+                }
+            },
+            { $project: { '_id': 0, 'list': 1 } }
+        ])
+}
+
 
 // mostra o nome de todos os modelos de uma fobia de um user
 Phobias.getModelLevels = (user, phobia,model) => {
@@ -49,16 +65,3 @@ Phobias.getModelLevels = (user, phobia,model) => {
         ])
         .exec()
 }
-
-// // cria um marcador
-// Markers.createMarker = marker => {
-//     return Marker
-//         .create(marker)
-// }
-
-// //  apagar um marcador específico
-// Markers.deleteMarker = marker => {
-//     return Marker
-//         .findOneAndDelete({ marker: marker })
-//         .exec()
-// }
