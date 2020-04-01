@@ -54,7 +54,7 @@ Phobias.getModelLevels = (user, phobia,model) => {
         .aggregate([
             { $unwind: '$models' },
             { $unwind: '$models.levels' },
-            { $match: { user: user, phobia: phobia, "models.object_name": model} },
+            { $match: { user: user, phobia: phobia, "models.model_name": model} },
             {
                 $group: {
                     _id: 'user',

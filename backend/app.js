@@ -43,12 +43,6 @@ app.use('/api/markers', require('./routes/api/markers'));
 app.use('/api/sessions', require('./routes/api/sessions'));
 app.use('/sessions', require('./routes/sessions'));
 
-// to remove when not needed
-app.get('/pug', function (req, res) {
-    res.render('testing',
-        { src: '/models/ofidiofobia/snake_toy/1/scene.gltf', url: '/markers/hiro.patt' }
-    )
-})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

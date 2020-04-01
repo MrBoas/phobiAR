@@ -5,7 +5,7 @@
       "patient": "kiko",
       "notes": "",
       "phobia": "ofidiofobia",
-      "model" : "snake_toy",
+      "model" : "cobra_brincar",
       "level" : "1",
       "marker": "hiro"
     },
@@ -15,7 +15,7 @@
         "patient": "kiko",
         "notes": "",
         "phobia": "ofidiofobia",
-        "model": "real_snake",
+        "model": "cobra_verdadeira",
         "level": "2",
         "marker": "hiro"
     }
