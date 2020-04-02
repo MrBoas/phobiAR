@@ -4,10 +4,10 @@ var axios = require("axios")
 
 
 // gera a sessão a partir de informação recebida
-router.get('/:user/:phobia/:model/:level', (req, res) => {
+router.get('/:user/:phobia/:model/:level/:marker', (req, res) => {
     res.render('testing', {
         src: '/models/' + req.params.phobia + '/' + req.params.model + '/' + req.params.level + '/scene.gltf',
-        url: '/markers/hiro.patt'
+        url: '/markers/' + req.params.marker + '.patt'
     })
 })
 
