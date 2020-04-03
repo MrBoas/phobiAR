@@ -52,6 +52,13 @@
       </v-col>
       <v-col cols="1">
         <v-btn color="primary"
+          @click="saveSession()"
+          class = "mb-3"
+          :disabled="session && patient && selected_level && selected_marker ? false : true">
+          Guardar Sessão
+        </v-btn>
+
+        <v-btn color="primary"
           @click="goToSession()"
           :disabled="selected_level && selected_marker ? false : true">
           Gerar Sessão
@@ -64,9 +71,11 @@
 <script>
   import axios from 'axios'
   const backend_url = 'http://localhost:3000/'
-  const phobias_user_param = 'api/phobias/raul@gmail.com'
-  const markers_user_param = 'api/markers/raul@gmail.com'
-  const sessions_user_param = 'sessions/raul@gmail.com'
+  const api_phobias_url = 'api/phobias'
+  const api_markers_url = 'api/markers'
+  const api_sessions_url = 'api/sessions'
+  const sessions_user_param = 'sessions'
+  const user = 'raul@gmail.com'
 
   export default {
     data: () => ({
@@ -90,7 +99,7 @@
     methods: {
 
       getPhobias(){
-        axios.get(backend_url  + phobias_user_param)
+        axios.get(backend_url  + api_phobias_url + '/' + user)
           .then(response => {
             this.phobias_list = response.data
           })
@@ -101,7 +110,7 @@
         if(this.selected_phobia){
           this.selected_model=''
           this.selected_level=''
-          axios.get(backend_url + phobias_user_param + '/' + this.selected_phobia)
+          axios.get(backend_url + api_phobias_url + '/'+ user + '/'+ this.selected_phobia)
             .then(response =>{
               this.models_list = response.data
             })
@@ -112,7 +121,7 @@
       getModelLevels: async function () {
         if(this.selected_model){
           this.selected_level=''
-          var urlAux = backend_url + phobias_user_param + '/' + this.selected_phobia + '/' + this.selected_model
+          var urlAux = backend_url + api_phobias_url + '/'+ user + '/' + this.selected_phobia + '/' + this.selected_model
           axios.get(urlAux)
             .then(response =>{
               this.levels_list = response.data
@@ -122,7 +131,7 @@
       },
 
       getMarkers(){
-        axios.get(backend_url+markers_user_param)
+        axios.get(backend_url+api_markers_url + '/'+ user)
           .then(response=>{
             this.marker_list=response.data
           })
@@ -130,8 +139,25 @@
       },
       goToSession(){
         var sessions_param = '/' + this.selected_phobia + '/' + this.selected_model + '/' + this.selected_level + '/' + this.selected_marker
-        var url_session =  backend_url + sessions_user_param + sessions_param
+        var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param
         window.open(url_session)
+      },
+
+      saveSession(){
+        var body = {
+          'session': this.session,
+          'patient': this.patient,
+          'notes': this.notes,
+          'phobia': this.selected_phobia,
+          'model': this.selected_model,
+          'level': this.selected_level,
+          'marker': this.selected_marker,
+        }
+        var url = backend_url + api_sessions_url + '/' + user + '/uploadsession'
+        console.log(url)
+        axios.post(url,body)
+          .then(response=>{})
+          .catch(error => console.log(error))
       }
     },
 
