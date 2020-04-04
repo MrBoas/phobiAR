@@ -38,3 +38,10 @@ Sessions.createSession = session => {
     return Session
         .create(session)
 }
+
+// apaga uma sessão
+Sessions.deleteSession = (user,session) =>{
+    return Session
+        .findOneAndDelete({user:user,session:session})
+        .exec()
+}

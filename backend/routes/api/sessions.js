@@ -33,7 +33,7 @@ router.get('/:user/:session/infogerarsessao', function (req, res) {
 });
 
 // fazer upload de um sessão
-router.post('/:user/uploadsession', (req, res) => {
+router.post('/:user/upload', (req, res) => {
     var form = new formidable.IncomingForm()
     form.parse(req, (erro, fields, files) => {
         var session = fields.session
@@ -50,5 +50,13 @@ router.post('/:user/uploadsession', (req, res) => {
             .catch(error => res.status(500).jsonp(error))
     })
 })
+
+// apaga uma sessão de um user
+router.delete('/:user/:session',(req,res)=>{
+    sessions.deleteSession(req.params.user,req.params.session)
+        .then(data => { res.jsonp(data)})
+        .catch(error => res.status(500).jsonp(error))
+})
+
 
 module.exports = router;

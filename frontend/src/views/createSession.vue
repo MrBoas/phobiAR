@@ -153,7 +153,7 @@
           'level': this.selected_level,
           'marker': this.selected_marker,
         }
-        var url = backend_url + api_sessions_url + '/' + user + '/uploadsession'
+        var url = backend_url + api_sessions_url + '/' + user + '/upload'
         console.log(url)
         axios.post(url,body)
           .then(response=>{})

@@ -17,5 +17,10 @@ export default new Router({
       name: 'criarsessoesList',
       component: () => import('./views/createSession.vue')
     },
+    {
+      path: '/sessoes',
+      name: 'sessoesList',
+      component: () => import('./views/sessions.vue')
+    },
   ]
 })
