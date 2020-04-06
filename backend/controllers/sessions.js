@@ -5,7 +5,7 @@ const Sessions = module.exports
 Sessions.list = () => {
     return Session
         .find()
-        .sort({ session: -1 })
+        .sort({ session_name: -1 })
         .exec()
 }
 
@@ -13,23 +13,23 @@ Sessions.list = () => {
 Sessions.listUserSessions = user => {
     return Session
         .find({ user: user }, {_id: 0 })
-        .sort({ session: 1 })
+        .sort({ session_name: 1 })
         .exec()
 }
 
 // retorna a informação de uma determinada sessão
-Sessions.sessionInfo = (user, session) => {
+Sessions.sessionInfo = (user, session_name) => {
     return Session
-        .find({ user: user, session: session }, { _id: 0, __v:0 })
-        .sort({ session: 1 })
+        .find({ user: user, session_name: session_name }, { _id: 0, __v:0 })
+        .sort({ session_name: 1 })
         .exec()
 }
 
 // retorna a lista informações das sessoes de um user
-Sessions.genSessionInfo = (user,session) => {
+Sessions.genSessionInfo = (user, session_name) => {
     return Session
-        .find({ user: user,session:session }, { phobia:1,model:1,level:1,marker:1,_id: 0 })
-        .sort({ session: 1 })
+        .find({ user: user, session_name: session_name }, { phobia:1,model:1,level:1,marker:1,_id: 0 })
+        .sort({ session_name: 1 })
         .exec()
 }
 
@@ -39,9 +39,17 @@ Sessions.createSession = session => {
         .create(session)
 }
 
-// apaga uma sessão
-Sessions.deleteSession = (user,session) =>{
+
+// atualiza os valores de uma sessão
+Sessions.updateSession = (user, session_name, sessionInfo) => {
     return Session
-        .findOneAndDelete({user:user,session:session})
+        .findOneAndUpdate({ user: user, session_name: session_name }, sessionInfo, { useFindAndModify: false })
+        .exec()
+}
+
+// apaga uma sessão
+Sessions.deleteSession = (user, session_name) =>{
+    return Session
+        .findOneAndDelete({ user: user, session_name: session_name})
         .exec()
 }

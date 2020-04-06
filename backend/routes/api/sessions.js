@@ -19,15 +19,15 @@ router.get('/:user', function (req, res) {
 });
 
 // retorna a informação de uma determinada sessão
-router.get('/:user/:session', function (req, res) {
-    sessions.sessionInfo(req.params.user, req.params.session)
+router.get('/:user/:session_name', function (req, res) {
+  sessions.sessionInfo(req.params.user, req.params.session_name)
         .then(data => res.jsonp(data))
         .catch(error => res.status(500).jsonp(error))
 });
 
 // retorna a informação necessária para gerar uma sessão
-router.get('/:user/:session/infogerarsessao', function (req, res) {
-    sessions.genSessionInfo(req.params.user,req.params.session)
+router.get('/:user/:session_name/infogerarsessao', function (req, res) {
+  sessions.genSessionInfo(req.params.user, req.params.session_name)
         .then(data => res.jsonp(data))
         .catch(error => res.status(500).jsonp(error))
 });
@@ -36,7 +36,7 @@ router.get('/:user/:session/infogerarsessao', function (req, res) {
 router.post('/:user/upload', (req, res) => {
     var form = new formidable.IncomingForm()
     form.parse(req, (erro, fields, files) => {
-        var session = fields.session
+        var session_name = fields.session_name
         var patient = fields.patient
         var notes = fields.notes
         var phobia = fields.phobia
@@ -44,7 +44,7 @@ router.post('/:user/upload', (req, res) => {
         var level = fields.level
         var marker = fields.marker
 
-        var session = {user:req.params.user,session:session,patient:patient,notes:notes,phobia:phobia,model:model,level:level,marker:marker}
+      var session = { user: req.params.user, session_name: session_name,patient:patient,notes:notes,phobia:phobia,model:model,level:level,marker:marker}
         sessions.createSession(session)
             .then(data => res.jsonp(data))
             .catch(error => res.status(500).jsonp(error))
@@ -52,11 +52,29 @@ router.post('/:user/upload', (req, res) => {
 })
 
 // apaga uma sessão de um user
-router.delete('/:user/:session',(req,res)=>{
-    sessions.deleteSession(req.params.user,req.params.session)
+router.delete('/:user/:session_name',(req,res)=>{
+  sessions.deleteSession(req.params.user, req.params.session_name)
         .then(data => { res.jsonp(data)})
         .catch(error => res.status(500).jsonp(error))
 })
 
+// altera as informações de uma sessão de um user
+router.put('/:user/:session_name',(req,res)=>{
+  var form = new formidable.IncomingForm()
+  form.parse(req, (erro, fields, files) => {
+    var session_name = fields.session_name
+    var patient = fields.patient
+    var notes = fields.notes
+    var phobia = fields.phobia
+    var model = fields.model
+    var level = fields.level
+    var marker = fields.marker
+    var sessionInfo = { user: req.params.user, session_name: session_name, patient: patient, notes: notes, phobia: phobia, model: model, level: level, marker: marker }
+
+    sessions.updateSession(req.params.user, req.params.session_name, sessionInfo)
+      .then(data => res.jsonp(data))
+      .catch(error => res.status(500).jsonp(error))
+    })
+})
 
 module.exports = router;

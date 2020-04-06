@@ -8,7 +8,7 @@
       <v-col cols="1"/>
       <v-col cols="2" class="mr-6">
         <v-text-field
-          v-model= "session"
+          v-model= "session_name"
           label="Nome da sessão"
         ></v-text-field>
           <v-text-field
@@ -54,7 +54,7 @@
         <v-btn color="primary"
           @click="saveSession()"
           class = "mb-3"
-          :disabled="session && patient && selected_level && selected_marker ? false : true">
+          :disabled="session_name && patient && selected_level && selected_marker ? false : true">
           Guardar Sessão
         </v-btn>
 
@@ -84,7 +84,7 @@
       selected_level:'',
       selected_marker:'',
       patient:'',
-      session:'',
+      session_name:'',
       notes:'',
       phobias_list:[],
       models_list:[],
@@ -145,7 +145,7 @@
 
       saveSession(){
         var body = {
-          'session': this.session,
+          'session_name': this.session_name,
           'patient': this.patient,
           'notes': this.notes,
           'phobia': this.selected_phobia,

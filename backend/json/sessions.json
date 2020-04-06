@@ -1,72 +1,72 @@
 [
-    {
-      "user": "raul@gmail.com",
-      "session": "teste",
-      "patient": "kiko",
-      "notes": "",
-      "phobia": "ofidiofobia",
-      "model" : "cobra_brincar",
-      "level" : "1",
-      "marker": "hiro"
-    },
-    {
-        "user": "raul@gmail.com",
-        "session": "teste2",
-        "patient": "kiko",
-        "notes": "",
-        "phobia": "ofidiofobia",
-        "model": "cobra_verdadeira",
-        "level": "2",
-        "marker": "hiro"
-    },
-    {
-      "user": "raul@gmail.com",
-      "session": "teste3",
-      "patient": "kiko",
-      "notes": "",
-      "phobia": "ofidiofobia",
-      "model": "cobra_verdadeira",
-      "level": "2",
-      "marker": "hiro"
-    },
-    {
-      "user": "raul@gmail.com",
-      "session": "teste4",
-      "patient": "kiko",
-      "notes": "",
-      "phobia": "ofidiofobia",
-      "model": "cobra_verdadeira",
-      "level": "2",
-      "marker": "hiro"
-    },
-    {
-      "user": "raul@gmail.com",
-      "session": "teste5",
-      "patient": "kiko",
-      "notes": "",
-      "phobia": "ofidiofobia",
-      "model": "cobra_verdadeira",
-      "level": "2",
-      "marker": "hiro"
-    },
-    {
-      "user": "raul@gmail.com",
-      "session": "teste6",
-      "patient": "kiko",
-      "notes": "",
-      "phobia": "ofidiofobia",
-      "model": "cobra_verdadeira",
-      "level": "2",
-      "marker": "hiro"
-    },
-    {
-      "user": "raul@gmail.com",
-      "session": "teste7",
-      "patient": "kiko",
-      "notes": "",
-      "phobia": "ofidiofobia",
-      "model": "cobra_verdadeira",
-      "level": "2",
-      "marker": "hiro"
-    }
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model" : "cobra_brincar",
+    "level" : "1",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste2",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model": "cobra_verdadeira",
+    "level": "2",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste3",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model": "cobra_verdadeira",
+    "level": "2",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste4",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model": "cobra_verdadeira",
+    "level": "2",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste5",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model": "cobra_verdadeira",
+    "level": "2",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste6",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model": "cobra_verdadeira",
+    "level": "2",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste7",
+    "patient": "kiko",
+    "notes": "",
+    "phobia": "ofidiofobia",
+    "model": "cobra_verdadeira",
+    "level": "2",
+    "marker": "hiro"
+  }
 ]
