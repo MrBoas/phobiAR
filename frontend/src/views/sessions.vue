@@ -1,5 +1,14 @@
 <template>
 	<v-container>
+    <v-row>
+      <v-col cols="3">
+        <v-combobox
+          label="Paciente"
+          v-model="filter_patient"
+          :items="patient_list"
+        ></v-combobox>
+      </v-col>
+    </v-row>
     <v-dialog
       v-model="dialogEditSession"
       max-width="700px"
@@ -60,7 +69,8 @@
         <v-card-actions>
           <v-col class="grow">
             <v-btn block color="success"
-              @click="updateSession(editSession); dialogEditSession=false"
+              @click="updateSession(editSession); dialogEditSession=false;
+              if(editSession.patient != session_oldpatient) getPatients()"
             >
               Guardar
             </v-btn>
@@ -75,7 +85,7 @@
     </v-dialog>
     <v-row dense>
       <v-col cols="12"
-        v-for="session in sessions_list"
+        v-for="session in sessions_list_filtered"
         :key="session.session_name"
       >
         <v-card class="mt-10">
@@ -133,16 +143,19 @@
   const sessions_user_param = 'sessions'
   const user = 'raul@gmail.com'
 
-
   export default {
     data: () => ({
       sessions_list: [],
+      backup_session_list:[],
       phobias_list:[],
       models_list:[],
       levels_list:[],
       marker_list:[],
+      patient_list:[],
       dialogEditSession:false,
       session_oldname:"",
+      session_oldpatient:"",
+      filter_patient:"",
       editSession:{
         session_name: "",
         patient: "",
@@ -155,11 +168,22 @@
     }),
     mounted: async function () {
       this.getSessions()
+      this.getPatients()
     },
 
+    computed:{
+      // corre sempre que alguma variável que ele está a usar é alterada
+      sessions_list_filtered: function() {
+        if(this.filter_patient)
+          return this.sessions_list.filter( e => e.patient == this.filter_patient)
+        else
+          return this.sessions_list
+      },
+    },
     methods: {
       savedSessionEdit(session) {
         this.session_oldname=session.session_name
+        this.session_oldpatient = session.patient
         this.editSession.session_name = session.session_name
         this.editSession.patient = session.patient
         this.editSession.notes =session.notes
@@ -173,6 +197,14 @@
         axios.get(backend_url  + api_phobias_url + '/' + user)
           .then(response => {
             this.phobias_list = response.data
+          })
+          .catch(error => console.log(error))
+      },
+      getPatients(){
+        var url = backend_url + api_sessions_url + '/' + user + '/patients'
+        axios.get(url)
+          .then(response=>{
+            this.patient_list= response.data.sort()
           })
           .catch(error => console.log(error))
       },
@@ -225,7 +257,6 @@
         axios.get(backend_url + api_sessions_url + '/' + user)
           .then(response => {
             this.sessions_list = response.data
-            // console.log(this.sessions_list)
           })
           .catch(error => console.log(error))
       },
@@ -262,11 +293,9 @@
             }
           })
           .catch(error => {
-            // this.sessionEditSave =false
             console.log(error)
           })
       },
-
       goToSession(phobia,model,level,marker){
         var sessions_param = '/' + phobia + '/' + model + '/' + level + '/' + marker
         var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param

@@ -33,12 +33,18 @@ Sessions.genSessionInfo = (user, session_name) => {
         .exec()
 }
 
+// retorna a lista de pacientes de um user
+Sessions.getUserPatients = (user) => {
+    return Session
+        .distinct("patient",{user:user})
+        .exec()
+}
+
 // cria uma sessão
 Sessions.createSession = session => {
     return Session
         .create(session)
 }
-
 
 // atualiza os valores de uma sessão
 Sessions.updateSession = (user, session_name, sessionInfo) => {
