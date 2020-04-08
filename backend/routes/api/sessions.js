@@ -71,7 +71,7 @@ router.delete('/:user/:session_name',(req,res)=>{
 })
 
 // altera as informações de uma sessão de um user
-router.put('/:user/:session_name',(req,res)=>{
+router.put('/:user/:session_name/:patient',(req,res)=>{
   var form = new formidable.IncomingForm()
   form.parse(req, (erro, fields, files) => {
     var session_name = fields.session_name
@@ -83,7 +83,7 @@ router.put('/:user/:session_name',(req,res)=>{
     var marker = fields.marker
     var sessionInfo = { user: req.params.user, session_name: session_name, patient: patient, notes: notes, phobia: phobia, model: model, level: level, marker: marker }
 
-    sessions.updateSession(req.params.user, req.params.session_name, sessionInfo)
+    sessions.updateSession(req.params.user, req.params.session_name, req.params.patient ,sessionInfo)
       .then(data => res.jsonp(data))
       .catch(error => res.status(500).jsonp(error))
     })

@@ -42,7 +42,7 @@ Sessions.genSessionInfo = (user, session_name) => {
 
 // // retorna a lista de pacientes distintos de um user
 // Sessions.getUserPatientsDistinct = (user) => {
-//     return Session
+//     return SessionupdateSession
 //         .distinct("patient",{user:user})
 //         .exec()
 // }
@@ -54,9 +54,9 @@ Sessions.createSession = session => {
 }
 
 // atualiza os valores de uma sessão
-Sessions.updateSession = (user, session_name, sessionInfo) => {
+Sessions.updateSession = (user, session_name, patient, sessionInfo) => {
     return Session
-        .findOneAndUpdate({ user: user, session_name: session_name }, sessionInfo, { useFindAndModify: false })
+        .findOneAndUpdate({ user: user, session_name: session_name, patient:patient }, sessionInfo, { useFindAndModify: false })
         .exec()
 }
 

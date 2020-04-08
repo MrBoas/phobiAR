@@ -1,8 +1,6 @@
 <template>
 	<v-container>
-    <v-expansion-panels accordion
-      v-model="active_patient"
-    >
+    <v-expansion-panels accordion>
       <v-expansion-panel
         v-for="patient_session_list in grouped_sessions_list"
         :key="patient_session_list.key"
@@ -156,7 +154,6 @@
       levels_list:[],
       marker_list:[],
       dialogEditSession:false,
-      active_patient:null,
       session_oldname:"",
       patient_oldname:"",
       grouped_sessions_list:"",
@@ -282,9 +279,8 @@
           .catch(error => console.log(error))
         },
 
-      // alterar a rota para ser o nome da sessão + nome do paciente
       updateSession(editSession){
-        const url = backend_url+api_sessions_url + '/' + user+'/' + this.session_oldname
+        const url = backend_url+api_sessions_url + '/' + user+'/' + this.session_oldname + '/' + this.patient_oldname
         axios.put(url,editSession)
           .then(response=>{
             for (let i = 0; i < this.grouped_sessions_list.length; i++) {
