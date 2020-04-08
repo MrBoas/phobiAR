@@ -22,5 +22,11 @@ export default new Router({
       name: 'sessoesList',
       component: () => import('./views/sessions.vue')
     },
+    // apagar depois
+    {
+      path: '/sessoesold',
+      name: 'sessoesListold',
+      component: () => import('./views/sessions_old.vue')
+    },
   ]
 })

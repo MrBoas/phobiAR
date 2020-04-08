@@ -19,13 +19,16 @@ router.get('/:user', function (req, res) {
 });
 
 // retorna a lista de pacientes de um user
-router.get('/:user/patients', function (req, res) {
-  sessions.getUserPatients(req.params.user)
-    .then(data => {
-      res.jsonp(data)
-    })
-    .catch(error => res.status(500).jsonp(error))
-});
+// router.get('/:user/patients', function (req, res) {
+//   sessions.getUserPatients(req.params.user)
+//     .then(data => {
+//       var result = data.map(function(obj){
+//         return obj.patient
+//       })
+//       res.jsonp(result)
+//     })
+//     .catch(error => res.status(500).jsonp(error))
+// });
 
 // retorna a informação de uma determinada sessão
 router.get('/:user/:session_name/info', function (req, res) {
@@ -40,7 +43,6 @@ router.get('/:user/:session_name/infogerarsessao', function (req, res) {
         .then(data => res.jsonp(data))
         .catch(error => res.status(500).jsonp(error))
 });
-
 
 // fazer upload de um sessão
 router.post('/:user/upload', (req, res) => {

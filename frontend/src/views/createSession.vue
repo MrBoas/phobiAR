@@ -28,12 +28,14 @@
           :items="models_list"
           label="Escolha um modelo."
           @change="getModelLevels()"
+          :disabled="selected_phobia ? false : true"
         ></v-combobox>
 
         <v-combobox
           v-model="selected_level"
           :items="levels_list"
           label="Escolha um nível."
+          :disabled="selected_phobia && selected_model ? false : true"
         ></v-combobox>
 
         <v-combobox

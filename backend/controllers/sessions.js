@@ -12,8 +12,8 @@ Sessions.list = () => {
 // retorna a lista informações das sessoes de um user
 Sessions.listUserSessions = user => {
     return Session
-        .find({ user: user }, {_id: 0 })
-        .sort({ session_name: 1 })
+        .find({ user: user }, {_id:0})
+        .sort({ patient: 1 })
         .exec()
 }
 
@@ -33,12 +33,19 @@ Sessions.genSessionInfo = (user, session_name) => {
         .exec()
 }
 
-// retorna a lista de pacientes de um user
-Sessions.getUserPatients = (user) => {
-    return Session
-        .distinct("patient",{user:user})
-        .exec()
-}
+// // retorna a lista de pacientes de um user
+// Sessions.getUserPatients = (user) => {
+//     return Session
+//         .find({ user: user}, { patient: 1, _id: 0 })
+//         .exec()
+// }
+
+// // retorna a lista de pacientes distintos de um user
+// Sessions.getUserPatientsDistinct = (user) => {
+//     return Session
+//         .distinct("patient",{user:user})
+//         .exec()
+// }
 
 // cria uma sessão
 Sessions.createSession = session => {
