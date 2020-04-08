@@ -1,16 +1,13 @@
 <template>
 	<v-container>
-    <!-- <p> {{this.sessions_list[active_patient]}} </p> -->
-    <!-- <p> {{this.sessions_list}} </p> -->
-    <!-- <p> {{this.grouped_sessions_list}} </p> -->
     <v-expansion-panels accordion
       v-model="active_patient"
     >
       <v-expansion-panel
-        v-for="element in grouped_sessions_list"
-        :key="element.key"
+        v-for="patient_session_list in grouped_sessions_list"
+        :key="patient_session_list.key"
       >
-        <v-expansion-panel-header >{{element.key}}</v-expansion-panel-header>
+        <v-expansion-panel-header >{{patient_session_list.key}}</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-dialog
             v-model="dialogEditSession"
@@ -89,14 +86,13 @@
           </v-dialog>
           <v-row dense>
             <v-col cols="12"
-              v-for="session in element.values"
+              v-for="session in patient_session_list.values"
               :key="session.session_name"
             >
               <v-card>
                 <v-card-title>
                   Nome da Sessão: {{session.session_name}}
                 </v-card-title>
-                <!-- <p>  {{element.values}} </p> -->
                 <v-row>
                   <v-col cols="6">
                     <v-card-text>
@@ -155,18 +151,15 @@
 
   export default {
     data: () => ({
-      sessions_list: [],
       phobias_list:[],
       models_list:[],
       levels_list:[],
       marker_list:[],
-      patient_list:[],
-      filtered_sessions_list:[],
       dialogEditSession:false,
-      session_oldname:"",
       active_patient:null,
+      session_oldname:"",
+      patient_oldname:"",
       grouped_sessions_list:"",
-      // filter_patient:"",
       editSession:{
         session_name: "",
         patient: "",
@@ -189,15 +182,11 @@
       //   else
       //     return this.sessions_list
       // },
-        computedFilter: function(){
-          if(this.active_patient != null)
-            return this.grouped_sessions_list[this.active_patient].values
-
-      }
     },
     methods: {
       savedSessionEdit(session) {
-        this.session_oldname=session.session_name
+        this.session_oldname = session.session_name
+        this.patient_oldname = session.patient
         this.editSession.session_name = session.session_name
         this.editSession.patient = session.patient
         this.editSession.notes =session.notes
@@ -210,24 +199,13 @@
       getSessions(){
         axios.get(backend_url + api_sessions_url + '/' + user)
           .then(response => {
-            this.sessions_list = response.data.sort(response.data.patient)
-            var patient_listAux = response.data.map(function(obj){
-              return obj.patient
-            })
-            this.patient_list = patient_listAux.filter(function(item,pos){
-              return patient_listAux.indexOf(item) == pos;
-            })
+            var sessions_list = response.data.sort(response.data.patient)
             this.grouped_sessions_list = d3.nest()
               .key(function(d) { return d.patient; })
-              .entries(this.sessions_list);
-              // console.log(this.grouped_sessions_list[1].values)
+              .entries(sessions_list);
           })
           .catch(error => console.log(error))
       },
-      // getSessionsOfPatient(patient){
-      //     this.filtered_sessions_list = this.sessions_list.filter( e => e.patient == patient)
-      //     // console.log(this.filtered_sessions_list)
-      // },
 
       getPhobias(){
         axios.get(backend_url  + api_phobias_url + '/' + user)
@@ -304,21 +282,27 @@
           .catch(error => console.log(error))
         },
 
+      // alterar a rota para ser o nome da sessão + nome do paciente
       updateSession(editSession){
         const url = backend_url+api_sessions_url + '/' + user+'/' + this.session_oldname
         axios.put(url,editSession)
           .then(response=>{
-            for (let i = 0; i < this.sessions_list.length; i++) {
-              if(this.sessions_list[i].session_name===this.session_oldname){
-                // mistério pq é que isto n funciona
-                // this.sessions_list[i] = editSession
-                this.sessions_list[i].session_name = editSession.session_name
-                this.sessions_list[i].patient = editSession.patient
-                this.sessions_list[i].phobia = editSession.phobia
-                this.sessions_list[i].model = editSession.model
-                this.sessions_list[i].level = editSession.level
-                this.sessions_list[i].marker = editSession.marker
-                return
+            for (let i = 0; i < this.grouped_sessions_list.length; i++) {
+              if(this.grouped_sessions_list[i].key === this.patient_oldname){
+                for(let j = 0; j < this.grouped_sessions_list[i].values.length;j++){
+                  if( this.grouped_sessions_list[i].values[j].session_name === this.session_oldname){
+                    // mistério pq é que isto n funciona
+                    // this.sessions_list[i].values = editSession
+                    this.grouped_sessions_list[i].values[j].session_name = editSession.session_name
+                    this.grouped_sessions_list[i].values[j].patient = editSession.patient
+                    this.grouped_sessions_list[i].values[j].notes = editSession.notes
+                    this.grouped_sessions_list[i].values[j].phobia = editSession.phobia
+                    this.grouped_sessions_list[i].values[j].model = editSession.model
+                    this.grouped_sessions_list[i].values[j].level = editSession.level
+                    this.grouped_sessions_list[i].values[j].marker = editSession.marker
+                    return
+                  }
+                }
               }
             }
           })
