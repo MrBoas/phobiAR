@@ -64,8 +64,8 @@ router.post('/:user/upload', (req, res) => {
 })
 
 // apaga uma sessão de um user
-router.delete('/:user/:session_name',(req,res)=>{
-  sessions.deleteSession(req.params.user, req.params.session_name)
+router.delete('/:user/:session_name/:patient',(req,res)=>{
+  sessions.deleteSession(req.params.user, req.params.session_name, req.params.patient)
         .then(data => { res.jsonp(data)})
         .catch(error => res.status(500).jsonp(error))
 })

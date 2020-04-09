@@ -61,8 +61,8 @@ Sessions.updateSession = (user, session_name, patient, sessionInfo) => {
 }
 
 // apaga uma sessão
-Sessions.deleteSession = (user, session_name) =>{
+Sessions.deleteSession = (user, session_name,patient) =>{
     return Session
-        .findOneAndDelete({ user: user, session_name: session_name})
+        .findOneAndDelete({ user: user, session_name: session_name,patient:patient})
         .exec()
 }

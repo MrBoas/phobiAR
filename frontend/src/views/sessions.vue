@@ -266,10 +266,10 @@
       },
 
       deleteSession(session){
-        axios.delete(backend_url+api_sessions_url + '/' + user+'/' + session.session_name)
+        axios.delete(backend_url+api_sessions_url + '/' + user+'/' + session.session_name + '/' + session.patient)
           .then(response=>{
             for(let i=0; i< this.grouped_sessions_list.length;i++){
-              if(this.grouped_sessions_list[i].key ===session.patient){
+              if(this.grouped_sessions_list[i].key === session.patient){
                 for(let j=0; j < this.grouped_sessions_list[i].values.length;j++){
                   if( this.grouped_sessions_list[i].values[j].session_name === session.session_name){
                     this.grouped_sessions_list[i].values.splice(j,1)
