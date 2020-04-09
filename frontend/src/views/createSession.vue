@@ -56,7 +56,7 @@
         <v-btn color="primary"
           @click="saveSession()"
           class = "mb-3"
-          :disabled="session_name && patient && selected_level && selected_marker ? false : true">
+          :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
           Guardar Sessão
         </v-btn>
 

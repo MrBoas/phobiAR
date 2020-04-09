@@ -76,8 +76,8 @@
               <v-card-actions>
                 <v-col class="grow">
                   <v-btn block color="success"
-                    @click="updateSession(editSession); dialogEditSession=false;"
-                  >
+                    @click="updateSession(editSession); dialogEditSession=false; patientChangedReload(editSession)"
+                    :disabled="editSession.session_name && editSession.patient && editSession.phobia && editSession.model && editSession.level && editSession.marker    ? false : true">
                     Guardar
                   </v-btn>
                 </v-col>
@@ -319,6 +319,11 @@
         var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param
         window.open(url_session)
       },
+      patientChangedReload(editSession){
+        // console.log(editSession)
+        if(editSession.patient != this.patient_oldname)
+          this.$router.go(0)
+      }
     },
 
 }
