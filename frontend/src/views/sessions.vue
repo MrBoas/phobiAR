@@ -1,8 +1,15 @@
 <template>
 	<v-container>
+    <!-- condicao que verifica se o que tenho está dentro do outro
+     isto para fazer o a filtragem ao mesmo tempo que se escreve (maybe it´s 'in')
+     -->
+    <v-text-field
+      label="Filtrar pacientes"
+      v-model="filter_patient"
+    ></v-text-field>
     <v-expansion-panels accordion>
       <v-expansion-panel
-        v-for="patient_session_list in grouped_sessions_list"
+        v-for="patient_session_list in grouped_sessions_list_filtered"
         :key="patient_session_list.key"
       >
         <v-expansion-panel-header >{{patient_session_list.key}}</v-expansion-panel-header>
@@ -139,7 +146,6 @@
 <script>
   import axios from 'axios'
   import * as d3 from 'd3'
-
   const backend_url = 'http://localhost:3000/'
   const api_sessions_url = 'api/sessions'
   const api_phobias_url = 'api/phobias'
@@ -155,6 +161,7 @@
       marker_list:[],
       dialogEditSession:false,
       session_oldname:"",
+      filter_patient:"",
       patient_oldname:"",
       grouped_sessions_list:"",
       editSession:{
@@ -173,12 +180,13 @@
 
     computed:{
       // corre sempre que alguma variável que ele está a usar é alterada
-      // sessions_list_filtered: function() {
-      //   if(this.filter_patient)
-      //     return this.sessions_list.filter( e => e.patient == this.filter_patient)
-      //   else
-      //     return this.sessions_list
-      // },
+      grouped_sessions_list_filtered: function() {
+        if(this.filter_patient){
+          return this.grouped_sessions_list.filter( e =>e.key.includes(this.filter_patient) )
+        }
+        else
+          return this.grouped_sessions_list
+      },
     },
     methods: {
       savedSessionEdit(session) {
