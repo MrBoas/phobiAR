@@ -15,34 +15,34 @@
           v-model= "patient"
           label="Nome do paciente"
         ></v-text-field>
-        <v-combobox
+        <v-select
           v-model="selected_phobia"
           :items="phobias_list"
           label="Escolha uma fobia."
           @change="getPhobiaModel()"
-        ></v-combobox>
+        ></v-select>
       </v-col>
       <v-col cols="2" class="mx-6">
-        <v-combobox
+        <v-select
           v-model="selected_model"
           :items="models_list"
           label="Escolha um modelo."
           @change="getModelLevels()"
           :disabled="selected_phobia ? false : true"
-        ></v-combobox>
+        ></v-select>
 
-        <v-combobox
+        <v-select
           v-model="selected_level"
           :items="levels_list"
           label="Escolha um nível."
           :disabled="selected_phobia && selected_model ? false : true"
-        ></v-combobox>
+        ></v-select>
 
-        <v-combobox
+        <v-select
           v-model="selected_marker"
           :items="marker_list"
           label="Escolha um marcador."
-        ></v-combobox>
+        ></v-select>
       </v-col>
       <v-col cols="3" class="mx-6">
         <v-textarea
@@ -54,10 +54,10 @@
       </v-col>
       <v-col cols="1">
         <v-btn color="primary"
-          @click="saveSession()"
+          @click="saveSession();snackbar_create=true"
           class = "mb-3"
           :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
-          Guardar Sessão
+          Criar Sessão
         </v-btn>
 
         <v-btn color="primary"
@@ -67,6 +67,18 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="snackbar_create"
+    >
+      Sessão criada com sucesso
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar_create = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -88,6 +100,7 @@
       patient:'',
       session_name:'',
       notes:'',
+      snackbar_create: false,
       phobias_list:[],
       models_list:[],
       levels_list:[],

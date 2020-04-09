@@ -36,30 +36,30 @@
                       v-model="editSession.patient"
                       label="Nome do paciente"
                     ></v-text-field>
-                    <v-combobox
+                    <v-select
                       v-model="editSession.phobia"
                       :items="phobias_list"
                       label="Escolha uma fobia."
                       @change="getPhobiaModelAfterPhobia()"
-                    ></v-combobox>
-                    <v-combobox
+                    ></v-select>
+                    <v-select
                       v-model="editSession.model"
                       :items="models_list"
                       label="Escolha um modelo."
                       @change="getModelLevelsAfterModel()"
                       :disabled="editSession.phobia ? false : true"
-                    ></v-combobox>
-                    <v-combobox
+                    ></v-select>
+                    <v-select
                       v-model="editSession.level"
                       :items="levels_list"
                       label="Escolha um nível."
                       :disabled="editSession.phobia && editSession.model ? false : true"
-                    ></v-combobox>
-                    <v-combobox
+                    ></v-select>
+                    <v-select
                       v-model="editSession.marker"
                       :items="marker_list"
                       label="Escolha um marcador."
-                    ></v-combobox>
+                    ></v-select>
                   </v-col>
                   <v-col cols="6">
                     <v-textarea
@@ -76,7 +76,10 @@
               <v-card-actions>
                 <v-col class="grow">
                   <v-btn block color="success"
-                    @click="updateSession(editSession); dialogEditSession=false; patientChangedReload(editSession)"
+                    @click="updateSession(editSession);
+                      dialogEditSession=false;
+                      patientChangedReload(editSession);
+                      snackbar_edit = true"
                     :disabled="editSession.session_name && editSession.patient && editSession.phobia && editSession.model && editSession.level && editSession.marker    ? false : true">
                     Guardar
                   </v-btn>
@@ -139,6 +142,18 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+    <v-snackbar
+      v-model="snackbar_edit"
+    >
+      Sessão guardada com sucesso
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
 	</v-container>
 </template>
 
@@ -155,11 +170,6 @@
 
   export default {
     data: () => ({
-      phobias_list:[],
-      models_list:[],
-      levels_list:[],
-      marker_list:[],
-      dialogEditSession:false,
       session_oldname:"",
       filter_patient:"",
       patient_oldname:"",
@@ -173,6 +183,13 @@
         level: "",
         marker: "",
       },
+      dialogEditSession:false,
+      snackbar_edit: false,
+      phobias_list:[],
+      models_list:[],
+      levels_list:[],
+      marker_list:[],
+
     }),
     mounted: async function () {
       this.getSessions()
