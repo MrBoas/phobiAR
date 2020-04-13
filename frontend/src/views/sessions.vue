@@ -1,8 +1,5 @@
 <template>
 	<v-container>
-    <!-- condicao que verifica se o que tenho está dentro do outro
-     isto para fazer o a filtragem ao mesmo tempo que se escreve (maybe it´s 'in')
-     -->
     <v-text-field
       label="Filtrar pacientes"
       v-model="filter_patient"
@@ -183,6 +180,7 @@
         level: "",
         marker: "",
       },
+      testing:"",
       dialogEditSession:false,
       snackbar_edit: false,
       phobias_list:[],
@@ -215,6 +213,7 @@
         this.editSession.phobia = session.phobia
         this.editSession.model = session.model
         this.editSession.level = session.level
+        // this.editSession.level = "Batatas"
         this.editSession.marker = session.marker
       },
 
@@ -237,6 +236,25 @@
           .catch(error => console.log(error))
       },
 
+      getPhobiaModels: async function () {
+        axios.get(backend_url + api_phobias_url + '/'+ user + '/'+ this.editSession.phobia)
+          .then(response =>{
+            this.models_list = response.data
+          })
+          .catch(error => console.log(error))
+      },
+
+      getModelLevels: async function () {
+        var urlAux = backend_url + api_phobias_url + '/'+ user + '/' +  this.editSession.phobia + '/' + this.editSession.model
+        axios.get(urlAux)
+          .then(response =>{
+            // a lista de inteiros por motivos desconhecidos
+            var levels_listAux = response.data
+            this.levels_list = levels_listAux.map(a=> a.toString())
+          })
+          .catch(error => console.log(error))
+      },
+
       getPhobiaModelAfterPhobia: async function () {
         if(this.editSession.phobia){
           this.editSession.model=''
@@ -248,13 +266,7 @@
             .catch(error => console.log(error))
         }
       },
-      getPhobiaModels: async function () {
-        axios.get(backend_url + api_phobias_url + '/'+ user + '/'+ this.editSession.phobia)
-          .then(response =>{
-            this.models_list = response.data
-          })
-          .catch(error => console.log(error))
-      },
+
       getModelLevelsAfterModel: async function () {
         if(this.editSession.model){
           this.editSession.level=''
@@ -266,14 +278,7 @@
             .catch(error => console.log(error))
         }
       },
-      getModelLevels: async function () {
-        var urlAux = backend_url + api_phobias_url + '/'+ user + '/' +  this.editSession.phobia + '/' + this.editSession.model
-        axios.get(urlAux)
-          .then(response =>{
-            this.levels_list = response.data
-          })
-          .catch(error => console.log(error))
-      },
+
       getMarkers(){
         axios.get(backend_url+api_markers_url + '/'+ user)
           .then(response=>{
