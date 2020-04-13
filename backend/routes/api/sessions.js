@@ -48,13 +48,13 @@ router.get('/:user/:session_name/infogerarsessao', function (req, res) {
 router.post('/:user/upload', (req, res) => {
     var form = new formidable.IncomingForm()
     form.parse(req, (erro, fields, files) => {
-        var session_name = fields.session_name
-        var patient = fields.patient
-        var notes = fields.notes
-        var phobia = fields.phobia
-        var model = fields.model
-        var level = fields.level
-        var marker = fields.marker
+      var session_name = fields.session_name
+      var patient = fields.patient
+      var notes = fields.notes
+      var phobia = fields.phobia
+      var model = fields.model
+      var level = fields.level
+      var marker = fields.marker
 
       var session = { user: req.params.user, session_name: session_name,patient:patient,notes:notes,phobia:phobia,model:model,level:level,marker:marker}
         sessions.createSession(session)
