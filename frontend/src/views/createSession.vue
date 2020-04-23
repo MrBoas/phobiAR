@@ -84,7 +84,8 @@
 
 <script>
   import axios from 'axios'
-  const backend_url = 'http://localhost:3000/'
+  // const backend_url = 'http://localhost:3000/'
+  const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST
   const api_phobias_url = 'api/phobias'
   const api_markers_url = 'api/markers'
   const api_sessions_url = 'api/sessions'
