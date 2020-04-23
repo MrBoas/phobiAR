@@ -4,11 +4,10 @@ const app = express();
 var path = require('path');
 app.set('view engine', 'pug');
 
-const hostname = '127.0.0.1';
-const port = 3000;
-app.locals.url = "http://" + hostname + ":" + port + "/"
-app.use(express.static(path.join(__dirname, 'public')));
-
+// Variaveis
+app.address = 'localhost'
+app.port = 3000
+app.locals.url = "http://" + app.address + ":" + app.port + "/"
 
 // Base de dados
 var mongoose = require('mongoose')
@@ -25,7 +24,7 @@ mongoose
     });
 
 app.listen(3000, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${app.address}:${app.port}/`);
 });
 
 // tratar do cords
@@ -38,6 +37,8 @@ app.use(function (req, res, next) {
 });
 
 // Routing
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/api/phobias', require('./routes/api/phobias'));
 app.use('/api/markers', require('./routes/api/markers'));
 app.use('/api/sessions', require('./routes/api/sessions'));
