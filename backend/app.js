@@ -1,12 +1,13 @@
-const express = require('express');
 var createError = require('http-errors');
-const app = express();
+const express = require('express');
 var path = require('path');
+
+const app = express();
 app.set('view engine', 'pug');
 
 // Variaveis
 app.address = 'localhost'
-// aapp.address = 'epl.di.uminho.pt'
+// app.address = 'gepl.di.uminho.pt'
 app.port = 3112
 app.locals.url = "http://" + app.address + ":" + app.port + "/"
 
