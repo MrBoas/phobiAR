@@ -6,7 +6,8 @@ app.set('view engine', 'pug');
 
 // Variaveis
 app.address = 'localhost'
-app.port = 3000
+// aapp.address = 'epl.di.uminho.pt'
+app.port = 3112
 app.locals.url = "http://" + app.address + ":" + app.port + "/"
 
 // Base de dados
@@ -23,11 +24,11 @@ mongoose
         console.log('DB Connection Error: ${ err.message }');
     });
 
-app.listen(3000, () => {
-    console.log(`Server running at http://${app.address}:${app.port}/`);
-});
+// app.listen(3112, () => {
+//     console.log(`Server running at http://${app.address}:${app.port}/`);
+// });
 
-// tratar do cords
+// tratar do cors
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
