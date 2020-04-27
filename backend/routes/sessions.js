@@ -5,8 +5,8 @@ var axios = require("axios")
 
 // gera a sessão a partir de informação recebida
 router.get('/:user/:phobia/:model/:level/:marker', (req, res) => {
-    res.render('testing', {
-        src: '/models/' + req.params.phobia + '/' + req.params.model + '/' + req.params.level + '/scene.gltf',
+    res.render('render_session', {
+        src: '/models/' + req.params.phobia + '/' + req.params.model + '/' + req.params.level + '/scene.glb',
         url: '/markers/' + req.params.marker + '.patt'
     })
 })
@@ -17,8 +17,8 @@ router.get('/:user/:session', (req, res) => {
     axios.get(axios_url)
         .then(response => {
             var info_sessao = response.data[0]
-            res.render('testing',{
-                src: '/models/'+info_sessao.phobia+'/'+info_sessao.model+'/'+info_sessao.level+'/scene.gltf',
+            res.render('render_session',{
+                src: '/models/'+info_sessao.phobia+'/'+info_sessao.model+'/'+info_sessao.level+'/scene.glb',
                 url: '/markers/'+info_sessao.marker+'.patt'
         })})
         .catch(error => {
