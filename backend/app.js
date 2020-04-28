@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 const express = require('express');
 var path = require('path');
+var logger = require('morgan');
 
 const app = express();
 app.set('view engine', 'pug');
@@ -24,6 +25,9 @@ mongoose
     .catch(err => {
         console.log('DB Connection Error: ${ err.message }');
     });
+
+// middleware
+app.use(logger('dev'));
 
 // app.listen(3112, () => {
 //     console.log(`Server running at http://${app.address}:${app.port}/`);
