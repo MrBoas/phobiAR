@@ -1,11 +1,9 @@
 var createError = require('http-errors');
 const express = require('express');
 var path = require('path');
-var logger = require('morgan');
-var bodyParser = require("body-parser")
 
 const app = express();
-
+app.set('view engine', 'pug');
 
 // Variaveis
 app.address = 'localhost'
@@ -30,22 +28,6 @@ mongoose
 // app.listen(3112, () => {
 //     console.log(`Server running at http://${app.address}:${app.port}/`);
 // });
-
-// initialize passport
-var passport = require('passport')
-app.use(passport.initialize())
-
-// View engine
-app.set('view engine', 'pug')
-
-//// Middleware
-app.use(logger('dev'));
-
-// Body parsers
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
 
 // tratar do cors
 app.use(function (req, res, next) {
