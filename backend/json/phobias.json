@@ -86,10 +86,6 @@
       {
           "model_name":"barata",
           "levels":[1,2,3]
-      },
-      {
-          "model_name":"besouro",
-          "levels":[1]
       }
     ]
   },
