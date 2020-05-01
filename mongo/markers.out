@@ -1,5 +1,0 @@
-{"_id":{"$oid":"5e8603e3c568642adcbf15d3"},"marker":"hiro","image":"hiro.png","patt":"hiro.patt","user":"default"}
-{"_id":{"$oid":"5e8603e3c568642adcbf15d4"},"marker":"kanji","image":"kanji.png","patt":"kanji.patt","user":"default"}
-{"_id":{"$oid":"5e8603e3c568642adcbf15d5"},"marker":"level1","image":"level1.png","patt":"level1.patt","user":"default"}
-{"_id":{"$oid":"5e8603e3c568642adcbf15d6"},"marker":"level2","image":"level2.png","patt":"level2.patt","user":"default"}
-{"_id":{"$oid":"5e8603e3c568642adcbf15d7"},"marker":"level3","image":"level3.png","patt":"level3.patt","user":"raul@gmail.com"}
