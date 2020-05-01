@@ -8,5 +8,25 @@
     "model" : "cobra_amarela",
     "level" : "1",
     "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste",
+    "patient": "mateus",
+    "notes": "",
+    "phobia": "apifobia",
+    "model": "abelha_real",
+    "level": "1",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_name": "teste",
+    "patient": "joana",
+    "notes": "",
+    "phobia": "aicmofobia",
+    "model": "seringa",
+    "level": "2",
+    "marker": "hiro"
   }
 ]
