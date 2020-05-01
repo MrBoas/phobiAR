@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5ea84d6480ec4a3e68c71a3c"},"user":"raul@gmail.com","session_name":"teste","patient":"kiko","notes":"","phobia":"aracnofobia","model":"aranha_preta","level":"1","marker":"hiro"}
+{"_id":{"$oid":"5ea84e20d5646f008701db33"},"user":"raul@gmail.com","session_name":"teste","patient":"mateus","notes":"","phobia":"apifobia","model":"abelha_real","level":"1","marker":"hiro","__v":0}
+{"_id":{"$oid":"5ea84ec2e86ae8011438112d"},"user":"raul@gmail.com","session_name":"teste","patient":"joana","notes":"","phobia":"aicmofobia","model":"seringa","level":"2","marker":"hiro","__v":0}
+{"_id":{"$oid":"5ea98fc97d671500492a2a5e"},"user":"raul@gmail.com","session_name":"batatas","patient":"kiko","notes":"","phobia":"cinofobia","model":"cao","level":"1","marker":"hiro","__v":0}
+{"_id":{"$oid":"5ea9a6f47d671500492a2a5f"},"user":"raul@gmail.com","session_name":"teste","patient":"maria","notes":"","phobia":"entomofobia","model":"barata","level":"3","marker":"hiro","__v":0}

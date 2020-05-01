@@ -9,7 +9,7 @@ app.set('view engine', 'pug');
 // Variaveis
 app.address = 'localhost'
 // app.address = 'gepl.di.uminho.pt'
-app.port = 3112
+app.port = 10200
 app.locals.url = "http://" + app.address + ":" + app.port + "/"
 
 // Base de dados
