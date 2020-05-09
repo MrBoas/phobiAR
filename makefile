@@ -1,6 +1,6 @@
 build:
-	docker build -t mrboas/tese-frontend:latest ./frontend
-	docker build -t mrboas/tese-backend:latest ./backend
+	docker build -t tese-frontend:latest ./frontend
+	docker build -t tese-backend:latest ./backend
 
 runCompose:
 	docker-compose up

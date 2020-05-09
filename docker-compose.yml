@@ -10,7 +10,7 @@ services:
       - "${MONGO_PORT}:27017"
     restart: on-failure
   backend:
-    image: mrboas/tese-backend:latest
+    image: tese-backend:latest
     environment:
       MONGO_PORT: ${MONGO_PORT}
       VUE_APP_BACKEND_PORT: ${VUE_APP_BACKEND_PORT}
@@ -20,7 +20,7 @@ services:
       - "${VUE_APP_BACKEND_PORT}:10201"
     restart: on-failure
   frontend:
-    image: mrboas/tese-frontend:latest
+    image: tese-frontend:latest
     environment:
       VUE_APP_BACKEND_HOST: ${VUE_APP_BACKEND_HOST}
       VUE_APP_BACKEND_PORT: ${VUE_APP_BACKEND_PORT}
