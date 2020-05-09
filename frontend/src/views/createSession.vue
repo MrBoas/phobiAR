@@ -85,11 +85,11 @@
 <script>
   import axios from 'axios'
   // const backend_url = 'http://localhost:3000/'
-  const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST
-  const api_phobias_url = 'api/phobias'
-  const api_markers_url = 'api/markers'
-  const api_sessions_url = 'api/sessions'
-  const sessions_user_param = 'sessions'
+  const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT
+  const api_phobias_url = '/api/phobias'
+  const api_markers_url = '/api/markers'
+  const api_sessions_url = '/api/sessions'
+  const sessions_user_param = '/sessions'
   const user = 'raul@gmail.com'
 
   export default {
@@ -115,7 +115,7 @@
     methods: {
 
       getPhobias(){
-        axios.get(backend_url  + api_phobias_url + '/' + user)
+        axios.get(backend_url  +  api_phobias_url + '/' + user)
           .then(response => {
             this.phobias_list = response.data
           })

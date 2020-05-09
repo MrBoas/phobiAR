@@ -9,12 +9,15 @@ app.set('view engine', 'pug');
 // Variaveis
 app.address = 'localhost'
 // app.address = 'gepl.di.uminho.pt'
-app.port = 10200
+app.port = 10201
 app.locals.url = "http://" + app.address + ":" + app.port + "/"
+
+// url para o mongo caso esteja a correr no docker ou local
+var mongo = (process.argv[3] || '127.0.0.1:27017')
 
 // Base de dados
 var mongoose = require('mongoose')
-const dbLocal = 'mongodb://127.0.0.1:27017/phobiAR'
+const dbLocal = 'mongodb://' + mongo + '/phobiAR'
 mongoose
     .connect(dbLocal, {
         useCreateIndex: true,

@@ -2,7 +2,7 @@ FROM node:12.16.2
 # FROM node:latest
 
 # default port is 5000, change as needed
-EXPOSE 3112
+EXPOSE 10201
 
 ### Set Enviroment Variables
 # set Node(Backend) port, default 8001
@@ -29,4 +29,4 @@ COPY . /home/app/backend
 
 ### Run Node Server
 # CMD npm run start
-CMD npm start
+CMD npm start mongo:27017
