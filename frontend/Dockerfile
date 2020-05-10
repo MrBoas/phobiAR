@@ -1,7 +1,7 @@
 FROM vuejs/ci:latest
 
 # default port is 8000, change as needed
-EXPOSE 10201
+EXPOSE 8000
 
 ### Set Enviroment Variables
 # set FRONTEND port, default 8000
