@@ -28,7 +28,7 @@ services:
     links:
       - backend
     ports:
-      - "${VUE_APP_FRONTEND_PORT}:8000"
+      - "${VUE_APP_FRONTEND_PORT}:8080"
     restart: on-failure
 volumes:
   mongoData:
