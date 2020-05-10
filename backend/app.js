@@ -13,20 +13,20 @@ app.port = 10201
 app.locals.url = "http://" + app.address + ":" + app.port + "/"
 
 // url para o mongo caso esteja a correr no docker ou local
-var mongo = (process.argv[3] || '127.0.0.1:27017')
+var mongo = (process.argv[2] || '127.0.0.1:27017')
 
 // Base de dados
 var mongoose = require('mongoose')
-const dbLocal = 'mongodb://' + mongo + '/phobiAR'
+const db = 'mongodb://' + mongo + '/phobiAR'
 mongoose
-    .connect(dbLocal, {
+    .connect(db, {
         useCreateIndex: true,
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
     .then(() => console.log('DB Connected!'))
     .catch(err => {
-        console.log('DB Connection Error: ${ err.message }');
+        console.log('DB Connection Error:' + err.message);
     });
 
 // middleware
