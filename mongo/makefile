@@ -1,8 +1,8 @@
 # importar para o servidor
 importLocal:
-	mongoimport --db=phobiAR -c sessions --file sessions.out
-	mongoimport --db=phobiAR -c phobias --file phobias.out
-	mongoimport --db=phobiAR -c markers --file markers.out
+	mongoimport --port 10202 --db=phobiAR -c sessions --file sessions.out
+	mongoimport --port 10202 --db=phobiAR -c phobias --file phobias.out
+	mongoimport --port 10202 --db=phobiAR -c markers --file markers.out
 
 # exportar do meu pc
 exportLocal:
