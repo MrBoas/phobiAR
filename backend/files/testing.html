@@ -2,20 +2,22 @@
 <html>
 <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
 <script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/aframe-ar.js"></script>
-<!-- <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"> </script> -->
 <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
 
 <body style='margin : 0px; overflow: hidden;'>
-    <a-scene id="scene" stats
-        arjs='sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;trackingMethod: best; debugUIEnabled: false;'
-        vr-mode-ui="enabled: false" ar-template>
-
+    <a-scene id="scene"
+        embedded
+        stats
+        renderer="logarithmicDepthBuffer: true;"
+        arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+        vr-mode-ui="enabled: false"
+    >
         <a-assets>
-            <a-asset-item id="cobra1" src="/models/Ofidiofobia/1/scene.gltf"> </a-asset-item>
+            <a-asset-item id="cobra1" src="scene.glb"> </a-asset-item>
         </a-assets>
 
-        <a-marker preset='custom' type='pattern' url='/markers/hiro.patt'>
-            <a-gltf-model scale="0.2 0.2 0.2" rotation="180 0 0" src="#cobra1"></a-gltf-model>
+        <a-marker preset='custom' type='pattern' url='hiro.patt'>
+            <a-gltf-model src="#cobra1"></a-gltf-model>
         </a-marker>
 
         <a-entity camera></a-entity>
