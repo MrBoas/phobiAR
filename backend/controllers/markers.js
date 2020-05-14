@@ -17,6 +17,20 @@ Markers.listMarkers = (user) => {
         .exec()
 }
 
+// retorna um marcador de um user
+Markers.showMarker = (user,marker) => {
+    return Marker
+        .find({ marker:marker, $or: [{ user: 'default' }, { user: user }] }, { _id: 0 })
+        .exec()
+}
+
+// retorna o nome da imagem de um marcador
+Markers.getMarkerImage = (user, marker) => {
+    return Marker
+        .findOne({ marker: marker, $or: [{ user: 'default' }, { user: user }] }, { image: 1, _id: 0 })
+        .exec()
+}
+
 
 // // retorna as informações de um marcador
 // Markers.getMarker = marker => {
@@ -25,12 +39,6 @@ Markers.listMarkers = (user) => {
 //         .exec()
 // }
 
-// // retorn o path da imagem de um marcador
-// Markers.getMarkerImage = marker => {
-//     return Marker
-//         .findOne({ marker: marker },{image:1,_id:0})
-//         .exec()
-// }
 
 // // retorn o path do patt de um marcador
 // Markers.getMarkerPatt = marker => {

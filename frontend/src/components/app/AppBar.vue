@@ -1,13 +1,12 @@
 
 <template>
-  <v-app-bar flat app color="grey darken-4">
-    <v-col cols="1"></v-col>
-      <v-btn link to="/"><h2>Home</h2></v-btn>
-
-    <v-col cols="6" class="shrink">
-      <v-btn  link to="/criarsessao"><h2>Criar Sessão</h2></v-btn>
-      <v-btn  link to="/sessoes"><h2>Sessões</h2></v-btn>
-    </v-col>
+  <v-app-bar flat app>
+    <v-tabs background-color="grey darken-4">
+      <v-tab class="white--text" link to="/"> <h3>Home</h3></v-tab>
+      <v-tab class="white--text" link to="/criarsessao"><h3>Criar Sessão</h3></v-tab>
+      <v-tab class="white--text" link to="/sessoes"><h3>Sessões</h3></v-tab>
+      <!-- <v-tab class="white--text" link to="/marcadores"><h3>Marcadores</h3></v-tab> -->
+    </v-tabs>
   </v-app-bar>
 </template>
 

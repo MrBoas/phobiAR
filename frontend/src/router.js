@@ -22,5 +22,10 @@ export default new Router({
       name: 'sessoesList',
       component: () => import('./views/sessions.vue')
     },
+    // {
+    //   path: '/marcadores',
+    //   name: 'marcadoresList',
+    //   component: () => import('./views/markers.vue')
+    // },
   ]
 })

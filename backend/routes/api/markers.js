@@ -22,6 +22,30 @@ router.get('/:user', function (req, res) {
         .catch(error => res.status(500).jsonp(error))
 });
 
+// mostra a informação de um marcador de um user
+router.get('/:user/:marker', function (req, res) {
+    markers.showMarker(req.params.user,req.params.marker)
+        .then(data => {
+            // var result = data.map(function (obj) {
+            //     return obj.marker
+            // })
+            res.jsonp(data)
+        })
+        .catch(error => res.status(500).jsonp(error))
+});
+
+// faz download de um marcador especifico
+router.get('/:user/:marker/download', (req, res) => {
+    markers.getMarkerImage(req.params.user, req.params.marker)
+        .then(data => {
+            res.download(process.cwd() + "/public/markers/" + data.image, erro => {
+                if (erro) console.log('erro:',erro)
+                else console.log('Sent:', data.image)
+            })
+        })
+        .catch(error => res.status(500).jsonp(error))
+})
+
 // // mostra as informações de um marcador
 // router.get('/:marker', function (req, res) {
 //     markers.getMarker(req.params.marker)
@@ -43,16 +67,7 @@ router.get('/:user', function (req, res) {
 //         .catch(error => res.status(500).jsonp(error))
 // });
 
-// // faz download de um marcador especifico
-// router.get('/:marker/download', (req, res) => {
-//     markers.getMarkerImage(req.params.marker)
-//         .then(data =>
-//             res.download(process.cwd() + data.image, erro => {
-//                 if (erro) console.log('erro:',erro)
-//                 else console.log('Sent:', data.image)
-//             }))
-//         .catch(error => res.status(500).jsonp(error))
-// })
+
 
 // // fazer upload de um marcador
 // router.post('/upload', (req, res) => {

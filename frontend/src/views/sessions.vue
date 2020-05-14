@@ -123,6 +123,11 @@
                     >
                       Editar
                     </v-btn>
+                    <v-btn color="primary"
+                      @click="downloadMarker(session.marker)"
+                    >
+                      Download Marker
+                    </v-btn>
                     <v-btn fab x-small depressed dark color="red"
                         @click="deleteSession(session)">
                         <v-icon>delete</v-icon>
@@ -345,8 +350,15 @@
         // console.log(editSession)
         if(editSession.patient != this.patient_oldname)
           this.$router.go(0)
-      }
+      },
+
+    // arranjar uma maneira melhor depois
+    downloadMarker(marker){
+      var url = backend_url + api_markers_url + '/' + user + '/' + marker + '/download'
+      window.open(url);
+    }
     },
+
 
 }
 </script>
