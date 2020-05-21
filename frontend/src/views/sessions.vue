@@ -126,7 +126,7 @@
                     <v-btn color="primary"
                       @click="downloadMarker(session.marker)"
                     >
-                      Download Marker
+                      Download Marcador
                     </v-btn>
                     <v-btn fab x-small depressed dark color="red"
                         @click="deleteSession(session)">
