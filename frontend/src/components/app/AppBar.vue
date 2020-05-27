@@ -5,6 +5,8 @@
       <v-tab class="white--text" link to="/"> <h3>Home</h3></v-tab>
       <v-tab class="white--text" link to="/criarsessao"><h3>Criar Sessão</h3></v-tab>
       <v-tab class="white--text" link to="/sessoes"><h3>Sessões</h3></v-tab>
+      <v-tab class="white--text" link to="/modelos"><h3>Modelos</h3></v-tab>
+      <v-tab class="white--text" link to="/feedback"><h3>Feedback</h3></v-tab>
       <!-- <v-tab class="white--text" link to="/marcadores"><h3>Marcadores</h3></v-tab> -->
     </v-tabs>
   </v-app-bar>

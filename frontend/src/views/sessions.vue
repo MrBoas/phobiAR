@@ -1,5 +1,7 @@
 <template>
 	<v-container>
+    <!-- <p> {{grouped_sessions_list_filtered}}</p> -->
+    <h2> Lista de pacientes: </h2>
     <v-text-field
       label="Filtrar pacientes"
       v-model="filter_patient"
@@ -234,7 +236,7 @@
       },
 
       getPhobias(){
-        axios.get(backend_url  + api_phobias_url + '/' + user)
+        axios.get(backend_url  + api_phobias_url + '/' + user + '/lista')
           .then(response => {
             this.phobias_list = response.data
           })

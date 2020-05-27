@@ -1,6 +1,5 @@
 var express = require('express');
 var formidable = require('formidable')
-var fs = require('fs')
 var router = express.Router();
 var sessions = require("../../controllers/sessions")
 
@@ -48,15 +47,16 @@ router.get('/:user/:session_name/infogerarsessao', function (req, res) {
 router.post('/:user/upload', (req, res) => {
     var form = new formidable.IncomingForm()
     form.parse(req, (erro, fields, files) => {
-      var session_name = fields.session_name
-      var patient = fields.patient
-      var notes = fields.notes
-      var phobia = fields.phobia
-      var model = fields.model
-      var level = fields.level
-      var marker = fields.marker
-
-      var session = { user: req.params.user, session_name: session_name,patient:patient,notes:notes,phobia:phobia,model:model,level:level,marker:marker}
+      var session = {
+        user: req.params.user,
+        session_name: fields.session_name,
+        patient: fields.patient,
+        notes: fields.notes,
+        phobia: fields.phobia,
+        model: fields.model,
+        level: fields.level,
+        marker: fields.marker
+      }
         sessions.createSession(session)
             .then(data => res.jsonp(data))
             .catch(error => res.status(500).jsonp(error))

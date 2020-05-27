@@ -8,8 +8,16 @@ router.get('/', function (req, res) {
         .catch(error => res.status(500).jsonp(error))
 });
 
-// retorna a lista de fobias de um user
+
 router.get('/:user', function (req, res) {
+    phobias.UserPhobias(req.params.user)
+        .then(data => res.jsonp(data))
+        .catch(error => res.status(500).jsonp(error))
+});
+
+
+// retorna a lista de fobias de um user
+router.get('/:user/lista', function (req, res) {
     phobias.listUser(req.params.user)
         .then(data => res.jsonp(data[0].list))
         .catch(error => res.status(500).jsonp(error))

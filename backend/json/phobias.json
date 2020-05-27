@@ -8,6 +8,10 @@
           "levels":[1,2]
       },
       {
+          "model_name":"seringa_evolucao",
+          "levels":[1,2,3,4,5]
+      },
+      {
           "model_name":"seringa_insulina",
           "levels":[1]
       }
@@ -36,8 +40,8 @@
     "user": "raul@gmail.com",
     "models":[
       {
-          "model_name":"viuva_negra",
-          "levels":[1]
+          "model_name":"aranha_evolucao",
+          "levels":[1,2,3,4,5]
       },
       {
           "model_name":"aranha_preta",
@@ -57,6 +61,10 @@
       },
       {
           "model_name":"poucos_poli_aranha",
+          "levels":[1]
+      },
+      {
+          "model_name":"viuva_negra",
           "levels":[1]
       }
     ]
@@ -104,6 +112,10 @@
       {
           "model_name":"cobra_enrolada",
           "levels":[1]
+      },
+      {
+          "model_name":"cobra_evolucao",
+          "levels":[1,2,3,4,5]
       },
       {
           "model_name":"cobra_real",

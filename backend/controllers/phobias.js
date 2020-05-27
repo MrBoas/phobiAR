@@ -10,12 +10,12 @@ Phobias.list = () => {
 }
 
 // retorna a lista de fobias de um user
-// Phobias.listUser = user => {
-//     return Phobia
-//         .find({ user: user }, { phobia: 1, _id: 0 })
-//         .sort({ phobia: 1 })
-//         .exec()
-// }
+Phobias.UserPhobias = user => {
+    return Phobia
+        .find({ user: user }, { _id: 0 })
+        .sort({ phobia: 1 })
+        .exec()
+}
 
 // retorna a lista de fobias de um user
 Phobias.listUser = user => {

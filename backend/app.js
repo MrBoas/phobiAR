@@ -51,6 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/phobias', require('./routes/api/phobias'));
 app.use('/api/markers', require('./routes/api/markers'));
 app.use('/api/sessions', require('./routes/api/sessions'));
+app.use('/api/feedback', require('./routes/api/feedback'));
 app.use('/sessions', require('./routes/sessions'));
 
 

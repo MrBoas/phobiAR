@@ -55,9 +55,9 @@
       <v-col cols="1">
         <v-btn color="primary"
           @click="saveSession();snackbar_create=true"
-          class = "mb-3"
+
           :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
-          Criar Sessão
+          Guardar Sessão
         </v-btn>
 
         <v-btn color="primary"
@@ -67,6 +67,7 @@
         </v-btn>
       </v-col>
     </v-row>
+    <!-- <model-gltf src= "http://localhost:10201/models/entomofobia/barata/1/scene.glb"></model-gltf> -->
     <v-snackbar
       v-model="snackbar_create"
     >
@@ -84,6 +85,7 @@
 
 <script>
   import axios from 'axios'
+  import { ModelGltf } from 'vue-3d-model'
   // const backend_url = 'http://localhost:3000/'
   const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT
   const api_phobias_url = '/api/phobias'
@@ -111,11 +113,13 @@
       this.getPhobias()
       this.getMarkers()
     },
-
+    components: {
+        ModelGltf
+    },
     methods: {
 
       getPhobias(){
-        axios.get(backend_url  +  api_phobias_url + '/' + user)
+        axios.get(backend_url  +  api_phobias_url + '/' + user + '/lista')
           .then(response => {
             this.phobias_list = response.data
           })
