@@ -61,7 +61,7 @@
       <v-col cols="12">
         <h3> Contacto: </h3>
         <p>
-          Para qualquer outro tipo de contacto envie email um para <b>raulvilasboas97@gmail.com</b>.
+          Para qualquer outro tipo de contacto envie um email para <b>raulvilasboas97@gmail.com</b>.
         </p>
       </v-col>
     </v-row>

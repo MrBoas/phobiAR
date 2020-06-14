@@ -59,15 +59,8 @@
           :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
           Guardar Sessão
         </v-btn>
-
-        <v-btn color="primary"
-          @click="goToSession()"
-          :disabled="selected_level && selected_marker ? false : true">
-          Gerar Sessão
-        </v-btn>
       </v-col>
     </v-row>
-    <!-- <model-gltf src= "http://localhost:10201/models/entomofobia/barata/1/scene.glb"></model-gltf> -->
     <v-snackbar
       v-model="snackbar_create"
     >

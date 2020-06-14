@@ -7,11 +7,11 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('./views/home.vue')
-    },
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   component: () => import('./views/home.vue')
+    // },
     {
       path: '/criarsessao',
       name: 'criarsessoesList',
@@ -32,6 +32,11 @@ export default new Router({
       name: 'feedbackList',
       component: () => import('./views/feedback.vue')
     },
+    {
+      path: '/',
+      name: 'aboutList',
+      component: () => import('./views/about.vue')
+    }
     // {
     //   path: '/marcadores',
     //   name: 'marcadoresList',

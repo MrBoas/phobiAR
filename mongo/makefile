@@ -1,5 +1,8 @@
 # usar .exe se tiver na WSL
 
+# comandos a nao esquecer
+# mongo --port 10202
+
 # importar para o servidor
 importLocal:
 	# para corrigir o erro que aparece sempre no servidor
