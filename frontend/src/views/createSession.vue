@@ -1,19 +1,12 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12"/>
-    </v-row>
-
-    <v-row>
-      <v-col cols="1"/>
-      <v-col cols="2" class="mr-6">
+    <v-row
+      justify="center"
+    >
+      <v-col cols="5" sm="5">
         <v-text-field
           v-model= "session_name"
           label="Nome da sessão"
-        ></v-text-field>
-          <v-text-field
-          v-model= "patient"
-          label="Nome do paciente"
         ></v-text-field>
         <v-select
           v-model="selected_phobia"
@@ -21,8 +14,7 @@
           label="Escolha uma fobia."
           @change="getPhobiaModel()"
         ></v-select>
-      </v-col>
-      <v-col cols="2" class="mx-6">
+
         <v-select
           v-model="selected_model"
           :items="models_list"
@@ -37,41 +29,47 @@
           label="Escolha um nível."
           :disabled="selected_phobia && selected_model ? false : true"
         ></v-select>
-
+      </v-col>
+      <v-col cols="5" sm="5">
+         <v-text-field
+          v-model= "patient"
+          label="Nome do paciente"
+        ></v-text-field>
         <v-select
           v-model="selected_marker"
           :items="marker_list"
           label="Escolha um marcador."
         ></v-select>
       </v-col>
-      <v-col cols="3" class="mx-6">
+      <v-col cols="10" sm="10">
         <v-textarea
           rows ="7"
           outlined
           v-model="notes"
-          label= "Notas"
+          label= "Notas Sessão"
         ></v-textarea>
-      </v-col>
-      <v-col cols="1">
-        <v-btn color="primary"
-          @click="saveSession();snackbar_create=true"
-
-          :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
-          Guardar Sessão
-        </v-btn>
+        <v-row
+          justify="end"
+        >
+          <v-btn color="primary"
+            @click="saveSession();snackbar_create=true"
+            :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
+            Guardar Sessão
+          </v-btn>
+        </v-row>
       </v-col>
     </v-row>
     <v-snackbar
-      v-model="snackbar_create"
-    >
-      Sessão criada com sucesso
-      <v-btn
-        color="blue"
-        text
-        @click="snackbar_create = false"
-      >
-        Close
-      </v-btn>
+          v-model="snackbar_create"
+        >
+          Sessão criada com sucesso
+          <v-btn
+            color="blue"
+            text
+            @click="snackbar_create = false"
+          >
+            Close
+          </v-btn>
     </v-snackbar>
   </v-container>
 </template>
