@@ -91,57 +91,84 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-row dense>
-            <v-col cols="12"
-              v-for="session in patient_session_list.values"
-              :key="session.session_name"
+          <v-row
+            v-for="session in patient_session_list.values"
+            :key="session.session_name"
             >
-              <v-card>
-                <v-card-title>
-                  Nome da Sessão: {{session.session_name}}
-                </v-card-title>
-                <v-row>
-                  <v-col cols="6">
-                    <v-card-text>
-                      <p> Nome paciente: {{session.patient}} </p>
-                      <p> Fobia: {{session.phobia}} </p>
-                      <p> Modelo: {{session.model}} </p>
-                      <p> Nível: {{session.level}} </p>
-                      <p> Marcador: {{session.marker}} </p>
-                    </v-card-text>
-                    <v-btn color="primary"
-                      @click="goToSession(session.phobia,session.model,session.level,session.marker)"
-                      :disabled="session.phobia && session.model && session.level && session.marker ? false : true"
-                      >
-                      Gerar Sessão
-                    </v-btn>
-                    <v-btn color="primary"
-                      @click="dialogEditSession=true;
-                      savedSessionEdit(session);
-                      getPhobias();
-                      getMarkers();
-                      getPhobiaModels();
-                      getModelLevels();"
-                    >
-                      Editar
-                    </v-btn>
-                    <v-btn color="primary"
-                      @click="downloadMarker(session.marker)"
-                    >
-                      Download Marcador
-                    </v-btn>
-                    <v-btn fab x-small depressed dark color="red"
-                        @click="deleteSession(session)">
-                        <v-icon>delete</v-icon>
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="6">
-                    <p> Notas sessões: {{session.notes}} </p>
-                  </v-col>
-                </v-row>
-                <v-divider/>
-              </v-card>
+            <v-col cols="12" class="pb-0">
+              <h3> Sessão: {{session.session_name}}</h3>
             </v-col>
+          <v-col cols="12">
+            <v-simple-table dense>
+                <tr>
+                  <th class="text-left">Sessão</th>
+                  <td>{{ session.session_name }}</td>
+                </tr>
+                <tr>
+                  <th class="text-left">Paciente</th>
+                  <td>{{ session.patient }}</td>
+                </tr>
+                <tr>
+                  <th class="text-left">Fobia</th>
+                  <td>{{ session.phobia }}</td>
+                </tr>
+                <tr>
+                  <th class="text-left">Modelo</th>
+                  <td>{{ session.model }}</td>
+                </tr>
+                <tr>
+                  <th class="text-left">Nível</th>
+                  <td>{{ session.level }}</td>
+                </tr>
+                <tr>
+                  <th class="text-left">Marcador</th>
+                  <td>{{ session.marker }}</td>
+                </tr>
+                <tr v-if="session.notes">
+                  <th class="text-left">Notas</th>
+                  <td>{{ session.notes }}</td>
+                </tr>
+            </v-simple-table>
+          </v-col>
+          <v-col class="pt-0">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn fab x-small depressed dark color="green" v-on="on"
+                  class="mr-2 ml-3"
+                  @click="dialogEditSession=true;
+                  savedSessionEdit(session);
+                  getPhobias();
+                  getMarkers();
+                  getPhobiaModels();
+                  getModelLevels();"
+                >
+                <v-icon>create</v-icon>
+                </v-btn>
+              </template>
+              <span>Editar Sessão</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+              <v-btn fab x-small depressed dark color="blue" v-on="on"
+                class="mr-2"
+                @click="downloadMarker(session.marker)"
+              >
+              <v-icon>get_app</v-icon>
+              </v-btn>
+              </template>
+            <span>Download Marcador</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn fab x-small depressed dark color="red" v-on="on"
+                    class="mr-2"
+                    @click="deleteSession(session)">
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                </template>
+                <span>Apagar Sessão</span>
+            </v-tooltip>
+          </v-col>
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
