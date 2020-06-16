@@ -56,14 +56,6 @@
           "levels":[1]
       },
       {
-          "model_name":"despacito",
-          "levels":[1]
-      },
-      {
-          "model_name":"poucos_poli_aranha",
-          "levels":[1]
-      },
-      {
           "model_name":"viuva_negra",
           "levels":[1]
       }
@@ -80,10 +72,6 @@
       {
           "model_name":"cao",
           "levels":[1]
-      },
-      {
-          "model_name":"dobermann",
-          "levels":[1]
       }
     ]
   },
@@ -92,8 +80,12 @@
     "user": "raul@gmail.com",
     "models":[
       {
-          "model_name":"barata",
+          "model_name":"baratas",
           "levels":[1,2,3]
+      },
+      {
+          "model_name":"barata_evolucao",
+          "levels":[1,2,3,4]
       }
     ]
   },
@@ -107,7 +99,7 @@
       },
       {
           "model_name":"cobra_cartoon",
-          "levels":[1,2]
+          "levels":[1]
       },
       {
           "model_name":"cobra_enrolada",

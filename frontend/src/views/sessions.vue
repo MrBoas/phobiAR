@@ -131,6 +131,14 @@
             </v-simple-table>
           </v-col>
           <v-col class="pt-0">
+            <v-btn color="primary"
+              rounded
+              class="ml-3"
+              @click="goToSession(session.phobia,session.model,session.level,session.marker)"
+              :disabled="session.phobia && session.model && session.level && session.marker ? false : true"
+              >
+              Gerar
+            </v-btn>
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn fab x-small depressed dark color="green" v-on="on"
