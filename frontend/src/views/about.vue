@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 80%">
+  <v-container style="width: 93%">
     <v-row>
       <v-col>
         <h2> About me </h2>
