@@ -24,7 +24,7 @@
           1. Criar uma sessão em <i>Criar Sessão;</i> <br>
           2. Ir para <i> Sessões </i> e procurar pela sessão criada; <br>
           3. Fazer download do marcador caso não o tenha;<br>
-          4. Carregar no botão </i> gerar sessão; </i> <br>
+          4. Carregar no botão <i> gerar sessão; </i> <br>
           5. Apontar a câmara para o marcador.
         </p>
         <h2> Contacto </h2>

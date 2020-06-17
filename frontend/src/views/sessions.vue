@@ -96,7 +96,8 @@
             :key="session.session_name"
             >
             <v-col cols="12" class="pb-0">
-              <h3> Sessão: {{session.session_name}}</h3>
+              <!-- <h3> Sessão: {{session.session_name}}</h3> -->
+              <!-- <v-divider/> -->
             </v-col>
           <v-col cols="12">
             <v-simple-table dense>
@@ -176,6 +177,10 @@
                 </template>
                 <span>Apagar Sessão</span>
             </v-tooltip>
+            <v-divider
+              class="mt-5"
+            >
+            </v-divider>
           </v-col>
           </v-row>
         </v-expansion-panel-content>
