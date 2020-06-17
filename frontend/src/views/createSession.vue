@@ -1,24 +1,26 @@
 <template>
-  <v-container>
+  <v-container >
     <v-row
       justify="center"
     >
       <v-col cols="5" sm="5">
+        <h3> Preencha:</h3>
         <v-text-field
           v-model= "session_name"
           label="Nome da sessão"
         ></v-text-field>
+        <h3> Escolha: </h3>
         <v-select
           v-model="selected_phobia"
           :items="phobias_list"
-          label="Escolha uma fobia."
+          label="Fobia"
           @change="getPhobiaModel()"
         ></v-select>
 
         <v-select
           v-model="selected_model"
           :items="models_list"
-          label="Escolha um modelo."
+          label="Modelo"
           @change="getModelLevels()"
           :disabled="selected_phobia ? false : true"
         ></v-select>
@@ -26,24 +28,26 @@
         <v-select
           v-model="selected_level"
           :items="levels_list"
-          label="Escolha um nível."
+          label="Nível"
           :disabled="selected_phobia && selected_model ? false : true"
         ></v-select>
       </v-col>
       <v-col cols="5" sm="5">
          <v-text-field
+          class="mt-8"
           v-model= "patient"
           label="Nome do paciente"
         ></v-text-field>
         <v-select
+          class="mt-8"
           v-model="selected_marker"
           :items="marker_list"
-          label="Escolha um marcador."
+          label="Marcador"
         ></v-select>
       </v-col>
       <v-col cols="10" sm="10">
         <v-textarea
-          rows ="7"
+          rows ="6"
           outlined
           v-model="notes"
           label= "Notas Sessão"

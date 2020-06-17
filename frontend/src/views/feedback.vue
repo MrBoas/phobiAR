@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container style="width: 95%">
     <v-row dense>
       <v-col cols="12">
         <h3> Sumissão de Feedback: </h3>
