@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- <p> {{phobias_list_all}} </p> -->
-    <h2> Lista de Fobias </h2>
+    <h2 class="mb-4"> Lista de Fobias </h2>
     <!-- multiple para ter vários abertos no acordeao -->
     <v-expansion-panels accordion>
       <v-expansion-panel

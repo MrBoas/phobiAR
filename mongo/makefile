@@ -2,6 +2,7 @@
 
 # comandos a nao esquecer
 # mongo --port 10202
+# db.phobias.drop()
 
 # importar para o servidor
 importLocal:
