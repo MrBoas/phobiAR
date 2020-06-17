@@ -5,7 +5,6 @@
 
 # importar para o servidor
 importLocal:
-	# para corrigir o erro que aparece sempre no servidor
 	export LC_ALL=C
 	mongoimport --port 10202 --db=phobiAR -c sessions --file sessions.out
 	mongoimport --port 10202 --db=phobiAR -c phobias --file phobias.out
