@@ -152,11 +152,6 @@
           })
           .catch(error =>console.log(error))
       },
-      goToSession(){
-        var sessions_param = '/' + this.selected_phobia + '/' + this.selected_model + '/' + this.selected_level + '/' + this.selected_marker
-        var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param
-        window.open(url_session)
-      },
 
       saveSession(){
         var body = {
