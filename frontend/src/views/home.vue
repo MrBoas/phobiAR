@@ -18,9 +18,12 @@
         </p>
       </v-col>
     </v-row>
-    <v-row justify="center">
+    <v-row justify="center" align="center">
+    <!-- <v-col cols="12" sm="2">
+      <h1> phobiAR </h1>
+    </v-col> -->
       <v-col cols="12" sm="4">
-        <v-carousel  height="auto" hide-delimiters>
+        <v-carousel  height="auto" hide-delimiters cycle>
           <v-carousel-item
             v-for="(item,i) in items"
             :key="i"
@@ -37,6 +40,7 @@
   export default {
     data () {
       return {
+        myImage: require('@/assets/phobiAR_logo.png'),
         items: [
           {
             src: require('@/assets/aranha.png'),
