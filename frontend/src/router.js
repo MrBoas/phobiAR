@@ -9,8 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'aboutList',
-      component: () => import('./views/about.vue')
+      name: 'homeList',
+      component: () => import('./views/home.vue')
     },
     {
       path: '/criarsessao',
@@ -32,10 +32,10 @@ export default new Router({
       name: 'feedbackList',
       component: () => import('./views/feedback.vue')
     },
-    // {
-    //   path: '/marcadores',
-    //   name: 'marcadoresList',
-    //   component: () => import('./views/markers.vue')
-    // },
+    {
+      path: '/about',
+      name: 'aboutList',
+      component: () => import('./views/about.vue')
+    },
   ]
 })

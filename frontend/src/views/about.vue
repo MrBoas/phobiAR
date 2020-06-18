@@ -36,7 +36,7 @@
           Trends and Innovations in Information Systems and Technologies (Cham) (Alvaro Rocha, Hojjat Adeli, Luís Paulo Reis, Sandra Costanzo, Irena Orovic, and
           Fernando Moreira, eds.), Springer International Publishing, 2020,
           pp. 181–187,
-          DOI: 10.1007/978-3-030-45691-7_17
+          DOI: <a href="https://link.springer.com/chapter/10.1007%2F978-3-030-45691-7_17">10.1007/978-3-030-45691-7_17</a>
           </p>
 
       </v-col>
