@@ -389,8 +389,8 @@
         if(backend == 'localhost')
           var url = backend_url
         else
-          var url = 'https://phobiar-be.epl.di.uminho.pt/'
-        var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param
+          var url = 'https://phobiar-be.epl.di.uminho.pt'
+        var url_session =  url + sessions_user_param + '/' + user + sessions_param
         window.open(url_session)
       },
       patientChangedReload(editSession){
