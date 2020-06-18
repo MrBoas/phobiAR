@@ -1,7 +1,7 @@
 <template>
   <v-container style="width: 95%">
     <v-row>
-      <v-col>
+      <v-col cols="12">
         <h2> About phobiAR </h2>
          <p class="text-justify">
            Esta plataforma tem como objetivo providenciar uma maneira fácil e intuitiva para os psicólogos conseguirem utilizar a Realidade Aumentada
@@ -18,5 +18,37 @@
         </p>
       </v-col>
     </v-row>
+    <v-row justify="center">
+      <v-col cols="12" sm="4">
+        <v-carousel  height="auto" hide-delimiters>
+          <v-carousel-item
+            v-for="(item,i) in items"
+            :key="i"
+            :src="item.src"
+          ></v-carousel-item>
+        </v-carousel>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
+
+
+<script>
+  export default {
+    data () {
+      return {
+        items: [
+          {
+            src: require('@/assets/aranha.png'),
+          },
+          {
+            src: require('@/assets/cobra.png'),
+          },
+          {
+            src: require('@/assets/seringa.png'),
+          }
+        ],
+      }
+    },
+  }
+</script>
