@@ -206,6 +206,7 @@
   import axios from 'axios'
   import * as d3 from 'd3'
   // const backend_url = 'http://localhost:3000/'
+  const backend = process.env.VUE_APP_BACKEND_HOST
   const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST + ':' + process.env.VUE_APP_BACKEND_PORT
   const api_sessions_url = '/api/sessions'
   const api_phobias_url = '/api/phobias'
@@ -385,6 +386,10 @@
       },
       goToSession(phobia,model,level,marker){
         var sessions_param = '/' + phobia + '/' + model + '/' + level + '/' + marker
+        if(backend == 'localhost')
+          var url = backend_url
+        else
+          var url = 'https://phobiar-be.epl.di.uminho.pt/'
         var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param
         window.open(url_session)
       },
