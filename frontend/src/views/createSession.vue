@@ -81,8 +81,8 @@
 <script>
   import axios from 'axios'
   import { ModelGltf } from 'vue-3d-model'
-  // const backend_url = 'http://localhost:3000/'
-  const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST
+
+  const backend_url =  process.env.VUE_APP_BACKEND_HOST
   const api_phobias_url = '/api/phobias'
   const api_markers_url = '/api/markers'
   const api_sessions_url = '/api/sessions'

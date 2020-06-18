@@ -62,7 +62,7 @@
 
   export default {
     data: () => ({
-      backend_url:'http://' + process.env.VUE_APP_BACKEND_HOST,
+      backend_url:process.env.VUE_APP_BACKEND_HOST,
       api_phobias_url: '/api/phobias',
       user: 'raul@gmail.com',
       phobias_list_all:[],
