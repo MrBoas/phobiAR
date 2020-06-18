@@ -1,7 +1,11 @@
 
 <template>
   <v-app-bar flat app>
-    <v-tabs background-color="grey darken-4" dark show-arrows>
+    <v-tabs background-color="grey darken-4"
+      dark show-arrows
+      slider-color="blue darken-2"
+      slider-size="4"
+    >
       <v-tab class="white--text" link to="/">
         <img class="mt-2" :src="myImage">
       </v-tab>
