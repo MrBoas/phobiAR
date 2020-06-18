@@ -77,6 +77,7 @@ export default {
     rating:5,
     ideas:"",
     bugs:"",
+    backend_url:'http://' + process.env.VUE_APP_BACKEND_HOST,
     loading: {
       feedbackSubmit: false
     },
