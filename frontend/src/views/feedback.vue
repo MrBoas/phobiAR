@@ -71,6 +71,7 @@
 <script>
 import Vuex from 'vuex'
 import axios from 'axios'
+const backend_url = 'http://' + process.env.VUE_APP_BACKEND_HOST
 
 export default {
   data: () => ({
