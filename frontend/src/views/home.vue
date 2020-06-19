@@ -10,11 +10,11 @@
          </p>
         <h2> Guia de Utilização </h2>
         <p>
-          1. Criar uma sessão em <i>Criar Sessão;</i> <br>
-          2. Ir para <i> Sessões </i> e procurar pela sessão criada; <br>
-          3. Fazer download do marcador caso não o tenha;<br>
-          4. Carregar no botão <i> gerar sessão; </i> <br>
-          5. Apontar a câmara para o marcador.
+          1. Crie uma sessão em <i>Criar Sessão;</i> <br>
+          2. Carregue na tab <i> Sessões </i> e procure pela sessão criada; <br>
+          3. Faça download do marcador que escolheu caso não o tenha;<br>
+          4. Carregue no botão <i> gerar sessão</i>; <br>
+          5. Aponte a câmara para a imagem do marcador.
         </p>
       </v-col>
       <v-col cols="12" sm="4">
@@ -36,7 +36,6 @@
   export default {
     data () {
       return {
-        myImage: require('@/assets/phobiAR_logo.png'),
         items: [
           {
             src: require('@/assets/aranha.png'),

@@ -1,13 +1,13 @@
 <template>
   <v-container style="width: 95%">
-    <v-row dense>
-      <v-col cols="12">
+    <v-row dense justify="center">
+      <v-col cols="12" sm="9">
         <h3> Sumissão de Feedback: </h3>
         <p class="mb-1"> Está página foi criada com o intuito de haver um forma fácil e rápida
           de submeter feedback que tenha relativamente à plataforma.
         </p>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12"  sm="9">
         <v-textarea outlined auto-grow hide-details
           v-model="ideas"
           rows="6"
@@ -16,7 +16,7 @@
           placeholder="Ideias, sugestões, etc"
       ></v-textarea>
       </v-col>
-      <v-col cols="12" class="pt-3">
+      <v-col cols="12" class="pt-3"  sm="9">
         <v-textarea outlined auto-grow hide-details
           v-model="bugs"
           rows="6"
@@ -25,8 +25,7 @@
           placeholder="Erros encontrados"
         ></v-textarea>
       </v-col>
-      <!-- <p>Avalie a sua experiência geral durante a utilização da ferramenta.</p> -->
-      <v-col cols="12">
+      <v-col cols="12"  sm="9">
         <v-slider hide-details
           v-model="rating"
           label="Experiência Geral"
@@ -37,7 +36,7 @@
         >
       </v-slider>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12"  sm="9">
         <v-btn block color="primary"
           @click="feedback(ideas,bugs,rating)"
           :loading="loading.feedbackSubmit"
@@ -45,20 +44,20 @@
           Submeter Feedback
         </v-btn>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12"  sm="9">
         <h3> Formulário: </h3>
         <p class="mb-1">
           De forma a contribuir com um feedback mais completo, por favor, preencha o seguinte formulário.
         </p>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12"  sm="9">
         <v-btn block color="primary"
           @click="gotoForm()"
         >
           Prencher Formulário
         </v-btn>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12"  sm="9">
         <h3> Contacto: </h3>
         <p>
           Para qualquer outro tipo de contacto envie um email para <b>raulvilasboas97@gmail.com</b>.
