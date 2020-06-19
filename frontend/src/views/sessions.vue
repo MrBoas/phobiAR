@@ -140,6 +140,13 @@
               >
               Gerar
             </v-btn>
+            <!-- https://phobiar-be.epl.di.uminho.pt/sessions/raul@gmail.com/aicmofobia/seringa_evolucao/5/level1 -->
+              <img
+                :src="'https://api.qrserver.com/v1/create-qr-code/?data='
+                +'https://phobiar-be.epl.di.uminho.pt/sessions/'
+                +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
+                +'&ampsize=300x300'"
+              />
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn fab x-small depressed dark color="green" v-on="on"
@@ -211,10 +218,10 @@
   const api_phobias_url = '/api/phobias'
   const api_markers_url = '/api/markers'
   const sessions_user_param = '/sessions'
-  const user = 'raul@gmail.com'
 
   export default {
     data: () => ({
+      user: 'raul@gmail.com',
       session_oldname:"",
       filter_patient:"",
       patient_oldname:"",
@@ -265,7 +272,7 @@
       },
 
       getSessions(){
-        axios.get(backend_url + api_sessions_url + '/' + user)
+        axios.get(backend_url + api_sessions_url + '/' + this.user)
           .then(response => {
             var sessions_list = response.data.sort(response.data.patient)
             this.grouped_sessions_list = d3.nest()
@@ -276,7 +283,7 @@
       },
 
       getPhobias(){
-        axios.get(backend_url  + api_phobias_url + '/' + user + '/lista')
+        axios.get(backend_url  + api_phobias_url + '/' + this.user + '/lista')
           .then(response => {
             this.phobias_list = response.data
           })
@@ -284,7 +291,7 @@
       },
 
       getPhobiaModels: async function () {
-        axios.get(backend_url + api_phobias_url + '/'+ user + '/'+ this.editSession.phobia)
+        axios.get(backend_url + api_phobias_url + '/'+ this.user + '/'+ this.editSession.phobia)
           .then(response =>{
             this.models_list = response.data
           })
@@ -292,7 +299,7 @@
       },
 
       getModelLevels: async function () {
-        var urlAux = backend_url + api_phobias_url + '/'+ user + '/' +  this.editSession.phobia + '/' + this.editSession.model
+        var urlAux = backend_url + api_phobias_url + '/'+ this.user + '/' +  this.editSession.phobia + '/' + this.editSession.model
         axios.get(urlAux)
           .then(response =>{
             // a lista de inteiros por motivos desconhecidos
@@ -306,7 +313,7 @@
         if(this.editSession.phobia){
           this.editSession.model=''
           this.editSession.level=''
-          axios.get(backend_url + api_phobias_url + '/'+ user + '/'+ this.editSession.phobia)
+          axios.get(backend_url + api_phobias_url + '/'+ this.user + '/'+ this.editSession.phobia)
             .then(response =>{
               this.models_list = response.data
             })
@@ -317,7 +324,7 @@
       getModelLevelsAfterModel: async function () {
         if(this.editSession.model){
           this.editSession.level=''
-          var urlAux = backend_url + api_phobias_url + '/'+ user + '/' +  this.editSession.phobia + '/' + this.editSession.model
+          var urlAux = backend_url + api_phobias_url + '/'+ this.user + '/' +  this.editSession.phobia + '/' + this.editSession.model
           axios.get(urlAux)
             .then(response =>{
               this.levels_list = response.data
@@ -327,7 +334,7 @@
       },
 
       getMarkers(){
-        axios.get(backend_url+api_markers_url + '/'+ user)
+        axios.get(backend_url+api_markers_url + '/'+ this.user)
           .then(response=>{
             this.marker_list=response.data
           })
@@ -335,7 +342,7 @@
       },
 
       deleteSession(session){
-        axios.delete(backend_url+api_sessions_url + '/' + user+'/' + session.session_name + '/' + session.patient)
+        axios.delete(backend_url+api_sessions_url + '/' + this.user+'/' + session.session_name + '/' + session.patient)
           .then(response=>{
             for(let i=0; i< this.grouped_sessions_list.length;i++){
               if(this.grouped_sessions_list[i].key === session.patient){
@@ -357,7 +364,7 @@
         },
 
       updateSession(editSession){
-        const url = backend_url+api_sessions_url + '/' + user+'/' + this.session_oldname + '/' + this.patient_oldname
+        const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_oldname + '/' + this.patient_oldname
         axios.put(url,editSession)
           .then(response=>{
             for (let i = 0; i < this.grouped_sessions_list.length; i++) {
@@ -385,7 +392,7 @@
       },
       goToSession(phobia,model,level,marker){
         var sessions_param = '/' + phobia + '/' + model + '/' + level + '/' + marker
-        var url_session =  backend_url + sessions_user_param + '/' + user + sessions_param
+        var url_session =  backend_url + sessions_user_param + '/' + this.user + sessions_param
         window.open(url_session)
       },
       patientChangedReload(editSession){
@@ -396,7 +403,7 @@
 
     // arranjar uma maneira melhor depois
     downloadMarker(marker){
-      var url = backend_url + api_markers_url + '/' + user + '/' + marker + '/download'
+      var url = backend_url + api_markers_url + '/' + this.user + '/' + marker + '/download'
       window.open(url);
     }
     },
