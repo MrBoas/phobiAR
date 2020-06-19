@@ -19,7 +19,7 @@
           :src="require('@/assets/foto.jpg')"
         ></v-img>
         <h4 class="text-center pt-3">Raul Vilas Boas</h4>
-        <p class="text-center mb-0">  Aluno</p>
+        <p class="text-center mb-0">  Aluno de Mestrado</p>
       </v-col>
       <v-col cols="8" sm="2">
         <v-img
@@ -34,17 +34,18 @@
           class="mb-2"
           :src="require('@/assets/foto.jpg')"
         ></v-img>
-        <h4 class="text-center pt-3">Greice Zanini</h4>
-        <p class="text-center mb-0">Psicóloga Colaborador</p>
+        <h4 class="text-center pt-3">Lázaro Lima</h4>
+        <p class="text-center mb-0">  Coorientador</p>
       </v-col>
       <v-col cols="8" sm="2">
         <v-img
           class="mb-2"
           :src="require('@/assets/foto.jpg')"
         ></v-img>
-        <h4 class="text-center pt-3">Lázaro Lima</h4>
-        <p class="text-center mb-0">  Coorientador</p>
+        <h4 class="text-center pt-3">Greice Zanini</h4>
+        <p class="text-center mb-0">Psicóloga Colaborador</p>
       </v-col>
+
     </v-row>
     <v-row justify="center">
       <v-col cols="12" sm="9">
