@@ -39,9 +39,15 @@
                     <v-col cols="12" sm="6" v-if="preview_phobia==element.phobia &&
                       preview_model==model.model_name &&
                       preview_level==level">
-                    <model-gltf :src="backend_url+'/models/'+preview_phobia+'/'+preview_model+'/'+preview_level+'/scene.glb'"
-                      >
-                    </model-gltf>
+                      <v-card outlined loading=true>
+                        <v-img>
+                          <v-icon>open_with</v-icon>
+                        </v-img>
+                        <model-gltf
+                          :src="backend_url+'/models/'+preview_phobia+'/'+preview_model+'/'+preview_level+'/scene.glb'"
+                          >
+                        </model-gltf>
+                      </v-card>
                     </v-col>
                   </v-row>
                 </v-row>

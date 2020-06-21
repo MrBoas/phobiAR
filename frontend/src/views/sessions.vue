@@ -3,6 +3,7 @@
     <!-- <p> {{grouped_sessions_list_filtered}}</p> -->
     <h2> Lista de pacientes: </h2>
     <v-text-field
+      clearable
       label="Filtrar pacientes"
       v-model="filter_patient"
     ></v-text-field>
