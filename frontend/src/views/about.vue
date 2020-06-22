@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 95%">
+  <v-container style="width: 90%">
     <v-row justify="center">
       <v-col cols="12" sm="9">
         <h2 class="pb-2"> About me </h2>

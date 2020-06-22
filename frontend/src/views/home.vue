@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 95%">
+  <v-container style="width: 90%">
     <v-row align="center" justify="center" class="mt-8">
       <v-col cols="12" sm="5" class="mr-6">
         <h2> About phobiAR </h2>

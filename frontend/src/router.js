@@ -28,6 +28,11 @@ export default new Router({
       component: () => import('./views/models.vue')
     },
     {
+      path: '/marcadores',
+      name: 'marcadoresList',
+      component: () => import('./views/markers.vue')
+    },
+    {
       path: '/feedback',
       name: 'feedbackList',
       component: () => import('./views/feedback.vue')
