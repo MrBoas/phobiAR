@@ -161,7 +161,7 @@
                 +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
                 +'&ampsize=300x300'"
               />
-              <v-row justify="center"> <h4> QR Code da sessão </h4> </v-row>
+              <v-row justify="center"> <h4> QR Code para gerar a sessão </h4> </v-row>
             </v-tooltip>
             <!-- https://phobiar-be.epl.di.uminho.pt/sessions/raul@gmail.com/aicmofobia/seringa_evolucao/5/level1 -->
               <!-- <img
