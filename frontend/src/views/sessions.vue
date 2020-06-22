@@ -134,7 +134,7 @@
           </v-col>
           <v-col class="pt-0">
             <v-btn color="primary"
-              rounded
+              depressed rounded
               class="ml-2"
               @click="goToSession(session.phobia,session.model,session.level,session.marker)"
               :disabled="session.phobia && session.model && session.level && session.marker ? false : true"
@@ -144,9 +144,9 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  depressed dark
-                  fab x-small
-                  color="primary"
+                  depressed fab dark
+                  x-small
+                  color="black"
                   rounded
                   class="ml-2"
                   v-bind="attrs"
