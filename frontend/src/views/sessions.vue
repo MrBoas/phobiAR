@@ -135,23 +135,45 @@
           <v-col class="pt-0">
             <v-btn color="primary"
               rounded
-              class="ml-3"
+              class="ml-2"
               @click="goToSession(session.phobia,session.model,session.level,session.marker)"
               :disabled="session.phobia && session.model && session.level && session.marker ? false : true"
               >
               Gerar
             </v-btn>
-            <!-- https://phobiar-be.epl.di.uminho.pt/sessions/raul@gmail.com/aicmofobia/seringa_evolucao/5/level1 -->
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  depressed dark
+                  fab x-small
+                  color="primary"
+                  rounded
+                  class="ml-2"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                <v-icon>qr_code</v-icon>
+              </v-btn>
+              </template>
               <img
                 :src="'https://api.qrserver.com/v1/create-qr-code/?data='
                 +'https://phobiar-be.epl.di.uminho.pt/sessions/'
                 +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
                 +'&ampsize=300x300'"
               />
+              <v-row justify="center"> <h4> QR Code da sessão </h4> </v-row>
+            </v-tooltip>
+            <!-- https://phobiar-be.epl.di.uminho.pt/sessions/raul@gmail.com/aicmofobia/seringa_evolucao/5/level1 -->
+              <!-- <img
+                :src="'https://api.qrserver.com/v1/create-qr-code/?data='
+                +'https://phobiar-be.epl.di.uminho.pt/sessions/'
+                +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
+                +'&ampsize=300x300'"
+              /> -->
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn fab x-small depressed dark color="green" v-on="on"
-                  class="mr-2 ml-3"
+                  class="mr-2 ml-2"
                   @click="dialogEditSession=true;
                   savedSessionEdit(session);
                   getPhobias();
@@ -173,7 +195,7 @@
               <v-icon>get_app</v-icon>
               </v-btn>
               </template>
-            <span>Download Marcador</span>
+            <span>Transferir Marcador</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
