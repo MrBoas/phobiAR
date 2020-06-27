@@ -48,10 +48,6 @@
           "levels":[1]
       },
       {
-          "model_name":"aranha_simples",
-          "levels":[1,2,3]
-      },
-      {
           "model_name":"aranha_teia",
           "levels":[1]
       },
