@@ -1,6 +1,5 @@
 <template>
 	<v-container>
-    <!-- <p> {{grouped_sessions_list_filtered}}</p> -->
     <h2> Lista de pacientes: </h2>
     <v-text-field
       clearable
@@ -29,12 +28,12 @@
                 <v-row>
                   <v-col cols="6">
                     <v-text-field
-                      v-model="editSession.session_name"
-                      label="Nome da sessão"
-                    ></v-text-field>
-                    <v-text-field
                       v-model="editSession.patient"
                       label="Nome do paciente"
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="editSession.session_date"
+                      label="Nome da sessão"
                     ></v-text-field>
                     <v-select
                       v-model="editSession.phobia"
@@ -80,7 +79,7 @@
                       dialogEditSession=false;
                       patientChangedReload(editSession);
                       snackbar_edit = true"
-                    :disabled="editSession.session_name && editSession.patient && editSession.phobia && editSession.model && editSession.level && editSession.marker    ? false : true">
+                    :disabled="editSession.session_date && editSession.patient && editSession.phobia && editSession.model && editSession.level && editSession.marker    ? false : true">
                     Guardar
                   </v-btn>
                 </v-col>
@@ -94,21 +93,19 @@
           </v-dialog>
           <v-row
             v-for="session in patient_session_list.values"
-            :key="session.session_name"
+            :key="session.session_date"
             >
             <v-col cols="12" class="pb-0">
-              <!-- <h3> Sessão: {{session.session_name}}</h3> -->
-              <!-- <v-divider/> -->
             </v-col>
           <v-col cols="12">
             <v-simple-table dense>
                 <tr>
-                  <th class="text-left">Sessão</th>
-                  <td>{{ session.session_name }}</td>
-                </tr>
-                <tr>
                   <th class="text-left">Paciente</th>
                   <td>{{ session.patient }}</td>
+                </tr>
+                <tr>
+                  <th class="text-left">Data</th>
+                  <td>{{ session.session_date }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Fobia</th>
@@ -163,13 +160,6 @@
               />
               <v-row justify="center"> <h4> QR Code para gerar a sessão </h4> </v-row>
             </v-tooltip>
-            <!-- https://phobiar-be.epl.di.uminho.pt/sessions/raul@gmail.com/aicmofobia/seringa_evolucao/5/level1 -->
-              <!-- <img
-                :src="'https://api.qrserver.com/v1/create-qr-code/?data='
-                +'https://phobiar-be.epl.di.uminho.pt/sessions/'
-                +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
-                +'&ampsize=300x300'"
-              /> -->
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn fab x-small depressed dark color="green" v-on="on"
@@ -250,7 +240,7 @@
       patient_oldname:"",
       grouped_sessions_list:"",
       editSession:{
-        session_name: "",
+        session_date: "",
         patient: "",
         notes: "",
         phobia: "",
@@ -283,9 +273,9 @@
     },
     methods: {
       savedSessionEdit(session) {
-        this.session_oldname = session.session_name
+        this.session_oldname = session.session_date
         this.patient_oldname = session.patient
-        this.editSession.session_name = session.session_name
+        this.editSession.session_date = session.session_date
         this.editSession.patient = session.patient
         this.editSession.notes =session.notes
         this.editSession.phobia = session.phobia
@@ -301,6 +291,14 @@
             this.grouped_sessions_list = d3.nest()
               .key(function(d) { return d.patient; })
               .entries(sessions_list);
+
+            //eliminar partes da data
+            var patt = /(.*)T/
+            for(let i=0; i< this.grouped_sessions_list.length;i++){
+              for(let j=0; j < this.grouped_sessions_list[i].values.length;j++){
+                this.grouped_sessions_list[i].values[j].session_date = this.grouped_sessions_list[i].values[j].session_date.match(patt)[1];
+              }
+            }
           })
           .catch(error => console.log(error))
       },
@@ -365,12 +363,12 @@
       },
 
       deleteSession(session){
-        axios.delete(backend_url+api_sessions_url + '/' + this.user+'/' + session.session_name + '/' + session.patient)
+        axios.delete(backend_url+api_sessions_url + '/' + this.user+'/' + session.session_date + '/' + session.patient)
           .then(response=>{
             for(let i=0; i< this.grouped_sessions_list.length;i++){
               if(this.grouped_sessions_list[i].key === session.patient){
                 for(let j=0; j < this.grouped_sessions_list[i].values.length;j++){
-                  if( this.grouped_sessions_list[i].values[j].session_name === session.session_name){
+                  if( this.grouped_sessions_list[i].values[j].session_date === session.session_date){
                     this.grouped_sessions_list[i].values.splice(j,1)
                     break
                   }
@@ -393,10 +391,10 @@
             for (let i = 0; i < this.grouped_sessions_list.length; i++) {
               if(this.grouped_sessions_list[i].key === this.patient_oldname){
                 for(let j = 0; j < this.grouped_sessions_list[i].values.length;j++){
-                  if( this.grouped_sessions_list[i].values[j].session_name === this.session_oldname){
+                  if( this.grouped_sessions_list[i].values[j].session_date === this.session_oldname){
                     // mistério pq é que isto n funciona
                     // this.sessions_list[i].values = editSession
-                    this.grouped_sessions_list[i].values[j].session_name = editSession.session_name
+                    this.grouped_sessions_list[i].values[j].session_date = editSession.session_date
                     this.grouped_sessions_list[i].values[j].patient = editSession.patient
                     this.grouped_sessions_list[i].values[j].notes = editSession.notes
                     this.grouped_sessions_list[i].values[j].phobia = editSession.phobia

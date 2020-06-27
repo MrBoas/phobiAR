@@ -5,10 +5,11 @@
     >
       <v-col cols="5" sm="5">
         <h3> Preencha:</h3>
-        <v-text-field
-          v-model= "session_name"
-          label="Nome da sessão"
+         <v-text-field
+          v-model= "patient"
+          label="Nome do paciente"
         ></v-text-field>
+
         <h3> Escolha: </h3>
         <v-select
           v-model="selected_phobia"
@@ -33,12 +34,6 @@
         ></v-select>
       </v-col>
       <v-col cols="5" sm="5">
-         <v-text-field
-          class="mt-8"
-          v-model= "patient"
-          label="Nome do paciente"
-        ></v-text-field>
-
         <!-- Calendário -->
         <v-menu
           v-model="menu"
@@ -50,6 +45,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
+              class="mt-8"
               v-model="session_date"
               label="Data"
               prepend-icon="event"
@@ -64,7 +60,6 @@
             locale="pt"
             ></v-date-picker>
         </v-menu>
-        <p> {{session_date}} </p>
 
         <v-select
           class="mt-8"
@@ -85,7 +80,7 @@
         >
           <v-btn color="primary"
             @click="saveSession();clearInformation();snackbar_create=true"
-            :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
+            :disabled="session_date && patient && selected_model && selected_level && selected_marker ? false : true">
             Guardar Sessão
           </v-btn>
         </v-row>
@@ -124,7 +119,6 @@
       selected_level:'',
       selected_marker:'',
       patient:'',
-      session_name:'',
       notes:'',
       snackbar_create: false,
       phobias_list:[],
@@ -184,7 +178,7 @@
       },
       saveSession(){
         var body = {
-          'session_name': this.session_name,
+          'session_date': this.session_date,
           'patient': this.patient,
           'notes': this.notes,
           'phobia': this.selected_phobia,
@@ -205,7 +199,7 @@
         this.selected_level=''
         this.selected_marker=''
         this.patient='',
-        this.session_name=''
+        this.session_date=new Date().toISOString().substr(0, 10)
         this.notes=''
       }
     },

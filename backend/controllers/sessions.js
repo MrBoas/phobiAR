@@ -12,10 +12,9 @@ Sessions.list = () => {
 Sessions.listUserSessions = user => {
     return Session
         .find({ user: user }, {_id:0})
-        .sort({ patient: 1 })
+        .sort({ patient:1,session_date:-1})
         .exec()
 }
-
 
 // cria uma sessão
 Sessions.createSession = session => {
@@ -24,15 +23,15 @@ Sessions.createSession = session => {
 }
 
 // atualiza os valores de uma sessão
-Sessions.updateSession = (user, session_name, patient, sessionInfo) => {
+Sessions.updateSession = (user, session_date, patient, sessionInfo) => {
     return Session
-        .findOneAndUpdate({ user: user, session_name: session_name, patient:patient }, sessionInfo, { useFindAndModify: false })
+        .findOneAndUpdate({ user: user, session_date: session_date, patient:patient }, sessionInfo, { useFindAndModify: false })
         .exec()
 }
 
 // apaga uma sessão
-Sessions.deleteSession = (user, session_name,patient) =>{
+Sessions.deleteSession = (user, session_date,patient) =>{
     return Session
-        .findOneAndDelete({ user: user, session_name: session_name,patient:patient})
+        .findOneAndDelete({ user: user, session_date: session_date,patient:patient})
         .exec()
 }

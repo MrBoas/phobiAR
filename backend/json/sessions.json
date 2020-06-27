@@ -1,7 +1,7 @@
 [
   {
     "user": "raul@gmail.com",
-    "session_date": "2020-05-20",
+    "session_date": 2020-05-06T00:00:00.000+00:00Z,
     "patient": "kiko",
     "notes": "",
     "phobia": "ofidiofobia",
@@ -11,7 +11,7 @@
   },
   {
     "user": "raul@gmail.com",
-    "session_date": "2020-06-20",
+    "session_date": 2020-05-06T00:00:00.000+00:00,
     "patient": "mateus",
     "notes": "",
     "phobia": "apifobia",
@@ -21,7 +21,27 @@
   },
   {
     "user": "raul@gmail.com",
-    "session_date": "2020-06-27",
+    "session_date": 2020-05-05T00:00:00.000+00:00,
+    "patient": "mateus",
+    "notes": "",
+    "phobia": "apifobia",
+    "model": "abelha_real",
+    "level": "1",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_date": 2020-05-07T00:00:00.000+00:00,
+    "patient": "mateus",
+    "notes": "",
+    "phobia": "apifobia",
+    "model": "abelha_real",
+    "level": "1",
+    "marker": "hiro"
+  },
+  {
+    "user": "raul@gmail.com",
+    "session_date": 2020-05-06T00:00:00.000+00:00,
     "patient": "joana",
     "notes": "",
     "phobia": "aicmofobia",
