@@ -38,6 +38,34 @@
           v-model= "patient"
           label="Nome do paciente"
         ></v-text-field>
+
+        <!-- Calendário -->
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="session_date"
+              label="Data"
+              prepend-icon="event"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="session_date"
+            @input="menu = false"
+            locale="pt"
+            ></v-date-picker>
+        </v-menu>
+        <p> {{session_date}} </p>
+
         <v-select
           class="mt-8"
           v-model="selected_marker"
@@ -56,7 +84,7 @@
           justify="end"
         >
           <v-btn color="primary"
-            @click="saveSession();snackbar_create=true"
+            @click="saveSession();clearInformation();snackbar_create=true"
             :disabled="session_name && patient && selected_model && selected_level && selected_marker ? false : true">
             Guardar Sessão
           </v-btn>
@@ -102,7 +130,9 @@
       phobias_list:[],
       models_list:[],
       levels_list:[],
-      marker_list:[]
+      marker_list:[],
+      session_date: new Date().toISOString().substr(0, 10),
+      menu: false,
     }),
     mounted: async function () {
       this.getPhobias()
@@ -173,8 +203,17 @@
         axios.post(url,body)
           .then(response=>{})
           .catch(error => console.log(error))
+      },
+
+      clearInformation(){
+        this.selected_phobia= ''
+        this.selected_model= ''
+        this.selected_level=''
+        this.selected_marker=''
+        this.patient='',
+        this.session_name=''
+        this.notes=''
       }
     },
-
 }
 </script>
