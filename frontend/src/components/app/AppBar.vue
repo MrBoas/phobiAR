@@ -1,7 +1,7 @@
 
 <template>
   <v-app-bar flat app>
-    <v-tabs background-color="grey darken-4"
+    <v-tabs background-color="grey darken-3"
       dark show-arrows
       slider-color="blue darken-2"
       slider-size="4"

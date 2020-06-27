@@ -22,7 +22,7 @@
           rows="6"
           row-height="16"
           label="Bugs"
-          placeholder="Erros encontrados"
+          placeholder="Bugs encontrados"
         ></v-textarea>
       </v-col>
       <v-col cols="12"  sm="9">

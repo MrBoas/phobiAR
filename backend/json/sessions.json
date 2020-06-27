@@ -1,7 +1,7 @@
 [
   {
     "user": "raul@gmail.com",
-    "session_name": "teste",
+    "session_date": "2020-05-20",
     "patient": "kiko",
     "notes": "",
     "phobia": "ofidiofobia",
@@ -11,7 +11,7 @@
   },
   {
     "user": "raul@gmail.com",
-    "session_name": "teste",
+    "session_date": "2020-06-20",
     "patient": "mateus",
     "notes": "",
     "phobia": "apifobia",
@@ -21,7 +21,7 @@
   },
   {
     "user": "raul@gmail.com",
-    "session_name": "teste",
+    "session_date": "2020-06-27",
     "patient": "joana",
     "notes": "",
     "phobia": "aicmofobia",
