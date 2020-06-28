@@ -31,10 +31,34 @@
                       v-model="editSession.patient"
                       label="Nome do paciente"
                     ></v-text-field>
-                    <v-text-field
+                    <!-- <v-text-field
                       v-model="editSession.session_date"
                       label="Nome da sessão"
-                    ></v-text-field>
+                    ></v-text-field> -->
+                    <v-menu
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="editSession.session_date"
+                          label="Data"
+                          prepend-icon="event"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="editSession.session_date"
+                        @input="menu = false"
+                        locale="pt"
+                      ></v-date-picker>
+                    </v-menu>
                     <v-select
                       v-model="editSession.phobia"
                       :items="phobias_list"
@@ -77,7 +101,7 @@
                   <v-btn block color="success"
                     @click="updateSession(editSession);
                       dialogEditSession=false;
-                      patientChangedReload(editSession);
+                      patientOrDateChangedReload(editSession);
                       snackbar_edit = true"
                     :disabled="editSession.session_date && editSession.patient && editSession.phobia && editSession.model && editSession.level && editSession.marker    ? false : true">
                     Guardar
@@ -235,7 +259,8 @@
   export default {
     data: () => ({
       user: 'raul@gmail.com',
-      session_oldname:"",
+      menu: false,
+      session_olddate:"",
       filter_patient:"",
       patient_oldname:"",
       grouped_sessions_list:"",
@@ -273,7 +298,7 @@
     },
     methods: {
       savedSessionEdit(session) {
-        this.session_oldname = session.session_date
+        this.session_olddate = session.session_date
         this.patient_oldname = session.patient
         this.editSession.session_date = session.session_date
         this.editSession.patient = session.patient
@@ -385,13 +410,13 @@
         },
 
       updateSession(editSession){
-        const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_oldname + '/' + this.patient_oldname
+        const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_olddate + '/' + this.patient_oldname
         axios.put(url,editSession)
           .then(response=>{
             for (let i = 0; i < this.grouped_sessions_list.length; i++) {
               if(this.grouped_sessions_list[i].key === this.patient_oldname){
                 for(let j = 0; j < this.grouped_sessions_list[i].values.length;j++){
-                  if( this.grouped_sessions_list[i].values[j].session_date === this.session_oldname){
+                  if( this.grouped_sessions_list[i].values[j].session_date === this.session_olddate){
                     // mistério pq é que isto n funciona
                     // this.sessions_list[i].values = editSession
                     this.grouped_sessions_list[i].values[j].session_date = editSession.session_date
@@ -416,13 +441,12 @@
         var url_session =  backend_url + sessions_user_param + '/' + this.user + sessions_param
         window.open(url_session)
       },
-      patientChangedReload(editSession){
-        // console.log(editSession)
-        if(editSession.patient != this.patient_oldname)
+      patientOrDateChangedReload(editSession){
+        if((editSession.patient != this.patient_oldname) || (editSession.session_date != editSession.session_olddate))
           this.$router.go(0)
       },
 
-    // arranjar uma maneira melhor depois
+    // TODO arranjar uma maneira melhor depois
     downloadMarker(marker){
       var url = backend_url + api_markers_url + '/' + this.user + '/' + marker + '/download'
       window.open(url);
