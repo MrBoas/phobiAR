@@ -122,34 +122,34 @@
             <v-col cols="12" class="pb-0">
             </v-col>
           <v-col cols="12">
-            <v-simple-table dense>
+            <v-simple-table class="ml-4"dense>
                 <tr>
                   <th class="text-left">Paciente</th>
-                  <td>{{ session.patient }}</td>
+                  <td style="width:700px">{{ session.patient }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Data</th>
-                  <td>{{ session.session_date }}</td>
+                  <td style="width:700px">{{ session.session_date }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Fobia</th>
-                  <td>{{ session.phobia }}</td>
+                  <td style="width:700px">{{ session.phobia }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Modelo</th>
-                  <td>{{ session.model }}</td>
+                  <td style="width:700px">{{ session.model }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Nível</th>
-                  <td>{{ session.level }}</td>
+                  <td style="width:700px">{{ session.level }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Marcador</th>
-                  <td>{{ session.marker }}</td>
+                  <td style="width:700px">{{ session.marker }}</td>
                 </tr>
                 <tr v-if="session.notes">
                   <th class="text-left">Notas</th>
-                  <td>{{ session.notes }}</td>
+                  <td style="width:700px">{{ session.notes }}</td>
                 </tr>
             </v-simple-table>
           </v-col>
@@ -442,7 +442,7 @@
         window.open(url_session)
       },
       patientOrDateChangedReload(editSession){
-        if((editSession.patient != this.patient_oldname) || (editSession.session_date != editSession.session_olddate))
+        if((editSession.patient != this.patient_oldname) || (editSession.session_date != this.session_olddate))
           this.$router.go(0)
       },
 
