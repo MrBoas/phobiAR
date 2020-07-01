@@ -122,7 +122,7 @@
             <v-col cols="12" class="pb-0">
             </v-col>
           <v-col cols="12">
-            <v-simple-table class="ml-4"dense>
+            <v-simple-table class="ml-4" dense>
                 <tr>
                   <th class="text-left">Paciente</th>
                   <td style="width:700px">{{ session.patient }}</td>
