@@ -31,10 +31,6 @@
                       v-model="editSession.patient"
                       label="Nome do paciente"
                     ></v-text-field>
-                    <!-- <v-text-field
-                      v-model="editSession.session_date"
-                      label="Nome da sessão"
-                    ></v-text-field> -->
                     <v-menu
                       v-model="menu"
                       :close-on-content-click="false"
@@ -76,10 +72,11 @@
                       v-model="editSession.level"
                       :items="levels_list"
                       label="Escolha um nível."
-                      :disabled="editSession.phobia && editSession.model ? false : true"
+                      :disabled="(editSession.phobia && editSession.model) && editSession.marker!='niveis' ? false : true"
                     ></v-select>
                     <v-select
                       v-model="editSession.marker"
+                      @change="editSession.marker=='niveis' ? editSession.level='' : editSession.level=editSession.level"
                       :items="marker_list"
                       label="Escolha um marcador."
                     ></v-select>
@@ -103,7 +100,7 @@
                       dialogEditSession=false;
                       patientOrDateChangedReload(editSession);
                       snackbar_edit = true"
-                    :disabled="editSession.session_date && editSession.patient && editSession.phobia && editSession.model && editSession.level && editSession.marker    ? false : true">
+                    :disabled="editSession.session_date && editSession.patient && editSession.phobia && editSession.model && (editSession.level || (editSession.marker=='niveis' && editSession.level=='')) && editSession.marker ? false : true">
                     Guardar
                   </v-btn>
                 </v-col>
@@ -139,7 +136,7 @@
                   <th class="text-left">Modelo</th>
                   <td style="width:700px">{{ session.model }}</td>
                 </tr>
-                <tr>
+                <tr v-if="session.level">
                   <th class="text-left">Nível</th>
                   <td style="width:700px">{{ session.level }}</td>
                 </tr>
@@ -158,7 +155,7 @@
               depressed rounded
               class="ml-2"
               @click="goToSession(session.phobia,session.model,session.level,session.marker)"
-              :disabled="session.phobia && session.model && session.level && session.marker ? false : true"
+              :disabled="session.phobia && session.model && (session.level || (session.marker=='niveis' && session.level=='')) && session.marker ? false : true"
               >
               Gerar
             </v-btn>
@@ -290,7 +287,7 @@
       // corre sempre que alguma variável que ele está a usar é alterada
       grouped_sessions_list_filtered: function() {
         if(this.filter_patient){
-          return this.grouped_sessions_list.filter( e =>e.key.includes(this.filter_patient) )
+          return this.grouped_sessions_list.filter( e =>e.key.toLowerCase().includes(this.filter_patient.toLowerCase()) )
         }
         else
           return this.grouped_sessions_list

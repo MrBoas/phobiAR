@@ -9,7 +9,7 @@ var SessionsSchema = new Schema({
     notes: { type: String},
     phobia: { type: String, required: true },
     model: { type: String, required: true },
-    level: { type: String, required: true },
+    level: { type: String},
     marker: { type: String, required: true },
 
 })

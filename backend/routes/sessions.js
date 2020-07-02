@@ -13,7 +13,7 @@ router.get('/:user/:phobia/:model/:level/niveis', (req, res) => {
       url[i] = '/markers/niveis/level' + l + '.patt'
     }
     else {
-      let l = i+1
+      let l = i + 1
       src[i] = '/models/mensagem.glb'
       url[i] = '/markers/niveis/level' + l + '.patt'
     }

@@ -30,7 +30,7 @@
           v-model="selected_level"
           :items="levels_list"
           label="Nível"
-          :disabled="selected_phobia && selected_model ? false : true"
+          :disabled="(selected_phobia && selected_model) && selected_marker!='niveis' ? false : true"
         ></v-select>
       </v-col>
       <v-col cols="5" sm="5">
@@ -66,6 +66,7 @@
           class="mt-8"
           v-model="selected_marker"
           :items="marker_list"
+          @change="selected_marker=='niveis' ? selected_level='' : selected_level=selected_level"
           label="Marcador"
         ></v-select>
       </v-col>
@@ -81,7 +82,7 @@
         >
           <v-btn color="primary"
             @click="saveSession();clearInformation();snackbar_create=true"
-            :disabled="session_date && patient && selected_model && selected_level && selected_marker ? false : true">
+            :disabled="session_date && patient && selected_model && (selected_level || (selected_marker=='niveis' && selected_level=='')) && selected_marker ? false : true">
             Guardar Sessão
           </v-btn>
         </v-row>
@@ -188,7 +189,6 @@
           'marker': this.selected_marker,
         }
         var url = backend_url + api_sessions_url + '/' + user + '/upload'
-        // console.log(url)
         axios.post(url,body)
           .then(response=>{})
           .catch(error => console.log(error))
