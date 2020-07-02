@@ -12,21 +12,9 @@
         "user": "default"
     },
     {
-        "marker": "level1",
-        "image": "level1.png",
-        "patt": "level1.patt",
+        "marker": "niveis",
+        "image": "niveis",
+        "patt": "niveis",
         "user": "default"
-    },
-    {
-        "marker": "level2",
-        "image": "level2.png",
-        "patt": "level2.patt",
-        "user": "default"
-    },
-    {
-        "marker": "level3",
-        "image": "level3.png",
-        "patt": "level3.patt",
-        "user": "raul@gmail.com"
     }
 ]

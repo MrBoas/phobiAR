@@ -200,7 +200,7 @@
               </template>
               <span>Editar Sessão</span>
             </v-tooltip>
-            <v-tooltip bottom>
+            <!-- <v-tooltip bottom>
               <template v-slot:activator="{ on }">
               <v-btn fab x-small depressed dark color="blue" v-on="on"
                 class="mr-2"
@@ -210,7 +210,7 @@
               </v-btn>
               </template>
             <span>Transferir Marcador</span>
-            </v-tooltip>
+            </v-tooltip> -->
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn fab x-small depressed dark color="red" v-on="on"
@@ -436,9 +436,32 @@
             console.log(error)
           })
       },
-      goToSession(phobia,model,level,marker){
-        var sessions_param = '/' + phobia + '/' + model + '/' + level + '/' + marker
-        var url_session =  backend_url + sessions_user_param + '/' + this.user + sessions_param
+
+      getModelLevelsList(urlAux) {
+        axios.get(urlAux)
+          .then(response =>{
+            this.niveis = response.data
+            // this.niveis = levels_listAux.map(a=> a.toString())
+              console.log("niveis:" + this.niveis)
+          })
+          .catch(error => console.log(error))
+      },
+
+      goToSession: async function (phobia,model,level,marker){
+        if (marker == "niveis"){
+          var urlAux = backend_url + api_phobias_url + '/'+ this.user + '/' +  phobia + '/' + model
+
+          let res = await axios.get(urlAux);
+          var niveis = res.data.map(a=> a.toString())
+          console.log(niveis)
+          niveis = niveis.join('-')
+          console.log(niveis)
+
+          var url_session =  backend_url + sessions_user_param + '/' + this.user +'/' + phobia + '/' + model + '/' + niveis + '/niveis'
+        }
+        else{
+          var url_session =  backend_url + sessions_user_param + '/' + this.user + '/' + phobia + '/' + model + '/' + level + '/' + marker
+        }
         window.open(url_session)
       },
       patientOrDateChangedReload(editSession){

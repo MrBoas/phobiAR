@@ -188,7 +188,7 @@
           'marker': this.selected_marker,
         }
         var url = backend_url + api_sessions_url + '/' + user + '/upload'
-        console.log(url)
+        // console.log(url)
         axios.post(url,body)
           .then(response=>{})
           .catch(error => console.log(error))

@@ -44,7 +44,7 @@
           Submeter Feedback
         </v-btn>
       </v-col>
-      <v-col cols="12"  sm="9">
+      <!-- <v-col cols="12"  sm="9">
         <h3> Formulário: </h3>
         <p class="mb-1">
           De forma a contribuir com um feedback mais completo, por favor, preencha o seguinte formulário.
@@ -56,7 +56,7 @@
         >
           Prencher Formulário
         </v-btn>
-      </v-col>
+      </v-col> -->
       <v-col cols="12"  sm="9">
         <h3> Contacto: </h3>
         <p>
@@ -85,6 +85,8 @@ export default {
     gotoForm: function () {
       window.open('https://forms.gle/TSBt15HtCYK5b6FV9')
     },
+
+    // TODO  corrigir isto
     feedback(){
       this.loading.feedbackSubmit = true
     //   axios.get(this.backend_url  + this.api_phobias_url + '/' + this.user)

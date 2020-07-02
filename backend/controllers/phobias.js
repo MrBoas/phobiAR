@@ -47,8 +47,6 @@ Phobias.getPhobiaModels = (user,phobia) => {
         ])
 }
 
-
-// mostra o nome de todos os modelos de uma fobia de um user
 Phobias.getModelLevels = (user, phobia,model) => {
     return Phobia
         .aggregate([

@@ -35,6 +35,7 @@ router.get('/:user/:marker', function (req, res) {
 });
 
 // faz download de um marcador especifico
+// TODO o donwload n vai funcionar para os narcadores de niveis
 router.get('/:user/:marker/download', (req, res) => {
     markers.getMarkerImage(req.params.user, req.params.marker)
         .then(data => {

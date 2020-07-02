@@ -1,0 +1,23 @@
+doctype html
+script(src='https://aframe.io/releases/1.0.3/aframe.min.js')
+script(src='https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/aframe-ar.js')
+// <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"> </script>
+script(src='//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js')
+a-scene#scene(embedded='' stats='' renderer='logarithmicDepthBuffer: true;' arjs='trackingMethod: best; sourceType: webcam;debugUIEnabled: false;' vr-mode-ui='enabled: false')
+  a-assets
+    a-asset-item#object_id1(src=src1)
+    a-asset-item#object_id2(src=src2)
+    a-asset-item#object_id3(src=src3)
+    a-asset-item#object_id4(src=src4)
+    a-asset-item#object_id5(src=src5)
+  a-marker(preset='custom', type='pattern', url=url1)
+    a-gltf-model(src='#object_id1')
+  a-marker(preset='custom', type='pattern', url=url2)
+    a-gltf-model(src='#object_id2')
+  a-marker(preset='custom', type='pattern', url=url3)
+    a-gltf-model(src='#object_id3')
+  a-marker(preset='custom', type='pattern', url=url4)
+    a-gltf-model(src='#object_id4')
+  a-marker(preset='custom', type='pattern', url=url5)
+    a-gltf-model(src='#object_id5')
+  a-entity(camera='')

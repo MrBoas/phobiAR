@@ -8,13 +8,11 @@ router.get('/', function (req, res) {
         .catch(error => res.status(500).jsonp(error))
 });
 
-
 router.get('/:user', function (req, res) {
     phobias.UserPhobias(req.params.user)
         .then(data => res.jsonp(data))
         .catch(error => res.status(500).jsonp(error))
 });
-
 
 // retorna a lista de fobias de um user
 router.get('/:user/lista', function (req, res) {
@@ -30,7 +28,7 @@ router.get('/:user/:phobia', function (req, res) {
         .catch(error => res.status(500).jsonp(error))
 });
 
-// mostra o niveis disponiveis de um modelos de uma fobia de um user
+// mostra o niveis disponiveis de um modelo de uma fobia de um user
 router.get('/:user/:phobia/:model', function (req, res) {
     phobias.getModelLevels(req.params.user, req.params.phobia,req.params.model)
         .then(data => res.jsonp(data[0].list))
