@@ -1,7 +1,5 @@
 var express = require('express')
 var router = express.Router()
-var axios = require("axios")
-
 
 // gera a sessão a partir de informação recebida
 router.get('/:user/:phobia/:model/:level/niveis', (req, res) => {
@@ -16,8 +14,7 @@ router.get('/:user/:phobia/:model/:level/niveis', (req, res) => {
     }
     else {
       let l = i+1
-      // TODO depois mudar para um modelo de um ponto de interrogação ou uma cruz
-      src[i] = '/models/aicmofobia/seringa_evolucao/1/scene.glb'
+      src[i] = '/models/mensagem.glb'
       url[i] = '/markers/niveis/level' + l + '.patt'
     }
   }
