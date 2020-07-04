@@ -113,6 +113,7 @@
   const api_sessions_url = '/api/sessions'
   const sessions_user_param = '/sessions'
   const user = 'raul@gmail.com'
+  const qs = require('querystring')
 
   export default {
     data: () => ({
@@ -188,6 +189,7 @@
           'level': this.selected_level,
           'marker': this.selected_marker,
         }
+
         var url = backend_url + api_sessions_url + '/' + user + '/upload'
         axios.post(url,body)
           .then(response=>{})
