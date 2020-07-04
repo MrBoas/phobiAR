@@ -13,11 +13,24 @@
       >
         <v-expansion-panel-header >{{patient_session_list.key}}</v-expansion-panel-header>
         <v-expansion-panel-content>
+          <!-- v-dialog do criar -->
+          <v-dialog
+            v-model="dialogCreateSession"
+            max-width="700px"
+            :retain-focus="false"
+            >
+            <createCard
+              :createSession="createSession"
+              :phobias_list="phobias_list"
+              :marker_list="marker_list"
+            />
+          </v-dialog>
+          <!-- v-dialog do editar -->
           <v-dialog
             v-model="dialogEditSession"
             max-width="700px"
             :retain-focus="false"
-          >
+            >
             <v-card>
               <v-card-title>
                 <span class="headline">
@@ -85,7 +98,7 @@
                     <v-textarea
                       hide-details
                       width ="100px"
-                      rows ="12"
+                      rows ="14"
                       outlined
                       v-model="editSession.notes"
                       label= "Notas"
@@ -184,6 +197,21 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn fab x-small depressed dark color="green" v-on="on"
+                  class="ml-2"
+                  @click="dialogCreateSession=true;
+                    createSession.patient=session.patient
+                    createSession.session_date = new Date().toISOString().substr(0, 10)
+                    getPhobias();
+                    getMarkers();"
+                >
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </template>
+              <span>Criar Sessão</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn fab x-small depressed dark color="blue" v-on="on"
                   class="mr-2 ml-2"
                   @click="dialogEditSession=true;
                   savedSessionEdit(session);
@@ -192,7 +220,7 @@
                   getPhobiaModels();
                   getModelLevels();"
                 >
-                <v-icon>create</v-icon>
+                <v-icon>edit</v-icon>
                 </v-btn>
               </template>
               <span>Editar Sessão</span>
@@ -246,6 +274,7 @@
 <script>
   import axios from 'axios'
   import * as d3 from 'd3'
+  import createCard from "@/components/createCard.vue"
 
   const backend_url = process.env.VUE_APP_BACKEND_HOST
   const api_sessions_url = '/api/sessions'
@@ -254,6 +283,9 @@
   const sessions_user_param = '/sessions'
 
   export default {
+    components: {
+      createCard
+    },
     data: () => ({
       user: 'raul@gmail.com',
       menu: false,
@@ -270,8 +302,17 @@
         level: "",
         marker: "",
       },
-      testing:"",
+      createSession:{
+        session_date: "",
+        patient: "",
+        notes: "",
+        phobia: "",
+        model: "",
+        level: "",
+        marker: "",
+      },
       dialogEditSession:false,
+      dialogCreateSession:false,
       snackbar_edit: false,
       phobias_list:[],
       models_list:[],
@@ -382,6 +423,21 @@
             this.marker_list=response.data
           })
           .catch(error =>console.log(error))
+      },
+      createNewSession(session){
+        var body = {
+          'session_date': session.session_date,
+          'patient': session.patient,
+          'notes': session.notes,
+          'phobia': session.phobia,
+          'model': session.model,
+          'level': session.level,
+          'marker': session.marker,
+        }
+        var url = backend_url + api_sessions_url + '/' + user + '/upload'
+        axios.post(url,session)
+          .then(response=>{})
+          .catch(error => console.log(error))
       },
 
       deleteSession(session){
