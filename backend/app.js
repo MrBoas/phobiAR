@@ -2,6 +2,7 @@ var createError = require('http-errors');
 const express = require('express');
 var path = require('path');
 var logger = require('morgan');
+var bodyParser = require("body-parser")
 
 const app = express();
 app.set('view engine', 'pug');
@@ -35,6 +36,12 @@ app.use(logger('dev'));
 // app.listen(3112, () => {
 //     console.log(`Server running at http://${app.address}:${app.port}/`);
 // });
+
+// Body parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // tratar do cors
 app.use(function (req, res, next) {

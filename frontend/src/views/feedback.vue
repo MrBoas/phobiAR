@@ -38,11 +38,17 @@
       </v-col>
       <v-col cols="12"  sm="9">
         <v-btn block color="primary"
-          @click="feedback(ideas,bugs,rating)"
+          @click="feedback(ideas,bugs,rating);cleanFeedback()"
           :loading="loading.feedbackSubmit"
         >
           Submeter Feedback
         </v-btn>
+        <v-alert text dismissible type="success" v-model="alert.feedbackSubmitSuccess">
+          Submit Successful!!!
+        </v-alert>
+        <v-alert text dismissible type="error" v-model="alert.feedbackSubmitFail">
+          Submit Failed...
+        </v-alert>
       </v-col>
       <!-- <v-col cols="12"  sm="9">
         <h3> Formulário: </h3>
@@ -71,6 +77,7 @@
 import Vuex from 'vuex'
 import axios from 'axios'
 const backend_url = process.env.VUE_APP_BACKEND_HOST
+const qs = require('querystring')
 
 export default {
   data: () => ({
@@ -80,19 +87,42 @@ export default {
     loading: {
       feedbackSubmit: false
     },
+    alert: {
+      feedbackSubmitSuccess: false,
+      feedbackSubmitFail: false
+    }
   }),
   methods: {
     gotoForm: function () {
       window.open('https://forms.gle/TSBt15HtCYK5b6FV9')
     },
-
-    // TODO  corrigir isto
-    feedback(){
+    cleanFeedback(){
+      this.rating=5
+      this.ideas=""
+      this.bugs=""
+    },
+    feedback(ideas,bugs,rating){
       this.loading.feedbackSubmit = true
-    //   axios.get(this.backend_url  + this.api_phobias_url + '/' + this.user)
-    //     .then(response => {
-    //     })
-    //     .catch(error => console.log(error))
+      var form = {}
+      form.rating = rating
+      form.ideas = ideas
+      form.bugs = bugs
+
+      axios.post(backend_url + '/api/feedback', qs.stringify(form),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      )
+        .then(response => {
+          this.alert.feedbackSubmitSuccess = true
+          this.alert.feedbackSubmitFail = false
+        })
+        .catch(alert => {
+          console.log(alert.response.data)
+          this.alert.feedbackSubmitSuccess = false
+          this.alert.feedbackSubmitFail = true
+        })
+        .finally(() => {
+          this.loading.feedbackSubmit = false
+        })
     },
   }
 }

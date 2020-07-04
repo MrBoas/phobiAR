@@ -438,8 +438,6 @@
         axios.get(urlAux)
           .then(response =>{
             this.niveis = response.data
-            // this.niveis = levels_listAux.map(a=> a.toString())
-              console.log("niveis:" + this.niveis)
           })
           .catch(error => console.log(error))
       },
@@ -450,9 +448,7 @@
 
           let res = await axios.get(urlAux);
           var niveis = res.data.map(a=> a.toString())
-          console.log(niveis)
           niveis = niveis.join('-')
-          console.log(niveis)
 
           var url_session =  backend_url + sessions_user_param + '/' + this.user +'/' + phobia + '/' + model + '/' + niveis + '/niveis'
         }

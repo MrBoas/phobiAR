@@ -43,7 +43,7 @@
           :src="require('@/assets/foto.jpg')"
         ></v-img>
         <h4 class="text-center pt-3">Greice Zanini</h4>
-        <p class="text-center mb-0">Psicóloga Colaborador</p>
+        <p class="text-center mb-0">Psicóloga Colaboradora</p>
       </v-col>
 
     </v-row>
