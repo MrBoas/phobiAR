@@ -1,6 +1,7 @@
 <template>
 	<v-container>
     <h2> Lista de pacientes: </h2>
+    <!-- <p> {{grouped_sessions_list}}</p> -->
     <v-text-field
       clearable
       label="Filtrar pacientes"
@@ -28,12 +29,15 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
+                    <!-- <p>session_date: {{createSession.session_date}} </p>
+                    <p>complete_session_date: {{createSession.complete_session_date}} </p>
+                    <p> computed: {{full_createSession_date}} </p> -->
                     <v-text-field readonly
                       v-model="createSession.patient"
                       label="Nome do paciente"
                     ></v-text-field>
                     <v-menu
-                      v-model="menu"
+                      v-model="menuCriar"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       transition="scale-transition"
@@ -52,7 +56,7 @@
                       </template>
                       <v-date-picker
                         v-model="createSession.session_date"
-                        @input="menu = false"
+                        @input="menuCriar = false"
                         locale="pt"
                       ></v-date-picker>
                     </v-menu>
@@ -94,6 +98,22 @@
                   </v-col>
                 </v-row>
               </v-card-text>
+              <v-card-actions>
+                <v-col class="grow">
+                  <v-btn block color="success"
+                    @click="createNewSession(createSession);
+                      dialogCreateSession=false;
+                      snackbar_edit = true"
+                    :disabled="createSession.session_date && createSession.patient && createSession.phobia && createSession.model && (createSession.level || (createSession.marker=='niveis' && createSession.level=='')) && createSession.marker ? false : true">
+                    Guardar
+                  </v-btn>
+                </v-col>
+                <v-col class="grow">
+                  <v-btn block color="error" @click="dialogCreateSession=false;" >
+                    Cancelar
+                  </v-btn>
+                </v-col>
+              </v-card-actions>
             </v-card>
           </v-dialog>
           <!-- v-dialog do editar -->
@@ -111,12 +131,17 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
+                    <!-- <p>full_editSession_date: {{full_editSession_date}} </p>
+                    <p>complete_session_date: {{editSession.complete_session_date}}</p>
+                    <p>session_date {{editSession.session_date}} </p>
+                    <p>session_olddate {{session_olddate}} </p>
+                    <p>session_olddate_complete {{session_olddate_complete}} </p> -->
                     <v-text-field
                       v-model="editSession.patient"
                       label="Nome do paciente"
                     ></v-text-field>
                     <v-menu
-                      v-model="menu"
+                      v-model="menuEditar"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       transition="scale-transition"
@@ -135,7 +160,7 @@
                       </template>
                       <v-date-picker
                         v-model="editSession.session_date"
-                        @input="menu = false"
+                        @input="menuEditar = false"
                         locale="pt"
                       ></v-date-picker>
                     </v-menu>
@@ -197,20 +222,22 @@
             </v-card>
           </v-dialog>
           <v-row
-            v-for="session in patient_session_list.values"
-            :key="session.session_date"
+            v-for="(session,index) in patient_session_list.values"
+            :key="index"
             >
             <v-col cols="12" class="pb-0">
             </v-col>
-          <v-col cols="12">
-            <v-simple-table class="ml-4" dense>
+            <v-col cols="12">
+              <!-- <p> {{session.session_date}} </p>
+              <p> {{session}} </p> -->
+              <v-simple-table class="ml-4" dense>
                 <tr>
                   <th class="text-left">Paciente</th>
                   <td style="width:700px">{{ session.patient }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Data</th>
-                  <td style="width:700px">{{ session.session_date }}</td>
+                  <td style="width:700px">{{ session.session_date.substr(0,10) }}</td>
                 </tr>
                 <tr>
                   <th class="text-left">Fobia</th>
@@ -232,97 +259,97 @@
                   <th class="text-left">Notas</th>
                   <td style="width:700px">{{ session.notes }}</td>
                 </tr>
-            </v-simple-table>
-          </v-col>
-          <v-col class="pt-0">
-            <v-btn color="primary"
-              depressed rounded
-              class="ml-2"
-              @click="goToSession(session.phobia,session.model,session.level,session.marker)"
-              :disabled="session.phobia && session.model && (session.level || (session.marker=='niveis' && session.level=='')) && session.marker ? false : true"
-              >
-              Gerar
-            </v-btn>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  depressed fab dark
-                  x-small
-                  color="black"
-                  rounded
-                  class="ml-2"
-                  v-bind="attrs"
-                  v-on="on"
+              </v-simple-table>
+            </v-col>
+            <v-col class="pt-0">
+              <v-btn color="primary"
+                depressed rounded
+                class="ml-2"
+                @click="goToSession(session.phobia,session.model,session.level,session.marker)"
+                :disabled="session.phobia && session.model && (session.level || (session.marker=='niveis' && session.level=='')) && session.marker ? false : true"
                 >
-                <v-icon>qr_code</v-icon>
+                Gerar
               </v-btn>
-              </template>
-              <img
-                :src="'https://api.qrserver.com/v1/create-qr-code/?data='
-                +'https://phobiar-be.epl.di.uminho.pt/sessions/'
-                +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
-                +'&ampsize=300x300'"
-              />
-              <v-row justify="center"> <h4> QR Code para gerar a sessão </h4> </v-row>
-            </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    depressed fab dark
+                    x-small
+                    color="black"
+                    rounded
+                    class="ml-2"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                  <v-icon>qr_code</v-icon>
+                </v-btn>
+                </template>
+                <!-- TODO qrcode n vai funcionar para os marcadores de niveis -->
+                <img
+                  :src="'https://api.qrserver.com/v1/create-qr-code/?data='
+                  +'https://phobiar-be.epl.di.uminho.pt/sessions/'
+                  +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
+                  +'&ampsize=300x300'"
+                />
+                <v-row justify="center"> <h4> QR Code para gerar a sessão </h4> </v-row>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn fab x-small depressed dark color="blue" v-on="on"
+                    class="mr-2 ml-2"
+                    @click="dialogEditSession=true;
+                    savedSessionEdit(session);
+                    getPhobias();
+                    getMarkers();
+                    getPhobiaModels();
+                    getModelLevels();"
+                  >
+                  <v-icon>edit</v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar Sessão</span>
+              </v-tooltip>
+              <!-- <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                <v-btn fab x-small depressed dark color="blue" v-on="on"
+                  class="mr-2"
+                  @click="downloadMarker(session.marker)"
+                >
+                <v-icon>get_app</v-icon>
+                </v-btn>
+                </template>
+              <span>Transferir Marcador</span>
+              </v-tooltip> -->
+              <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn fab x-small depressed dark color="red" v-on="on"
+                      class="mr-2"
+                      @click="deleteSession(session)">
+                      <v-icon>delete</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Apagar Sessão</span>
+              </v-tooltip>
+              <v-divider
+                class="mt-5"
+              >
+              </v-divider>
+            </v-col>
+          </v-row>
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn fab x-small depressed dark color="green" v-on="on"
                   class="ml-2"
                   @click="dialogCreateSession=true;
-                    createSession.patient=session.patient
-                    createSession.session_date = new Date().toISOString().substr(0, 10)
+                    cleanCreateSessionInfo(patient_session_list.key);
                     getPhobias();
-                    getMarkers();"
+                    getMarkers()"
                 >
                   <v-icon>add</v-icon>
                 </v-btn>
               </template>
               <span>Criar Sessão</span>
             </v-tooltip>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn fab x-small depressed dark color="blue" v-on="on"
-                  class="mr-2 ml-2"
-                  @click="dialogEditSession=true;
-                  savedSessionEdit(session);
-                  getPhobias();
-                  getMarkers();
-                  getPhobiaModels();
-                  getModelLevels();"
-                >
-                <v-icon>edit</v-icon>
-                </v-btn>
-              </template>
-              <span>Editar Sessão</span>
-            </v-tooltip>
-            <!-- <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-              <v-btn fab x-small depressed dark color="blue" v-on="on"
-                class="mr-2"
-                @click="downloadMarker(session.marker)"
-              >
-              <v-icon>get_app</v-icon>
-              </v-btn>
-              </template>
-            <span>Transferir Marcador</span>
-            </v-tooltip> -->
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn fab x-small depressed dark color="red" v-on="on"
-                    class="mr-2"
-                    @click="deleteSession(session)">
-                    <v-icon>delete</v-icon>
-                  </v-btn>
-                </template>
-                <span>Apagar Sessão</span>
-            </v-tooltip>
-            <v-divider
-              class="mt-5"
-            >
-            </v-divider>
-          </v-col>
-          </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -345,7 +372,6 @@
 <script>
   import axios from 'axios'
   import * as d3 from 'd3'
-  import createCard from "@/components/createCard.vue"
 
   const backend_url = process.env.VUE_APP_BACKEND_HOST
   const api_sessions_url = '/api/sessions'
@@ -355,17 +381,17 @@
 
   export default {
     components: {
-      createCard
     },
     data: () => ({
       user: 'raul@gmail.com',
-      menu: false,
+      session_olddate_complete:"",
       session_olddate:"",
       filter_patient:"",
       patient_oldname:"",
       grouped_sessions_list:"",
       editSession:{
         session_date: "",
+        complete_session_date: "",
         patient: "",
         notes: "",
         phobia: "",
@@ -375,6 +401,7 @@
       },
       createSession:{
         session_date: "",
+        complete_session_date: "",
         patient: "",
         notes: "",
         phobia: "",
@@ -382,6 +409,8 @@
         level: "",
         marker: "",
       },
+      menuCriar: false,
+      menuEditar: false,
       dialogEditSession:false,
       dialogCreateSession:false,
       snackbar_edit: false,
@@ -404,12 +433,23 @@
         else
           return this.grouped_sessions_list
       },
+      full_editSession_date: function() {
+        var incompleteDate = new Date().toISOString().substr(10,24)
+        this.editSession.complete_session_date = this.editSession.session_date + incompleteDate
+        return this.editSession.session_date + incompleteDate
+      },
+      full_createSession_date: function() {
+        var incompleteDate = new Date().toISOString().substr(10,24)
+        this.createSession.complete_session_date = this.createSession.session_date + incompleteDate
+        return this.createSession.session_date + incompleteDate
+      }
     },
     methods: {
       savedSessionEdit(session) {
-        this.session_olddate = session.session_date
+        this.session_olddate_complete = session.session_date
+        this.session_olddate = session.session_date.substr(0,10)
         this.patient_oldname = session.patient
-        this.editSession.session_date = session.session_date
+        this.editSession.session_date = session.session_date.substr(0,10)
         this.editSession.patient = session.patient
         this.editSession.notes =session.notes
         this.editSession.phobia = session.phobia
@@ -427,12 +467,14 @@
               .entries(sessions_list);
 
             //eliminar partes da data
-            var patt = /(.*)T/
-            for(let i=0; i< this.grouped_sessions_list.length;i++){
-              for(let j=0; j < this.grouped_sessions_list[i].values.length;j++){
-                this.grouped_sessions_list[i].values[j].session_date = this.grouped_sessions_list[i].values[j].session_date.match(patt)[1];
-              }
-            }
+            // var patt = /(.*)T/
+            // for(let i=0; i< this.grouped_sessions_list.length;i++){
+            //   for(let j=0; j < this.grouped_sessions_list[i].values.length;j++){
+            //     this.grouped_sessions_list[i].values[j].session_date = this.grouped_sessions_list[i].values[j].session_date.match(patt)[1];
+            //     this.grouped_sessions_list[i].values[j].session_date = this.grouped_sessions_list[i].values[j].session_date;
+
+            //   }
+            // }
           })
           .catch(error => console.log(error))
       },
@@ -517,19 +559,32 @@
           })
           .catch(error =>console.log(error))
       },
-      createNewSession(session){
-        var body = {
-          'session_date': session.session_date,
-          'patient': session.patient,
-          'notes': session.notes,
-          'phobia': session.phobia,
-          'model': session.model,
-          'level': session.level,
-          'marker': session.marker,
+      createNewSession(createSession){
+        var session = {
+          'session_date': createSession.complete_session_date,
+          'patient': createSession.patient,
+          'notes': createSession.notes,
+          'phobia': createSession.phobia,
+          'model': createSession.model,
+          'level': createSession.level,
+          'marker': createSession.marker,
         }
-        var url = backend_url + api_sessions_url + '/' + user + '/upload'
+        var url = backend_url + api_sessions_url + '/' + this.user + '/upload'
         axios.post(url,session)
-          .then(response=>{})
+          .then(response=>{
+            for(let i = 0; i<this.grouped_sessions_list.length; i++){
+              if(this.grouped_sessions_list[i].key === session.patient){
+                for(let j=0; j < this.grouped_sessions_list[i].values.length;j++) {
+                  if(this.grouped_sessions_list[i].values[j].session_date < createSession.complete_session_date){
+                    this.grouped_sessions_list[i].values.splice(j,0,session)
+                    return
+                  }
+                }
+                // quando o lemento vai ser adicionado na última posição
+                this.grouped_sessions_list[i].values.push(session)
+              }
+            }
+          })
           .catch(error => console.log(error))
       },
 
@@ -556,16 +611,16 @@
         },
 
       updateSession(editSession){
-        const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_olddate + '/' + this.patient_oldname
+        const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_olddate_complete + '/' + this.patient_oldname
         axios.put(url,editSession)
           .then(response=>{
             for (let i = 0; i < this.grouped_sessions_list.length; i++) {
               if(this.grouped_sessions_list[i].key === this.patient_oldname){
                 for(let j = 0; j < this.grouped_sessions_list[i].values.length;j++){
-                  if( this.grouped_sessions_list[i].values[j].session_date === this.session_olddate){
+                  if( this.grouped_sessions_list[i].values[j].session_date === this.session_olddate_complete){
                     // mistério pq é que isto n funciona
                     // this.sessions_list[i].values = editSession
-                    this.grouped_sessions_list[i].values[j].session_date = editSession.session_date
+                    this.grouped_sessions_list[i].values[j].session_date = editSession.complete_session_date
                     this.grouped_sessions_list[i].values[j].patient = editSession.patient
                     this.grouped_sessions_list[i].values[j].notes = editSession.notes
                     this.grouped_sessions_list[i].values[j].phobia = editSession.phobia
@@ -606,6 +661,7 @@
         }
         window.open(url_session)
       },
+
       patientOrDateChangedReload(editSession){
         if((editSession.patient != this.patient_oldname) || (editSession.session_date != this.session_olddate))
           this.$router.go(0)
@@ -615,8 +671,20 @@
     downloadMarker(marker){
       var url = backend_url + api_markers_url + '/' + this.user + '/' + marker + '/download'
       window.open(url);
-    }
     },
+
+    cleanCreateSessionInfo(patient){
+      this.createSession.complete_session_date = new Date().toISOString()
+      this.createSession.session_date = this.createSession.complete_session_date.substr(0,10)
+      this.createSession.patient= patient
+      this.createSession.notes= ""
+      this.createSession.phobia= ""
+      this.createSession.model= ""
+      this.createSession.level= ""
+      this.createSession.marker= ""
+    }
+
+  },
 
 
 }

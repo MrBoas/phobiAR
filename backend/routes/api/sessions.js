@@ -31,6 +31,7 @@ router.post('/:user/upload', (req, res) => {
         level: fields.level,
         marker: fields.marker
       }
+      console.log(session.session_date)
         sessions.createSession(session)
             .then(data => res.jsonp(data))
             .catch(error => res.status(500).jsonp(error))
@@ -48,7 +49,7 @@ router.delete('/:user/:session_date/:patient',(req,res)=>{
 router.put('/:user/:session_date/:patient',(req,res)=>{
   var form = new formidable.IncomingForm()
   form.parse(req, (erro, fields, files) => {
-    var session_date = fields.session_date
+    var session_date = fields.complete_session_date
     var patient = fields.patient
     var notes = fields.notes
     var phobia = fields.phobia

@@ -35,6 +35,8 @@
       </v-col>
       <v-col cols="5" sm="5">
 
+        <p> {{session_date}}</p>
+        <p> {{full_session_date}} </p>
         <!-- Calendário -->
         <v-menu
           v-model="menu"
@@ -128,7 +130,7 @@
       models_list:[],
       levels_list:[],
       marker_list:[],
-      session_date: new Date().toISOString().substr(0, 10),
+      session_date: new Date().toISOString().substr(0,10),
       menu: false,
     }),
     mounted: async function () {
@@ -138,6 +140,13 @@
     components: {
         ModelGltf
     },
+    computed:{
+      full_session_date: function() {
+          var incompleteDate = new Date().toISOString().substr(10,24)
+          return this.session_date + incompleteDate
+      }
+    },
+
     methods: {
 
       getPhobias(){
@@ -181,7 +190,7 @@
       },
       saveSession(){
         var body = {
-          'session_date': this.session_date,
+          'session_date': this.full_session_date,
           'patient': this.patient,
           'notes': this.notes,
           'phobia': this.selected_phobia,
@@ -189,7 +198,6 @@
           'level': this.selected_level,
           'marker': this.selected_marker,
         }
-
         var url = backend_url + api_sessions_url + '/' + user + '/upload'
         axios.post(url,body)
           .then(response=>{})
@@ -202,9 +210,11 @@
         this.selected_level=''
         this.selected_marker=''
         this.patient='',
-        this.session_date=new Date().toISOString().substr(0, 10)
+        // isto é para ao limpar a informação a data completa se alterar
+        this.session_date=""
+        this.session_date=new Date().toISOString().substr(0,10)
         this.notes=''
-      }
+      },
     },
 }
 </script>
