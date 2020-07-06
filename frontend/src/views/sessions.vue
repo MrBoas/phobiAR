@@ -1,12 +1,15 @@
 <template>
 	<v-container>
-    <h2> Lista de pacientes: </h2>
+    <h2> Lista de Sessões por Paciente: </h2>
     <!-- <p> {{grouped_sessions_list}}</p> -->
     <v-text-field
+      v-if="grouped_sessions_list_filtered.length>0"
       clearable
       label="Filtrar pacientes"
       v-model="filter_patient"
     ></v-text-field>
+    <p v-if="grouped_sessions_list_filtered.length==0"> Sem pacientes </p>
+    <!-- meter aqui um botão para rederecionar para a tab de criar sessao quando n há pacientes -->
     <v-expansion-panels accordion>
       <v-expansion-panel
         v-for="patient_session_list in grouped_sessions_list_filtered"
