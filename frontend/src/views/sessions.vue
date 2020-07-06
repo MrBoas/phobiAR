@@ -131,11 +131,11 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
-                    <!-- <p>full_editSession_date: {{full_editSession_date}} </p>
-                    <p>complete_session_date: {{editSession.complete_session_date}}</p>
-                    <p>session_date {{editSession.session_date}} </p>
-                    <p>session_olddate {{session_olddate}} </p>
-                    <p>session_olddate_complete {{session_olddate_complete}} </p> -->
+                    <p>full_editSession_date: {{full_editSession_date}} </p>
+                    <p>editSession.complete_session_date: {{editSession.complete_session_date}}</p>
+                    <p>editSession.session_date: {{editSession.session_date}} </p>
+                    <p>session_olddate: {{session_olddate}} </p>
+                    <p>session_olddate_complete: {{session_olddate_complete}} </p>
                     <v-text-field
                       v-model="editSession.patient"
                       label="Nome do paciente"
@@ -273,13 +273,9 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    depressed fab dark
-                    x-small
-                    color="black"
-                    rounded
+                    depressed fab dark rounded x-small color="black"
                     class="ml-2"
-                    v-bind="attrs"
-                    v-on="on"
+                    v-bind="attrs" v-on="on"
                   >
                   <v-icon>qr_code</v-icon>
                 </v-btn>
@@ -336,20 +332,18 @@
               </v-divider>
             </v-col>
           </v-row>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn fab x-small depressed dark color="green" v-on="on"
-                  class="ml-2"
-                  @click="dialogCreateSession=true;
-                    cleanCreateSessionInfo(patient_session_list.key);
-                    getPhobias();
-                    getMarkers()"
-                >
-                  <v-icon>add</v-icon>
-                </v-btn>
-              </template>
-              <span>Criar Sessão</span>
-            </v-tooltip>
+          <v-row>
+            <v-col>
+              <v-btn  rounded depressed dark color="green"
+                class="ml-2"
+                @click="dialogCreateSession=true;
+                  cleanCreateSessionInfo(patient_session_list.key);
+                  getPhobias();
+                  getMarkers()">
+                  Criar Nova Sessão
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -434,9 +428,11 @@
           return this.grouped_sessions_list
       },
       full_editSession_date: function() {
-        var incompleteDate = new Date().toISOString().substr(10,24)
-        this.editSession.complete_session_date = this.editSession.session_date + incompleteDate
-        return this.editSession.session_date + incompleteDate
+        if(this.session_olddate != this.editSession.session_date){
+          var incompleteDate = new Date().toISOString().substr(10,24)
+          this.editSession.complete_session_date = this.editSession.session_date + incompleteDate
+          return this.editSession.session_date + incompleteDate
+        }
       },
       full_createSession_date: function() {
         var incompleteDate = new Date().toISOString().substr(10,24)
@@ -446,10 +442,11 @@
     },
     methods: {
       savedSessionEdit(session) {
-        this.session_olddate_complete = session.session_date
         this.session_olddate = session.session_date.substr(0,10)
-        this.patient_oldname = session.patient
+        this.session_olddate_complete = session.session_date
         this.editSession.session_date = session.session_date.substr(0,10)
+        this.editSession.complete_session_date = session.session_date
+        this.patient_oldname = session.patient
         this.editSession.patient = session.patient
         this.editSession.notes =session.notes
         this.editSession.phobia = session.phobia
@@ -610,23 +607,21 @@
           .catch(error => console.log(error))
         },
 
-      updateSession(editSession){
+      updateSession(session){
         const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_olddate_complete + '/' + this.patient_oldname
-        axios.put(url,editSession)
+        axios.put(url,session)
           .then(response=>{
             for (let i = 0; i < this.grouped_sessions_list.length; i++) {
               if(this.grouped_sessions_list[i].key === this.patient_oldname){
                 for(let j = 0; j < this.grouped_sessions_list[i].values.length;j++){
                   if( this.grouped_sessions_list[i].values[j].session_date === this.session_olddate_complete){
-                    // mistério pq é que isto n funciona
-                    // this.sessions_list[i].values = editSession
-                    this.grouped_sessions_list[i].values[j].session_date = editSession.complete_session_date
-                    this.grouped_sessions_list[i].values[j].patient = editSession.patient
-                    this.grouped_sessions_list[i].values[j].notes = editSession.notes
-                    this.grouped_sessions_list[i].values[j].phobia = editSession.phobia
-                    this.grouped_sessions_list[i].values[j].model = editSession.model
-                    this.grouped_sessions_list[i].values[j].level = editSession.level
-                    this.grouped_sessions_list[i].values[j].marker = editSession.marker
+                    this.grouped_sessions_list[i].values[j].session_date = session.complete_session_date;
+                    this.grouped_sessions_list[i].values[j].patient = session.patient
+                    this.grouped_sessions_list[i].values[j].notes = session.notes
+                    this.grouped_sessions_list[i].values[j].phobia = session.phobia
+                    this.grouped_sessions_list[i].values[j].model = session.model
+                    this.grouped_sessions_list[i].values[j].level = session.level
+                    this.grouped_sessions_list[i].values[j].marker = session.marker
                     return
                   }
                 }

@@ -34,9 +34,6 @@
         ></v-select>
       </v-col>
       <v-col cols="5" sm="5">
-
-        <p> {{session_date}}</p>
-        <p> {{full_session_date}} </p>
         <!-- Calendário -->
         <v-menu
           v-model="menu"

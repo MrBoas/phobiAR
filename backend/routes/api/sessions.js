@@ -31,7 +31,7 @@ router.post('/:user/upload', (req, res) => {
         level: fields.level,
         marker: fields.marker
       }
-      console.log(session.session_date)
+      // console.log(session.session_date)
         sessions.createSession(session)
             .then(data => res.jsonp(data))
             .catch(error => res.status(500).jsonp(error))
