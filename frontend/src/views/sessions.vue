@@ -273,6 +273,7 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
+                    @mouseover="getQRCodeLevel(session.phobia,session.model,session.level,session.marker)"
                     depressed fab dark rounded x-small color="black"
                     class="ml-2"
                     v-bind="attrs" v-on="on"
@@ -280,11 +281,10 @@
                   <v-icon>qr_code</v-icon>
                 </v-btn>
                 </template>
-                <!-- TODO qrcode n vai funcionar para os marcadores de niveis -->
                 <img
                   :src="'https://api.qrserver.com/v1/create-qr-code/?data='
                   +'https://phobiar-be.epl.di.uminho.pt/sessions/'
-                  +  user + '/' + session.phobia + '/' + session.model + '/' + session.level + '/' + session.marker
+                  +  user + '/' + session.phobia + '/' + session.model + '/' + qrCodeLevel + '/' + session.marker
                   +'&ampsize=300x300'"
                 />
                 <v-row justify="center"> <h4> QR Code para gerar a sessão </h4> </v-row>
@@ -383,6 +383,7 @@
       filter_patient:"",
       patient_oldname:"",
       grouped_sessions_list:"",
+      qrCodeLevel:"",
       editSession:{
         session_date: "",
         complete_session_date: "",
@@ -462,16 +463,6 @@
             this.grouped_sessions_list = d3.nest()
               .key(function(d) { return d.patient; })
               .entries(sessions_list);
-
-            //eliminar partes da data
-            // var patt = /(.*)T/
-            // for(let i=0; i< this.grouped_sessions_list.length;i++){
-            //   for(let j=0; j < this.grouped_sessions_list[i].values.length;j++){
-            //     this.grouped_sessions_list[i].values[j].session_date = this.grouped_sessions_list[i].values[j].session_date.match(patt)[1];
-            //     this.grouped_sessions_list[i].values[j].session_date = this.grouped_sessions_list[i].values[j].session_date;
-
-            //   }
-            // }
           })
           .catch(error => console.log(error))
       },
@@ -607,6 +598,8 @@
           .catch(error => console.log(error))
         },
 
+
+
       updateSession(session){
         const url = backend_url+api_sessions_url + '/' + this.user+'/' + this.session_olddate_complete + '/' + this.patient_oldname
         axios.put(url,session)
@@ -677,6 +670,16 @@
       this.createSession.model= ""
       this.createSession.level= ""
       this.createSession.marker= ""
+    },
+
+    getQRCodeLevel: async function(phobia,model,level,marker){
+      if(marker=="niveis"){
+        var urlAux = backend_url + api_phobias_url + '/'+ this.user + '/' +  phobia + '/' + model
+        let res = await axios.get(urlAux);
+        var niveis = res.data.map(a=> a.toString())
+        this.qrCodeLevel = niveis.join('-')
+      }
+      else this.qrCodeLevel = level;
     }
 
   },
