@@ -41,12 +41,17 @@ router.get('/:user/:marker/download', (req, res) => {
         .then(data => {
             res.download(process.cwd() + "/public/markers/" + data.image, erro => {
                 if (erro) console.log('erro:',erro)
-                else console.log('Sent:', data.image)
             })
         })
         .catch(error => res.status(500).jsonp(error))
 })
 
+// para os marcadores de niveis
+router.get('/:user/niveis/:marker/download', (req, res) => {
+    res.download(process.cwd() + "/public/markers/niveis/" + req.params.marker +'.png', erro => {
+        if (erro) console.log('erro:', erro)
+    })
+})
 // // mostra as informações de um marcador
 // router.get('/:marker', function (req, res) {
 //     markers.getMarker(req.params.marker)

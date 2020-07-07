@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-    <h2> Lista de Sessões por Paciente: </h2>
+    <h2 v-if="grouped_sessions_list_filtered.length>0" > Lista de Sessões por Paciente: </h2>
     <!-- <p> {{grouped_sessions_list}}</p> -->
     <v-text-field
       v-if="grouped_sessions_list_filtered.length>0"
@@ -8,7 +8,14 @@
       label="Filtrar pacientes"
       v-model="filter_patient"
     ></v-text-field>
-    <p v-if="grouped_sessions_list_filtered.length==0"> Sem pacientes </p>
+    <h2 v-if="grouped_sessions_list_filtered.length==0"> Sem nenhuma sessão criada </h2>
+    <v-btn v-if="grouped_sessions_list_filtered.length==0"
+      class="mt-3"
+      color="primary"
+      link to="/criarsessao"
+      >
+      Criar uma Sessão
+    </v-btn>
     <!-- meter aqui um botão para rederecionar para a tab de criar sessao quando n há pacientes -->
     <v-expansion-panels accordion>
       <v-expansion-panel
