@@ -39,9 +39,9 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
-                    <p>session_date: {{createSession.session_date}} </p>
+                    <!-- <p>session_date: {{createSession.session_date}} </p>
                     <p>complete_session_date: {{createSession.complete_session_date}} </p>
-                    <p> computed: {{full_createSession_date}} </p>
+                    <p> computed: {{full_createSession_date}} </p> -->
                     <v-text-field readonly
                       v-model="createSession.patient"
                       label="Nome do paciente"
@@ -67,6 +67,7 @@
                       <v-date-picker
                         v-model="createSession.session_date"
                         @input="menuCriar = false"
+                        @change="createSession.complete_session_date = full_createSession_date"
                         locale="pt"
                       ></v-date-picker>
                     </v-menu>
@@ -141,11 +142,11 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
-                    <p>computed: {{full_editSession_date}} </p>
+                    <!-- <p>computed: {{full_editSession_date}} </p>
                     <p>editSession.complete_session_date: {{editSession.complete_session_date}}</p>
                     <p>editSession.session_date: {{editSession.session_date}} </p>
                     <p>session_olddate: {{session_olddate}} </p>
-                    <p>session_olddate_complete: {{session_olddate_complete}} </p>
+                    <p>session_olddate_complete: {{session_olddate_complete}} </p> -->
                     <v-text-field
                       v-model="editSession.patient"
                       label="Nome do paciente"
@@ -171,6 +172,7 @@
                       <v-date-picker
                         v-model="editSession.session_date"
                         @input="menuEditar = false"
+                        @change="editSession.complete_session_date = full_editSession_date"
                         locale="pt"
                       ></v-date-picker>
                     </v-menu>
@@ -441,13 +443,13 @@
       full_editSession_date: function() {
         if(this.session_olddate != this.editSession.session_date){
           var incompleteDate = new Date().toISOString().substr(10,24)
-          this.editSession.complete_session_date = this.editSession.session_date + incompleteDate
+          // this.editSession.complete_session_date = this.editSession.session_date + incompleteDate
           return this.editSession.session_date + incompleteDate
         }
       },
       full_createSession_date: function() {
         var incompleteDate = new Date().toISOString().substr(10,24)
-        this.createSession.complete_session_date = this.createSession.session_date + incompleteDate
+        // this.createSession.complete_session_date = this.createSession.session_date + incompleteDate
         return this.createSession.session_date + incompleteDate
       }
     },
