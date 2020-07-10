@@ -39,9 +39,9 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
-                    <!-- <p>session_date: {{createSession.session_date}} </p>
+                    <p>session_date: {{createSession.session_date}} </p>
                     <p>complete_session_date: {{createSession.complete_session_date}} </p>
-                    <p> computed: {{full_createSession_date}} </p> -->
+                    <p> computed: {{full_createSession_date}} </p>
                     <v-text-field readonly
                       v-model="createSession.patient"
                       label="Nome do paciente"

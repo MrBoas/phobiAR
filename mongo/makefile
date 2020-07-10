@@ -1,12 +1,12 @@
 # usar .exe se tiver na WSL
 
 # comandos a nao esquecer
+# export LC_ALL=C
 # mongo --port 10202
 # db.phobias.drop()
 
 # importar para o servidor
 importLocal:
-	export LC_ALL=C
 	mongoimport --port 10202 --db=phobiAR -c sessions --file sessions.out
 	mongoimport --port 10202 --db=phobiAR -c phobias --file phobias.out
 	mongoimport --port 10202 --db=phobiAR -c markers --file markers.out
