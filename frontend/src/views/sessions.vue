@@ -141,11 +141,11 @@
               <v-card-text class="mb-n8">
                 <v-row>
                   <v-col cols="6">
-                    <p>full_editSession_date: {{full_editSession_date}} </p>
+                    <!-- <p>full_editSession_date: {{full_editSession_date}} </p>
                     <p>editSession.complete_session_date: {{editSession.complete_session_date}}</p>
                     <p>editSession.session_date: {{editSession.session_date}} </p>
                     <p>session_olddate: {{session_olddate}} </p>
-                    <p>session_olddate_complete: {{session_olddate_complete}} </p>
+                    <p>session_olddate_complete: {{session_olddate_complete}} </p> -->
                     <v-text-field
                       v-model="editSession.patient"
                       label="Nome do paciente"
