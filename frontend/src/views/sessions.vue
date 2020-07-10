@@ -317,27 +317,27 @@
                 </template>
                 <span>Editar Sessão</span>
               </v-tooltip>
-              <!-- <v-tooltip bottom>
+              <v-menu offset-y>
                 <template v-slot:activator="{ on }">
-                <v-btn fab x-small depressed dark color="blue" v-on="on"
-                  class="mr-2"
-                  @click="downloadMarker(session.marker)"
-                >
-                <v-icon>get_app</v-icon>
-                </v-btn>
+                  <v-btn fab x-small depressed dark color="red" v-on="on"
+                    class="mr-2"
+                    @click="deleteWarning=true">
+                    <v-icon>delete</v-icon>
+                  </v-btn>
                 </template>
-              <span>Transferir Marcador</span>
-              </v-tooltip> -->
-              <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-btn fab x-small depressed dark color="red" v-on="on"
-                      class="mr-2"
-                      @click="deleteSession(session)">
-                      <v-icon>delete</v-icon>
+                <v-alert class="mb-0" type="warning" v-model="deleteWarning">
+                  Tem a certeza que quer apagar a sessão?
+                    <v-btn class="mr-2 ml-2" depressed dark color="green"
+                      @click="deleteSession(session);deleteWarning=false"
+                    > Sim
                     </v-btn>
-                  </template>
-                  <span>Apagar Sessão</span>
-              </v-tooltip>
+                    <v-btn depressed dark color="red"
+                      @click="deleteWarning=false"
+                    > Não
+                    </v-btn>
+                </v-alert>
+              </v-menu>
+
               <v-divider
                 class="mt-5"
               >
@@ -349,7 +349,7 @@
               <v-btn  rounded depressed dark color="green"
                 class="ml-2"
                 @click="dialogCreateSession=true;
-                  cleanCreateSessionInfo(patient_session_list.key);
+                  cleanCreateSessionInfo(patient_session_list.key,patient_session_list.values[0].phobia);
                   getPhobias();
                   getMarkers()">
                   Criar Nova Sessão
@@ -421,6 +421,7 @@
       dialogEditSession:false,
       dialogCreateSession:false,
       snackbar_edit: false,
+      deleteWarning:false,
       phobias_list:[],
       models_list:[],
       levels_list:[],
@@ -673,12 +674,12 @@
       window.open(url);
     },
 
-    cleanCreateSessionInfo(patient){
+    cleanCreateSessionInfo(patient,phobia){
       this.createSession.complete_session_date = new Date().toISOString()
       this.createSession.session_date = this.createSession.complete_session_date.substr(0,10)
       this.createSession.patient= patient
       this.createSession.notes= ""
-      this.createSession.phobia= ""
+      this.createSession.phobia= phobia
       this.createSession.model= ""
       this.createSession.level= ""
       this.createSession.marker= ""

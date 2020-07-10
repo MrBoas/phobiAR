@@ -12,7 +12,7 @@ Sessions.list = () => {
 Sessions.listUserSessions = user => {
     return Session
         .find({ user: user }, {_id:0})
-        .sort({ patient:1,session_date:-1})
+        .sort({ patient:1,session_date:1})
         .exec()
 }
 
