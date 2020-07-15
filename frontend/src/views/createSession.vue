@@ -65,8 +65,9 @@
           class="mt-8"
           v-model="selected_marker"
           :items="marker_list"
-          @change="selected_marker=='niveis' ? selected_level='' : selected_level=selected_level"
+          @change="selected_marker=='niveis' ? selected_level='' : selected_level=selected_level;"
           label="Marcador"
+          hint="Se escolher o marcador 'niveis' não é necessário escolher um nivel para o modelo."
         ></v-select>
       </v-col>
       <v-col cols="10" sm="10">
@@ -75,6 +76,8 @@
           outlined
           v-model="notes"
           label= "Notas Sessão"
+          hint="Campo Opcional"
+          persistent-hint
         ></v-textarea>
         <v-row
           justify="end"

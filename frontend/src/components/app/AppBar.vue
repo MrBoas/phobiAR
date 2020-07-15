@@ -23,7 +23,7 @@
 export default {
     data () {
         return {
-            myImage: require('@/assets/phobiAR_logo.png')
+            myImage: require('@/assets/phobiAR_logo2.png')
         }
     }
 }

@@ -38,6 +38,9 @@
       return {
         items: [
           {
+          src: require('@/assets/logo.png'),
+          },
+          {
             src: require('@/assets/aranha.png'),
           },
           {

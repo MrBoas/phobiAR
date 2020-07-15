@@ -25,14 +25,14 @@
           placeholder="Bugs encontrados"
         ></v-textarea>
       </v-col>
-      <v-col cols="12"  sm="9">
+      <v-col cols="12"  sm="9" class="mt-4">
         <v-slider hide-details
           v-model="rating"
           label="Experiência Geral"
           min="0"
           max="10"
-          :thumb-label="true"
-          :thumb-size="24"
+          thumb-label="always"
+          :thumb-size="20"
         >
       </v-slider>
       </v-col>
