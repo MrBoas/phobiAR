@@ -8,14 +8,14 @@
            para ajudar no tratamento de pacientes fóbicos. Para isso, é possível criar sessões para um paciente com uma determinada fobia e associar
            a essa sessão um marcador. Depois, o psicólogo pode carregar essa sessão e quando a câmara reconhecer o marcador o modelo 3D será carregado.
          </p>
-        <h2> Guia de Utilização </h2>
+        <!-- <h2> Guia de Utilização </h2>
         <p>
           1. Crie uma sessão em <i>Criar Sessão;</i> <br>
           2. Carregue na tab <i> Sessões </i> e procure pela sessão criada; <br>
           3. Faça download do marcador que escolheu caso não o tenha;<br>
           4. Carregue no botão <i> gerar sessão</i>; <br>
           5. Aponte a câmara para a imagem do marcador.
-        </p>
+        </p> -->
       </v-col>
       <v-col cols="12" sm="4">
         <v-carousel  height="auto" hide-delimiters cycle>
