@@ -737,15 +737,7 @@ export default {
 
     goToSession: async function(phobia, model, level, marker) {
       if (marker == "niveis") {
-        var urlAux =
-          backend_url +
-          api_phobias_url +
-          "/" +
-          this.user +
-          "/" +
-          phobia +
-          "/" +
-          model;
+        var urlAux = backend_url +api_phobias_url +"/" + this.user +"/" + phobia + "/" + model;
 
         let res = await axios.get(urlAux);
         var niveis = res.data.map(a => a.toString());
@@ -753,30 +745,10 @@ export default {
 
         var url_session =
           backend_url +
-          sessions_user_param +
-          "/" +
-          this.user +
-          "/" +
-          phobia +
-          "/" +
-          model +
-          "/" +
-          niveis +
-          "/niveis";
+          sessions_user_param +"/" +this.user +"/" +phobia +"/" +model +"/" +niveis + "/niveis";
       } else {
         var url_session =
-          backend_url +
-          sessions_user_param +
-          "/" +
-          this.user +
-          "/" +
-          phobia +
-          "/" +
-          model +
-          "/" +
-          level +
-          "/" +
-          marker;
+          backend_url +sessions_user_param +"/" +this.user +"/" +phobia +"/" +model +"/" +level +"/" +marker;
       }
       window.open(url_session);
     },

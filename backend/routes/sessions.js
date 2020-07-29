@@ -18,8 +18,8 @@ router.get('/:user/:phobia/:model/:level/niveis', (req, res) => {
       url[i] = '/markers/niveis/level' + l + '.patt'
     }
   }
-  console.log(src)
-  console.log(url)
+  // console.log(src)
+  // console.log(url)
     res.render('render_session_niveis', {
       src1: src[0], url1: url[0],
       src2: src[1], url2: url[1],
