@@ -2,7 +2,7 @@
   <v-container style="width: 95%">
     <v-row dense justify="center">
       <v-col cols="12" sm="9">
-        <h3> Sumissão de Feedback: </h3>
+        <h3> Submissão de Feedback: </h3>
         <p class="mb-1"> Está página foi criada com o intuito de haver um forma fácil e rápida
           de submeter feedback que tenha relativamente à plataforma.
         </p>
@@ -49,6 +49,8 @@
         <v-alert text dismissible type="error" v-model="alert.feedbackSubmitFail">
           Submit Failed...
         </v-alert>
+
+        <!--  https://forms.gle/8ySCQ86KqmHdegcCA -->
       </v-col>
       <!-- <v-col cols="12"  sm="9">
         <h3> Formulário: </h3>
@@ -63,6 +65,13 @@
           Prencher Formulário
         </v-btn>
       </v-col> -->
+      <v-col cols="12"  sm="9">
+        <h3> Formulário: </h3>
+        <p>
+          Por favor preencha este <a href="https://forms.gle/8ySCQ86KqmHdegcCA">formulário</a> com perguntas específicas.
+        </p>
+      </v-col>
+
       <v-col cols="12"  sm="9">
         <h3> Contacto: </h3>
         <p>
